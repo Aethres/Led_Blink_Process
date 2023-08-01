@@ -1,0 +1,2435 @@
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"cyCapsense_1_Tuner.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.cyCapsense_1_TuInitialize,"ax",%progbits
+  20              		.align	2
+  21              		.global	cyCapsense_1_TuInitialize
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	cyCapsense_1_TuInitialize, %function
+  25              	cyCapsense_1_TuInitialize:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC4\\cyCapsense_1_Tuner.c"
+   1:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** /***************************************************************************//**
+   2:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \file cyCapsense_1_Tuner.c
+   3:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \version 6.0
+   4:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+   5:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \brief
+   6:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *   This file provides the source code for the Tuner module API of the Component.
+   7:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+   8:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \see cyCapsense_1 v6.0 Datasheet
+   9:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  10:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *//*****************************************************************************
+  11:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Copyright (2016-2018), Cypress Semiconductor Corporation.
+  12:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** ********************************************************************************
+  13:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * This software is owned by Cypress Semiconductor Corporation (Cypress) and is
+  14:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * protected by and subject to worldwide patent protection (United States and
+  15:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * foreign), United States copyright laws and international treaty provisions.
+  16:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Cypress hereby grants to licensee a personal, non-exclusive, non-transferable
+  17:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * license to copy, use, modify, create derivative works of, and compile the
+  18:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Cypress Source Code and derivative works for the sole purpose of creating
+  19:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * custom software in support of licensee product to be used only in conjunction
+  20:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * with a Cypress integrated circuit as specified in the applicable agreement.
+  21:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Any reproduction, modification, translation, compilation, or representation of
+  22:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * this software except as specified above is prohibited without the express
+  23:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * written permission of Cypress.
+  24:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  25:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH
+  26:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  27:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  28:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Cypress reserves the right to make changes without further notice to the
+  29:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * materials described herein. Cypress does not assume any liability arising out
+  30:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * of the application or use of any product or circuit described herein. Cypress
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 2
+
+
+  31:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * does not authorize its products for use as critical components in life-support
+  32:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * systems where a malfunction or failure may reasonably be expected to result in
+  33:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * significant injury to the user. The inclusion of Cypress' product in a life-
+  34:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * support systems application implies that the manufacturer assumes all risk of
+  35:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * such use and in doing so indemnifies Cypress against all charges. Use may be
+  36:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * limited by and subject to the applicable Cypress software license agreement.
+  37:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *******************************************************************************/
+  38:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+  39:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #include "cytypes.h"
+  40:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #include "CyLib.h"
+  41:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #include "cyCapsense_1_Structure.h"
+  42:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #include "cyCapsense_1_Tuner.h"
+  43:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #include "cyCapsense_1_Control.h"
+  44:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #include "cyCapsense_1_Configuration.h"
+  45:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+  46:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** /* Tuner states definition */
+  47:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #define TU_FSM_RUNNING      (0u)
+  48:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #define TU_FSM_SUSPENDED    (1u)
+  49:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #define TU_FSM_SNR_TEST     (2u)
+  50:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** #define TU_FSM_ONE_SCAN     (3u)
+  51:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+  52:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** /* Tuner state variable */
+  53:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** static uint32 tunerFsm = TU_FSM_RUNNING;
+  54:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+  55:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+  56:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** /*******************************************************************************
+  57:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Function Name: cyCapsense_1_TuInitialize
+  58:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** ****************************************************************************//**
+  59:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  60:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \brief
+  61:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *   This function initializes the communication interface with the Tuner GUI.
+  62:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  63:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \details
+  64:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *   This API sets the tuner state machine to the default state. It is called by
+  65:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *   the cyCapsense_1_Start() API.
+  66:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  67:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *******************************************************************************/
+  68:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** void cyCapsense_1_TuInitialize(void)
+  69:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** {
+  28              		.loc 1 69 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  70:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     volatile cyCapsense_1_RAM_STRUCT *ptrDsRam = &cyCapsense_1_dsRam;
+  71:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+  72:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     ptrDsRam->tunerCmd = (uint16)cyCapsense_1_TU_CMD_NONE_E;
+  34              		.loc 1 72 0
+  35 0000 0023     		movs	r3, #0
+  36 0002 024A     		ldr	r2, .L2
+  37 0004 D380     		strh	r3, [r2, #6]
+  73:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     tunerFsm = TU_FSM_RUNNING;
+  38              		.loc 1 73 0
+  39 0006 024A     		ldr	r2, .L2+4
+  40 0008 1360     		str	r3, [r2]
+  74:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** }
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 3
+
+
+  41              		.loc 1 74 0
+  42              		@ sp needed
+  43 000a 7047     		bx	lr
+  44              	.L3:
+  45              		.align	2
+  46              	.L2:
+  47 000c 00000000 		.word	cyCapsense_1_dsRam
+  48 0010 00000000 		.word	.LANCHOR0
+  49              		.cfi_endproc
+  50              	.LFE1:
+  51              		.size	cyCapsense_1_TuInitialize, .-cyCapsense_1_TuInitialize
+  52              		.section	.text.cyCapsense_1_RunTuner,"ax",%progbits
+  53              		.align	2
+  54              		.global	cyCapsense_1_RunTuner
+  55              		.code	16
+  56              		.thumb_func
+  57              		.type	cyCapsense_1_RunTuner, %function
+  58              	cyCapsense_1_RunTuner:
+  59              	.LFB2:
+  75:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+  76:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** /*******************************************************************************
+  77:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * Function Name: cyCapsense_1_RunTuner
+  78:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** ****************************************************************************//**
+  79:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  80:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \brief
+  81:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  Establishes synchronized communication with the Tuner application.
+  82:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  83:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \details
+  84:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  This function is used to establish synchronized communication between the
+  85:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  cyCapsense_1 Component and Tuner application (or other host controllers).
+  86:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  This function is called periodically in the application program loop
+  87:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  to serve the Tuner application (or host controller) requests and commands.
+  88:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  In most cases, the best place to call this function is after processing and
+  89:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  before next scanning.
+  90:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+  91:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  If this function is absent in the application program, then communication is
+  92:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  asynchronous and the following disadvantages are applicable:
+  93:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *    - The raw counts displayed in the tuner may be filtered and/or unfiltered.
+  94:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *      As a result, noise and SNR measurements will not be accurate.
+  95:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *    - The Tuner tool may read the sensor data such as raw counts from a scan
+  96:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *      multiple times, as a result, noise and SNR measurement will not be
+  97:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *      accurate.
+  98:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *    - The Tuner tool and host controller should not change the Component parameters
+  99:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *      via the tuner interface. Changing the Component parameters via the tuner
+ 100:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *      interface in the async mode will result in Component abnormal behavior.
+ 101:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+ 102:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  Note that calling this function is not mandatory for the application, but
+ 103:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  required only to synchronize the communication with the host controller or
+ 104:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  tuner application.
+ 105:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+ 106:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** * \return
+ 107:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  In some cases, the application program may need to know if the Component was
+ 108:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *  re-initialized. The return indicates if a restart command was executed or not:
+ 109:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *    - cyCapsense_1_STATUS_RESTART_DONE - Based on a received command, the
+ 110:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *      Component was restarted.
+ 111:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *    -  cyCapsense_1_STATUS_RESTART_NONE - No restart was executed by this
+ 112:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *      function.
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 4
+
+
+ 113:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *
+ 114:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** *******************************************************************************/
+ 115:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** uint32 cyCapsense_1_RunTuner(void)
+ 116:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** {
+  60              		.loc 1 116 0
+  61              		.cfi_startproc
+  62              		@ args = 0, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64 0000 70B5     		push	{r4, r5, r6, lr}
+  65              		.cfi_def_cfa_offset 16
+  66              		.cfi_offset 4, -16
+  67              		.cfi_offset 5, -12
+  68              		.cfi_offset 6, -8
+  69              		.cfi_offset 14, -4
+  70              	.LVL1:
+ 117:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     uint8 interruptState;
+ 118:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     uint32 widgetId;
+ 119:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     uint32 sensorId;
+ 120:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     uint32 updateFlag = 0Lu;
+ 121:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     cyCapsense_1_TU_CMD_ENUM command;
+ 122:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     uint32 tunerStatus = cyCapsense_1_STATUS_RESTART_NONE;
+  71              		.loc 1 122 0
+  72 0002 0025     		movs	r5, #0
+ 120:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     cyCapsense_1_TU_CMD_ENUM command;
+  73              		.loc 1 120 0
+  74 0004 0026     		movs	r6, #0
+  75              	.LVL2:
+  76              	.L16:
+ 123:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 124:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     volatile cyCapsense_1_RAM_STRUCT *ptrDsRam;
+ 125:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     volatile cyCapsense_1_RAM_SNS_STRUCT *ptrSnsTmp;
+ 126:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 127:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     ptrDsRam = &cyCapsense_1_dsRam;
+ 128:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 129:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     do
+ 130:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     {
+ 131:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         /* ONE_SCAN command could be interpreted as two commands:
+ 132:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         * RESUME till next call of this function and then
+ 133:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         * SUSPEND till next command receiving.
+ 134:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         */
+ 135:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         if (TU_FSM_ONE_SCAN == tunerFsm)
+  77              		.loc 1 135 0
+  78 0006 3B4B     		ldr	r3, .L18
+  79 0008 1B68     		ldr	r3, [r3]
+  80 000a 032B     		cmp	r3, #3
+  81 000c 06D1     		bne	.L5
+ 136:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         {
+ 137:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             interruptState = CyEnterCriticalSection();
+  82              		.loc 1 137 0
+  83 000e FFF7FEFF 		bl	CyEnterCriticalSection
+  84              	.LVL3:
+ 138:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             ptrDsRam->tunerCmd = (uint16)cyCapsense_1_TU_CMD_SUSPEND_E;
+  85              		.loc 1 138 0
+  86 0012 0122     		movs	r2, #1
+  87 0014 384B     		ldr	r3, .L18+4
+  88 0016 DA80     		strh	r2, [r3, #6]
+ 139:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             CyExitCriticalSection(interruptState);
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 5
+
+
+  89              		.loc 1 139 0
+  90 0018 FFF7FEFF 		bl	CyExitCriticalSection
+  91              	.LVL4:
+  92              	.L5:
+ 140:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         }
+ 141:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         command = (cyCapsense_1_TU_CMD_ENUM)ptrDsRam->tunerCmd;
+  93              		.loc 1 141 0
+  94 001c 364B     		ldr	r3, .L18+4
+  95 001e DC88     		ldrh	r4, [r3, #6]
+  96 0020 E4B2     		uxtb	r4, r4
+  97              	.LVL5:
+ 142:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 143:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         /* Check command register */
+ 144:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         switch (command)
+  98              		.loc 1 144 0
+  99 0022 062C     		cmp	r4, #6
+ 100 0024 23D8     		bhi	.L6
+ 101 0026 A300     		lsls	r3, r4, #2
+ 102 0028 344A     		ldr	r2, .L18+8
+ 103 002a D358     		ldr	r3, [r2, r3]
+ 104 002c 9F46     		mov	pc, r3
+ 105              		.section	.rodata
+ 106              		.align	2
+ 107              	.L8:
+ 108 0000 6E000000 		.word	.L6
+ 109 0004 2E000000 		.word	.L7
+ 110 0008 38000000 		.word	.L9
+ 111 000c 42000000 		.word	.L10
+ 112 0010 52000000 		.word	.L11
+ 113 0014 5C000000 		.word	.L12
+ 114 0018 66000000 		.word	.L13
+ 115              		.section	.text.cyCapsense_1_RunTuner
+ 116              	.L7:
+ 145:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         {
+ 146:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         case cyCapsense_1_TU_CMD_SUSPEND_E:
+ 147:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerFsm = TU_FSM_SUSPENDED;
+ 117              		.loc 1 147 0
+ 118 002e 0122     		movs	r2, #1
+ 119 0030 304B     		ldr	r3, .L18
+ 120 0032 1A60     		str	r2, [r3]
+ 121              	.LVL6:
+ 148:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             updateFlag = 1Lu;
+ 122              		.loc 1 148 0
+ 123 0034 0126     		movs	r6, #1
+ 149:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             break;
+ 124              		.loc 1 149 0
+ 125 0036 1AE0     		b	.L6
+ 126              	.LVL7:
+ 127              	.L9:
+ 150:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 151:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         case cyCapsense_1_TU_CMD_RESUME_E:
+ 152:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerFsm = TU_FSM_RUNNING;
+ 128              		.loc 1 152 0
+ 129 0038 0022     		movs	r2, #0
+ 130 003a 2E4B     		ldr	r3, .L18
+ 131 003c 1A60     		str	r2, [r3]
+ 132              	.LVL8:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 6
+
+
+ 153:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             updateFlag = 1Lu;
+ 133              		.loc 1 153 0
+ 134 003e 0126     		movs	r6, #1
+ 154:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             break;
+ 135              		.loc 1 154 0
+ 136 0040 15E0     		b	.L6
+ 137              	.LVL9:
+ 138              	.L10:
+ 155:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 156:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         case cyCapsense_1_TU_CMD_RESTART_E:
+ 157:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             (void)cyCapsense_1_Start();
+ 139              		.loc 1 157 0
+ 140 0042 FFF7FEFF 		bl	cyCapsense_1_Start
+ 141              	.LVL10:
+ 158:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerStatus = cyCapsense_1_STATUS_RESTART_DONE;
+ 159:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerFsm = TU_FSM_RUNNING;
+ 142              		.loc 1 159 0
+ 143 0046 0022     		movs	r2, #0
+ 144 0048 2A4B     		ldr	r3, .L18
+ 145 004a 1A60     		str	r2, [r3]
+ 146              	.LVL11:
+ 158:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerStatus = cyCapsense_1_STATUS_RESTART_DONE;
+ 147              		.loc 1 158 0
+ 148 004c 0125     		movs	r5, #1
+ 160:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             updateFlag = 1Lu;
+ 149              		.loc 1 160 0
+ 150 004e 0126     		movs	r6, #1
+ 161:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             break;
+ 151              		.loc 1 161 0
+ 152 0050 0DE0     		b	.L6
+ 153              	.LVL12:
+ 154              	.L11:
+ 162:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 163:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         case cyCapsense_1_TU_CMD_RUN_SNR_TEST_E:
+ 164:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerFsm = TU_FSM_SNR_TEST;
+ 155              		.loc 1 164 0
+ 156 0052 0222     		movs	r2, #2
+ 157 0054 274B     		ldr	r3, .L18
+ 158 0056 1A60     		str	r2, [r3]
+ 159              	.LVL13:
+ 165:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             updateFlag = 1Lu;
+ 160              		.loc 1 165 0
+ 161 0058 0126     		movs	r6, #1
+ 166:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             break;
+ 162              		.loc 1 166 0
+ 163 005a 08E0     		b	.L6
+ 164              	.LVL14:
+ 165              	.L12:
+ 167:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 168:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         case cyCapsense_1_TU_CMD_PING_E:
+ 169:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerFsm = TU_FSM_RUNNING;
+ 166              		.loc 1 169 0
+ 167 005c 0022     		movs	r2, #0
+ 168 005e 254B     		ldr	r3, .L18
+ 169 0060 1A60     		str	r2, [r3]
+ 170              	.LVL15:
+ 170:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             updateFlag = 1Lu;
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 7
+
+
+ 171              		.loc 1 170 0
+ 172 0062 0126     		movs	r6, #1
+ 171:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             break;
+ 173              		.loc 1 171 0
+ 174 0064 03E0     		b	.L6
+ 175              	.LVL16:
+ 176              	.L13:
+ 172:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 173:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         case cyCapsense_1_TU_CMD_ONE_SCAN_E:
+ 174:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             tunerFsm = TU_FSM_ONE_SCAN;
+ 177              		.loc 1 174 0
+ 178 0066 0322     		movs	r2, #3
+ 179 0068 224B     		ldr	r3, .L18
+ 180 006a 1A60     		str	r2, [r3]
+ 181              	.LVL17:
+ 175:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             updateFlag = 0Lu;
+ 182              		.loc 1 175 0
+ 183 006c 0026     		movs	r6, #0
+ 184              	.LVL18:
+ 185              	.L6:
+ 176:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             break;
+ 177:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 178:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         default:
+ 179:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             break;
+ 180:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         }
+ 181:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 182:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         /* Set Complete flag in command register if needed */
+ 183:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         if (0Lu != updateFlag)
+ 186              		.loc 1 183 0
+ 187 006e 002E     		cmp	r6, #0
+ 188 0070 0FD0     		beq	.L14
+ 184:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         {
+ 185:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             interruptState = CyEnterCriticalSection();
+ 189              		.loc 1 185 0
+ 190 0072 FFF7FEFF 		bl	CyEnterCriticalSection
+ 191              	.LVL19:
+ 186:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 187:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             /* Check if command wasn't overwritten with new command */
+ 188:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             if (command == (cyCapsense_1_TU_CMD_ENUM)ptrDsRam->tunerCmd)
+ 192              		.loc 1 188 0
+ 193 0076 204B     		ldr	r3, .L18+4
+ 194 0078 DB88     		ldrh	r3, [r3, #6]
+ 195 007a DBB2     		uxtb	r3, r3
+ 196 007c 9C42     		cmp	r4, r3
+ 197 007e 05D1     		bne	.L15
+ 189:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             {
+ 190:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****                 ptrDsRam->tunerCmd |= cyCapsense_1_TU_CMD_COMPLETE_BIT;
+ 198              		.loc 1 190 0
+ 199 0080 1D4A     		ldr	r2, .L18+4
+ 200 0082 D188     		ldrh	r1, [r2, #6]
+ 201 0084 1E4B     		ldr	r3, .L18+12
+ 202 0086 0B43     		orrs	r3, r1
+ 203 0088 9BB2     		uxth	r3, r3
+ 204 008a D380     		strh	r3, [r2, #6]
+ 205              	.L15:
+ 191:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             }
+ 192:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             CyExitCriticalSection(interruptState);
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 8
+
+
+ 206              		.loc 1 192 0
+ 207 008c FFF7FEFF 		bl	CyExitCriticalSection
+ 208              	.LVL20:
+ 193:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 194:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             updateFlag = 0Lu;
+ 209              		.loc 1 194 0
+ 210 0090 0026     		movs	r6, #0
+ 211              	.LVL21:
+ 212              	.L14:
+ 195:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         }
+ 196:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     } while (TU_FSM_SUSPENDED == tunerFsm);
+ 213              		.loc 1 196 0
+ 214 0092 184B     		ldr	r3, .L18
+ 215 0094 1B68     		ldr	r3, [r3]
+ 216 0096 012B     		cmp	r3, #1
+ 217 0098 B5D0     		beq	.L16
+ 197:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 198:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     /* Check for SNR Test mode and do appropriate actions */
+ 199:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     if (TU_FSM_SNR_TEST == tunerFsm)
+ 218              		.loc 1 199 0
+ 219 009a 022B     		cmp	r3, #2
+ 220 009c 28D1     		bne	.L17
+ 200:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     {
+ 201:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         widgetId = ptrDsRam->snrTestWidgetId;
+ 221              		.loc 1 201 0
+ 222 009e 164A     		ldr	r2, .L18+4
+ 223 00a0 3833     		adds	r3, r3, #56
+ 224 00a2 D35C     		ldrb	r3, [r2, r3]
+ 225 00a4 DBB2     		uxtb	r3, r3
+ 226              	.LVL22:
+ 202:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         sensorId = ptrDsRam->snrTestSensorId;
+ 227              		.loc 1 202 0
+ 228 00a6 3B21     		movs	r1, #59
+ 229 00a8 525C     		ldrb	r2, [r2, r1]
+ 230 00aa D2B2     		uxtb	r2, r2
+ 231              	.LVL23:
+ 203:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 204:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         /* Check if widgetId and sensorId are in range,
+ 205:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****          * and data was updated in RAM (scan counter changed)
+ 206:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****          */
+ 207:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         if ((widgetId < cyCapsense_1_TOTAL_WIDGETS)              &&
+ 232              		.loc 1 207 0
+ 233 00ac 002B     		cmp	r3, #0
+ 234 00ae 1FD1     		bne	.L17
+ 208:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             (sensorId < cyCapsense_1_GET_SENSOR_COUNT(widgetId)) &&
+ 235              		.loc 1 208 0 discriminator 1
+ 236 00b0 5901     		lsls	r1, r3, #5
+ 237 00b2 1448     		ldr	r0, .L18+16
+ 238 00b4 4118     		adds	r1, r0, r1
+ 239 00b6 098B     		ldrh	r1, [r1, #24]
+ 207:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             (sensorId < cyCapsense_1_GET_SENSOR_COUNT(widgetId)) &&
+ 240              		.loc 1 207 0 discriminator 1
+ 241 00b8 8A42     		cmp	r2, r1
+ 242 00ba 19D2     		bcs	.L17
+ 209:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             (ptrDsRam->scanCounter != ptrDsRam->snrTestScanCounter))
+ 243              		.loc 1 209 0
+ 244 00bc 0E49     		ldr	r1, .L18+4
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 9
+
+
+ 245 00be 0889     		ldrh	r0, [r1, #8]
+ 246 00c0 80B2     		uxth	r0, r0
+ 247 00c2 898F     		ldrh	r1, [r1, #60]
+ 248 00c4 89B2     		uxth	r1, r1
+ 208:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             (sensorId < cyCapsense_1_GET_SENSOR_COUNT(widgetId)) &&
+ 249              		.loc 1 208 0
+ 250 00c6 8842     		cmp	r0, r1
+ 251 00c8 12D0     		beq	.L17
+ 210:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         {
+ 211:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             /* Get access to the Sensor Object */
+ 212:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             ptrSnsTmp = cyCapsense_1_dsFlash.wdgtArray[widgetId].ptr2SnsRam;
+ 252              		.loc 1 212 0
+ 253 00ca 5B01     		lsls	r3, r3, #5
+ 254              	.LVL24:
+ 255 00cc 0D49     		ldr	r1, .L18+16
+ 256 00ce CB18     		adds	r3, r1, r3
+ 257 00d0 9C68     		ldr	r4, [r3, #8]
+ 258              	.LVL25:
+ 213:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             ptrSnsTmp += sensorId;
+ 259              		.loc 1 213 0
+ 260 00d2 9300     		lsls	r3, r2, #2
+ 261 00d4 9A18     		adds	r2, r3, r2
+ 262              	.LVL26:
+ 263 00d6 5300     		lsls	r3, r2, #1
+ 264 00d8 E418     		adds	r4, r4, r3
+ 265              	.LVL27:
+ 214:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 215:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             /* Update data in SNR Test Object */
+ 216:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             interruptState = CyEnterCriticalSection();
+ 266              		.loc 1 216 0
+ 267 00da FFF7FEFF 		bl	CyEnterCriticalSection
+ 268              	.LVL28:
+ 217:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             ptrDsRam->snrTestScanCounter = ptrDsRam->scanCounter;
+ 269              		.loc 1 217 0
+ 270 00de 064B     		ldr	r3, .L18+4
+ 271 00e0 1A89     		ldrh	r2, [r3, #8]
+ 272 00e2 92B2     		uxth	r2, r2
+ 273 00e4 9A87     		strh	r2, [r3, #60]
+ 218:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             ptrDsRam->snrTestRawCount[0u] = ptrSnsTmp->raw[0u];
+ 274              		.loc 1 218 0
+ 275 00e6 2288     		ldrh	r2, [r4]
+ 276 00e8 92B2     		uxth	r2, r2
+ 277 00ea DA87     		strh	r2, [r3, #62]
+ 219:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 220:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             #if (0u != cyCapsense_1_MULTI_FREQ_SCAN_EN)
+ 221:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****                 ptrDsRam->snrTestRawCount[1u] = ptrSnsTmp->raw[1u];
+ 222:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****                 ptrDsRam->snrTestRawCount[2u] = ptrSnsTmp->raw[2u];
+ 223:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             #endif
+ 224:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** 
+ 225:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****             CyExitCriticalSection(interruptState);
+ 278              		.loc 1 225 0
+ 279 00ec FFF7FEFF 		bl	CyExitCriticalSection
+ 280              	.LVL29:
+ 281              	.L17:
+ 226:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****         }
+ 227:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     }
+ 228:Generated_Source\PSoC4/cyCapsense_1_Tuner.c ****     return tunerStatus;
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 10
+
+
+ 229:Generated_Source\PSoC4/cyCapsense_1_Tuner.c **** }
+ 282              		.loc 1 229 0
+ 283 00f0 2800     		movs	r0, r5
+ 284              		@ sp needed
+ 285              	.LVL30:
+ 286              	.LVL31:
+ 287 00f2 70BD     		pop	{r4, r5, r6, pc}
+ 288              	.L19:
+ 289              		.align	2
+ 290              	.L18:
+ 291 00f4 00000000 		.word	.LANCHOR0
+ 292 00f8 00000000 		.word	cyCapsense_1_dsRam
+ 293 00fc 00000000 		.word	.L8
+ 294 0100 0080FFFF 		.word	-32768
+ 295 0104 00000000 		.word	cyCapsense_1_dsFlash
+ 296              		.cfi_endproc
+ 297              	.LFE2:
+ 298              		.size	cyCapsense_1_RunTuner, .-cyCapsense_1_RunTuner
+ 299              		.bss
+ 300              		.align	2
+ 301              		.set	.LANCHOR0,. + 0
+ 302              		.type	tunerFsm, %object
+ 303              		.size	tunerFsm, 4
+ 304              	tunerFsm:
+ 305 0000 00000000 		.space	4
+ 306              		.text
+ 307              	.Letext0:
+ 308              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 309              		.file 3 "Generated_Source\\PSoC4\\cyCapsense_1_Configuration.h"
+ 310              		.file 4 "Generated_Source\\PSoC4\\cyCapsense_1_SmartSense_LL.h"
+ 311              		.file 5 "Generated_Source\\PSoC4\\cyCapsense_1_Structure.h"
+ 312              		.file 6 "Generated_Source\\PSoC4\\cyCapsense_1_Tuner.h"
+ 313              		.file 7 "Generated_Source\\PSoC4\\CyLib.h"
+ 314              		.file 8 "Generated_Source\\PSoC4\\cyCapsense_1_Control.h"
+ 315              		.section	.debug_info,"",%progbits
+ 316              	.Ldebug_info0:
+ 317 0000 3A060000 		.4byte	0x63a
+ 318 0004 0400     		.2byte	0x4
+ 319 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 320 000a 04       		.byte	0x4
+ 321 000b 01       		.uleb128 0x1
+ 322 000c 62010000 		.4byte	.LASF101
+ 323 0010 0C       		.byte	0xc
+ 324 0011 97040000 		.4byte	.LASF102
+ 325 0015 E2050000 		.4byte	.LASF103
+ 326 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 327 001d 00000000 		.4byte	0
+ 328 0021 00000000 		.4byte	.Ldebug_line0
+ 329 0025 02       		.uleb128 0x2
+ 330 0026 01       		.byte	0x1
+ 331 0027 06       		.byte	0x6
+ 332 0028 F1030000 		.4byte	.LASF0
+ 333 002c 02       		.uleb128 0x2
+ 334 002d 01       		.byte	0x1
+ 335 002e 08       		.byte	0x8
+ 336 002f C2030000 		.4byte	.LASF1
+ 337 0033 02       		.uleb128 0x2
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 11
+
+
+ 338 0034 02       		.byte	0x2
+ 339 0035 05       		.byte	0x5
+ 340 0036 40010000 		.4byte	.LASF2
+ 341 003a 02       		.uleb128 0x2
+ 342 003b 02       		.byte	0x2
+ 343 003c 07       		.byte	0x7
+ 344 003d FC040000 		.4byte	.LASF3
+ 345 0041 02       		.uleb128 0x2
+ 346 0042 04       		.byte	0x4
+ 347 0043 05       		.byte	0x5
+ 348 0044 D1020000 		.4byte	.LASF4
+ 349 0048 02       		.uleb128 0x2
+ 350 0049 04       		.byte	0x4
+ 351 004a 07       		.byte	0x7
+ 352 004b 00030000 		.4byte	.LASF5
+ 353 004f 02       		.uleb128 0x2
+ 354 0050 08       		.byte	0x8
+ 355 0051 05       		.byte	0x5
+ 356 0052 02010000 		.4byte	.LASF6
+ 357 0056 02       		.uleb128 0x2
+ 358 0057 08       		.byte	0x8
+ 359 0058 07       		.byte	0x7
+ 360 0059 FD030000 		.4byte	.LASF7
+ 361 005d 03       		.uleb128 0x3
+ 362 005e 04       		.byte	0x4
+ 363 005f 05       		.byte	0x5
+ 364 0060 696E7400 		.ascii	"int\000"
+ 365 0064 02       		.uleb128 0x2
+ 366 0065 04       		.byte	0x4
+ 367 0066 07       		.byte	0x7
+ 368 0067 2C040000 		.4byte	.LASF8
+ 369 006b 04       		.uleb128 0x4
+ 370 006c 0C020000 		.4byte	.LASF9
+ 371 0070 02       		.byte	0x2
+ 372 0071 F701     		.2byte	0x1f7
+ 373 0073 2C000000 		.4byte	0x2c
+ 374 0077 04       		.uleb128 0x4
+ 375 0078 5B010000 		.4byte	.LASF10
+ 376 007c 02       		.byte	0x2
+ 377 007d F801     		.2byte	0x1f8
+ 378 007f 3A000000 		.4byte	0x3a
+ 379 0083 04       		.uleb128 0x4
+ 380 0084 62050000 		.4byte	.LASF11
+ 381 0088 02       		.byte	0x2
+ 382 0089 F901     		.2byte	0x1f9
+ 383 008b 48000000 		.4byte	0x48
+ 384 008f 02       		.uleb128 0x2
+ 385 0090 04       		.byte	0x4
+ 386 0091 04       		.byte	0x4
+ 387 0092 75020000 		.4byte	.LASF12
+ 388 0096 02       		.uleb128 0x2
+ 389 0097 08       		.byte	0x8
+ 390 0098 04       		.byte	0x4
+ 391 0099 6D060000 		.4byte	.LASF13
+ 392 009d 02       		.uleb128 0x2
+ 393 009e 01       		.byte	0x1
+ 394 009f 08       		.byte	0x8
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 12
+
+
+ 395 00a0 B9020000 		.4byte	.LASF14
+ 396 00a4 05       		.uleb128 0x5
+ 397 00a5 83000000 		.4byte	0x83
+ 398 00a9 02       		.uleb128 0x2
+ 399 00aa 08       		.byte	0x8
+ 400 00ab 04       		.byte	0x4
+ 401 00ac 8A030000 		.4byte	.LASF15
+ 402 00b0 02       		.uleb128 0x2
+ 403 00b1 04       		.byte	0x4
+ 404 00b2 07       		.byte	0x7
+ 405 00b3 C8000000 		.4byte	.LASF16
+ 406 00b7 06       		.uleb128 0x6
+ 407 00b8 04       		.byte	0x4
+ 408 00b9 04       		.uleb128 0x4
+ 409 00ba F0010000 		.4byte	.LASF17
+ 410 00be 03       		.byte	0x3
+ 411 00bf 1D01     		.2byte	0x11d
+ 412 00c1 77000000 		.4byte	0x77
+ 413 00c5 04       		.uleb128 0x4
+ 414 00c6 7E000000 		.4byte	.LASF18
+ 415 00ca 03       		.byte	0x3
+ 416 00cb 2101     		.2byte	0x121
+ 417 00cd 6B000000 		.4byte	0x6b
+ 418 00d1 07       		.uleb128 0x7
+ 419 00d2 0C       		.byte	0xc
+ 420 00d3 04       		.byte	0x4
+ 421 00d4 6E       		.byte	0x6e
+ 422 00d5 2E010000 		.4byte	0x12e
+ 423 00d9 08       		.uleb128 0x8
+ 424 00da 10010000 		.4byte	.LASF19
+ 425 00de 04       		.byte	0x4
+ 426 00df 73       		.byte	0x73
+ 427 00e0 77000000 		.4byte	0x77
+ 428 00e4 00       		.byte	0
+ 429 00e5 08       		.uleb128 0x8
+ 430 00e6 62040000 		.4byte	.LASF20
+ 431 00ea 04       		.byte	0x4
+ 432 00eb 77       		.byte	0x77
+ 433 00ec 77000000 		.4byte	0x77
+ 434 00f0 02       		.byte	0x2
+ 435 00f1 08       		.uleb128 0x8
+ 436 00f2 24010000 		.4byte	.LASF21
+ 437 00f6 04       		.byte	0x4
+ 438 00f7 7B       		.byte	0x7b
+ 439 00f8 77000000 		.4byte	0x77
+ 440 00fc 04       		.byte	0x4
+ 441 00fd 08       		.uleb128 0x8
+ 442 00fe 2B010000 		.4byte	.LASF22
+ 443 0102 04       		.byte	0x4
+ 444 0103 7F       		.byte	0x7f
+ 445 0104 77000000 		.4byte	0x77
+ 446 0108 06       		.byte	0x6
+ 447 0109 08       		.uleb128 0x8
+ 448 010a 32010000 		.4byte	.LASF23
+ 449 010e 04       		.byte	0x4
+ 450 010f 83       		.byte	0x83
+ 451 0110 77000000 		.4byte	0x77
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 13
+
+
+ 452 0114 08       		.byte	0x8
+ 453 0115 08       		.uleb128 0x8
+ 454 0116 39010000 		.4byte	.LASF24
+ 455 011a 04       		.byte	0x4
+ 456 011b 87       		.byte	0x87
+ 457 011c 6B000000 		.4byte	0x6b
+ 458 0120 0A       		.byte	0xa
+ 459 0121 08       		.uleb128 0x8
+ 460 0122 4A000000 		.4byte	.LASF25
+ 461 0126 04       		.byte	0x4
+ 462 0127 8B       		.byte	0x8b
+ 463 0128 6B000000 		.4byte	0x6b
+ 464 012c 0B       		.byte	0xb
+ 465 012d 00       		.byte	0
+ 466 012e 09       		.uleb128 0x9
+ 467 012f 84060000 		.4byte	.LASF26
+ 468 0133 04       		.byte	0x4
+ 469 0134 8C       		.byte	0x8c
+ 470 0135 D1000000 		.4byte	0xd1
+ 471 0139 0A       		.uleb128 0xa
+ 472 013a 6B000000 		.4byte	0x6b
+ 473 013e 49010000 		.4byte	0x149
+ 474 0142 0B       		.uleb128 0xb
+ 475 0143 B0000000 		.4byte	0xb0
+ 476 0147 00       		.byte	0
+ 477 0148 00       		.byte	0
+ 478 0149 07       		.uleb128 0x7
+ 479 014a 12       		.byte	0x12
+ 480 014b 05       		.byte	0x5
+ 481 014c DA       		.byte	0xda
+ 482 014d E8010000 		.4byte	0x1e8
+ 483 0151 08       		.uleb128 0x8
+ 484 0152 D6040000 		.4byte	.LASF27
+ 485 0156 05       		.byte	0x5
+ 486 0157 DF       		.byte	0xdf
+ 487 0158 77000000 		.4byte	0x77
+ 488 015c 00       		.byte	0
+ 489 015d 08       		.uleb128 0x8
+ 490 015e 12030000 		.4byte	.LASF28
+ 491 0162 05       		.byte	0x5
+ 492 0163 E4       		.byte	0xe4
+ 493 0164 B9000000 		.4byte	0xb9
+ 494 0168 02       		.byte	0x2
+ 495 0169 08       		.uleb128 0x8
+ 496 016a 4A010000 		.4byte	.LASF29
+ 497 016e 05       		.byte	0x5
+ 498 016f E9       		.byte	0xe9
+ 499 0170 6B000000 		.4byte	0x6b
+ 500 0174 04       		.byte	0x4
+ 501 0175 08       		.uleb128 0x8
+ 502 0176 43050000 		.4byte	.LASF30
+ 503 017a 05       		.byte	0x5
+ 504 017b EE       		.byte	0xee
+ 505 017c 6B000000 		.4byte	0x6b
+ 506 0180 05       		.byte	0x5
+ 507 0181 08       		.uleb128 0x8
+ 508 0182 21040000 		.4byte	.LASF31
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 14
+
+
+ 509 0186 05       		.byte	0x5
+ 510 0187 F4       		.byte	0xf4
+ 511 0188 6B000000 		.4byte	0x6b
+ 512 018c 06       		.byte	0x6
+ 513 018d 08       		.uleb128 0x8
+ 514 018e BD000000 		.4byte	.LASF32
+ 515 0192 05       		.byte	0x5
+ 516 0193 FA       		.byte	0xfa
+ 517 0194 6B000000 		.4byte	0x6b
+ 518 0198 07       		.byte	0x7
+ 519 0199 0C       		.uleb128 0xc
+ 520 019a 51000000 		.4byte	.LASF33
+ 521 019e 05       		.byte	0x5
+ 522 019f 0101     		.2byte	0x101
+ 523 01a1 C5000000 		.4byte	0xc5
+ 524 01a5 08       		.byte	0x8
+ 525 01a6 0C       		.uleb128 0xc
+ 526 01a7 9D000000 		.4byte	.LASF34
+ 527 01ab 05       		.byte	0x5
+ 528 01ac 0801     		.2byte	0x108
+ 529 01ae 39010000 		.4byte	0x139
+ 530 01b2 09       		.byte	0x9
+ 531 01b3 0C       		.uleb128 0xc
+ 532 01b4 2C020000 		.4byte	.LASF35
+ 533 01b8 05       		.byte	0x5
+ 534 01b9 1001     		.2byte	0x110
+ 535 01bb 77000000 		.4byte	0x77
+ 536 01bf 0A       		.byte	0xa
+ 537 01c0 0C       		.uleb128 0xc
+ 538 01c1 17010000 		.4byte	.LASF36
+ 539 01c5 05       		.byte	0x5
+ 540 01c6 1501     		.2byte	0x115
+ 541 01c8 6B000000 		.4byte	0x6b
+ 542 01cc 0C       		.byte	0xc
+ 543 01cd 0C       		.uleb128 0xc
+ 544 01ce 63060000 		.4byte	.LASF37
+ 545 01d2 05       		.byte	0x5
+ 546 01d3 1B01     		.2byte	0x11b
+ 547 01d5 77000000 		.4byte	0x77
+ 548 01d9 0E       		.byte	0xe
+ 549 01da 0C       		.uleb128 0xc
+ 550 01db 5B050000 		.4byte	.LASF38
+ 551 01df 05       		.byte	0x5
+ 552 01e0 2001     		.2byte	0x120
+ 553 01e2 77000000 		.4byte	0x77
+ 554 01e6 10       		.byte	0x10
+ 555 01e7 00       		.byte	0
+ 556 01e8 04       		.uleb128 0x4
+ 557 01e9 95050000 		.4byte	.LASF39
+ 558 01ed 05       		.byte	0x5
+ 559 01ee 2101     		.2byte	0x121
+ 560 01f0 49010000 		.4byte	0x149
+ 561 01f4 0D       		.uleb128 0xd
+ 562 01f5 12       		.byte	0x12
+ 563 01f6 05       		.byte	0x5
+ 564 01f7 2701     		.2byte	0x127
+ 565 01f9 0B020000 		.4byte	0x20b
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 15
+
+
+ 566 01fd 0C       		.uleb128 0xc
+ 567 01fe 42000000 		.4byte	.LASF40
+ 568 0202 05       		.byte	0x5
+ 569 0203 2C01     		.2byte	0x12c
+ 570 0205 E8010000 		.4byte	0x1e8
+ 571 0209 00       		.byte	0
+ 572 020a 00       		.byte	0
+ 573 020b 04       		.uleb128 0x4
+ 574 020c 55020000 		.4byte	.LASF41
+ 575 0210 05       		.byte	0x5
+ 576 0211 2D01     		.2byte	0x12d
+ 577 0213 F4010000 		.4byte	0x1f4
+ 578 0217 0D       		.uleb128 0xd
+ 579 0218 0A       		.byte	0xa
+ 580 0219 05       		.byte	0x5
+ 581 021a 3301     		.2byte	0x133
+ 582 021c 62020000 		.4byte	0x262
+ 583 0220 0E       		.uleb128 0xe
+ 584 0221 72617700 		.ascii	"raw\000"
+ 585 0225 05       		.byte	0x5
+ 586 0226 3801     		.2byte	0x138
+ 587 0228 62020000 		.4byte	0x262
+ 588 022c 00       		.byte	0
+ 589 022d 0C       		.uleb128 0xc
+ 590 022e 34000000 		.4byte	.LASF42
+ 591 0232 05       		.byte	0x5
+ 592 0233 3D01     		.2byte	0x13d
+ 593 0235 62020000 		.4byte	0x262
+ 594 0239 02       		.byte	0x2
+ 595 023a 0C       		.uleb128 0xc
+ 596 023b B7050000 		.4byte	.LASF43
+ 597 023f 05       		.byte	0x5
+ 598 0240 4301     		.2byte	0x143
+ 599 0242 39010000 		.4byte	0x139
+ 600 0246 04       		.byte	0x4
+ 601 0247 0C       		.uleb128 0xc
+ 602 0248 C7060000 		.4byte	.LASF44
+ 603 024c 05       		.byte	0x5
+ 604 024d 4801     		.2byte	0x148
+ 605 024f B9000000 		.4byte	0xb9
+ 606 0253 06       		.byte	0x6
+ 607 0254 0C       		.uleb128 0xc
+ 608 0255 1B030000 		.4byte	.LASF45
+ 609 0259 05       		.byte	0x5
+ 610 025a 4D01     		.2byte	0x14d
+ 611 025c 72020000 		.4byte	0x272
+ 612 0260 08       		.byte	0x8
+ 613 0261 00       		.byte	0
+ 614 0262 0A       		.uleb128 0xa
+ 615 0263 77000000 		.4byte	0x77
+ 616 0267 72020000 		.4byte	0x272
+ 617 026b 0B       		.uleb128 0xb
+ 618 026c B0000000 		.4byte	0xb0
+ 619 0270 00       		.byte	0
+ 620 0271 00       		.byte	0
+ 621 0272 0A       		.uleb128 0xa
+ 622 0273 C5000000 		.4byte	0xc5
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 16
+
+
+ 623 0277 82020000 		.4byte	0x282
+ 624 027b 0B       		.uleb128 0xb
+ 625 027c B0000000 		.4byte	0xb0
+ 626 0280 00       		.byte	0
+ 627 0281 00       		.byte	0
+ 628 0282 04       		.uleb128 0x4
+ 629 0283 52030000 		.4byte	.LASF46
+ 630 0287 05       		.byte	0x5
+ 631 0288 4E01     		.2byte	0x14e
+ 632 028a 17020000 		.4byte	0x217
+ 633 028e 0D       		.uleb128 0xd
+ 634 028f 0A       		.byte	0xa
+ 635 0290 05       		.byte	0x5
+ 636 0291 5401     		.2byte	0x154
+ 637 0293 A5020000 		.4byte	0x2a5
+ 638 0297 0C       		.uleb128 0xc
+ 639 0298 42000000 		.4byte	.LASF40
+ 640 029c 05       		.byte	0x5
+ 641 029d 5901     		.2byte	0x159
+ 642 029f A5020000 		.4byte	0x2a5
+ 643 02a3 00       		.byte	0
+ 644 02a4 00       		.byte	0
+ 645 02a5 0A       		.uleb128 0xa
+ 646 02a6 82020000 		.4byte	0x282
+ 647 02aa B5020000 		.4byte	0x2b5
+ 648 02ae 0B       		.uleb128 0xb
+ 649 02af B0000000 		.4byte	0xb0
+ 650 02b3 00       		.byte	0
+ 651 02b4 00       		.byte	0
+ 652 02b5 04       		.uleb128 0x4
+ 653 02b6 D0030000 		.4byte	.LASF47
+ 654 02ba 05       		.byte	0x5
+ 655 02bb 5A01     		.2byte	0x15a
+ 656 02bd 8E020000 		.4byte	0x28e
+ 657 02c1 0D       		.uleb128 0xd
+ 658 02c2 40       		.byte	0x40
+ 659 02c3 05       		.byte	0x5
+ 660 02c4 6001     		.2byte	0x160
+ 661 02c6 A8030000 		.4byte	0x3a8
+ 662 02ca 0C       		.uleb128 0xc
+ 663 02cb D1000000 		.4byte	.LASF48
+ 664 02cf 05       		.byte	0x5
+ 665 02d0 6701     		.2byte	0x167
+ 666 02d2 77000000 		.4byte	0x77
+ 667 02d6 00       		.byte	0
+ 668 02d7 0C       		.uleb128 0xc
+ 669 02d8 52010000 		.4byte	.LASF49
+ 670 02dc 05       		.byte	0x5
+ 671 02dd 6C01     		.2byte	0x16c
+ 672 02df 77000000 		.4byte	0x77
+ 673 02e3 02       		.byte	0x2
+ 674 02e4 0C       		.uleb128 0xc
+ 675 02e5 8F040000 		.4byte	.LASF50
+ 676 02e9 05       		.byte	0x5
+ 677 02ea 7101     		.2byte	0x171
+ 678 02ec 77000000 		.4byte	0x77
+ 679 02f0 04       		.byte	0x4
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 17
+
+
+ 680 02f1 0C       		.uleb128 0xc
+ 681 02f2 81030000 		.4byte	.LASF51
+ 682 02f6 05       		.byte	0x5
+ 683 02f7 7701     		.2byte	0x177
+ 684 02f9 77000000 		.4byte	0x77
+ 685 02fd 06       		.byte	0x6
+ 686 02fe 0C       		.uleb128 0xc
+ 687 02ff 37050000 		.4byte	.LASF52
+ 688 0303 05       		.byte	0x5
+ 689 0304 7C01     		.2byte	0x17c
+ 690 0306 77000000 		.4byte	0x77
+ 691 030a 08       		.byte	0x8
+ 692 030b 0C       		.uleb128 0xc
+ 693 030c 88040000 		.4byte	.LASF53
+ 694 0310 05       		.byte	0x5
+ 695 0311 8101     		.2byte	0x181
+ 696 0313 A4000000 		.4byte	0xa4
+ 697 0317 0C       		.byte	0xc
+ 698 0318 0C       		.uleb128 0xc
+ 699 0319 57040000 		.4byte	.LASF54
+ 700 031d 05       		.byte	0x5
+ 701 031e 8701     		.2byte	0x187
+ 702 0320 A8030000 		.4byte	0x3a8
+ 703 0324 10       		.byte	0x10
+ 704 0325 0C       		.uleb128 0xc
+ 705 0326 96030000 		.4byte	.LASF55
+ 706 032a 05       		.byte	0x5
+ 707 032b 8E01     		.2byte	0x18e
+ 708 032d A8030000 		.4byte	0x3a8
+ 709 0331 14       		.byte	0x14
+ 710 0332 0C       		.uleb128 0xc
+ 711 0333 B5060000 		.4byte	.LASF56
+ 712 0337 05       		.byte	0x5
+ 713 0338 9E01     		.2byte	0x19e
+ 714 033a 39010000 		.4byte	0x139
+ 715 033e 18       		.byte	0x18
+ 716 033f 0C       		.uleb128 0xc
+ 717 0340 F7000000 		.4byte	.LASF57
+ 718 0344 05       		.byte	0x5
+ 719 0345 A401     		.2byte	0x1a4
+ 720 0347 77000000 		.4byte	0x77
+ 721 034b 1A       		.byte	0x1a
+ 722 034c 0C       		.uleb128 0xc
+ 723 034d 2D050000 		.4byte	.LASF58
+ 724 0351 05       		.byte	0x5
+ 725 0352 A901     		.2byte	0x1a9
+ 726 0354 6B000000 		.4byte	0x6b
+ 727 0358 1C       		.byte	0x1c
+ 728 0359 0C       		.uleb128 0xc
+ 729 035a 00000000 		.4byte	.LASF59
+ 730 035e 05       		.byte	0x5
+ 731 035f AE01     		.2byte	0x1ae
+ 732 0361 0B020000 		.4byte	0x20b
+ 733 0365 1E       		.byte	0x1e
+ 734 0366 0C       		.uleb128 0xc
+ 735 0367 25050000 		.4byte	.LASF60
+ 736 036b 05       		.byte	0x5
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 18
+
+
+ 737 036c B301     		.2byte	0x1b3
+ 738 036e B5020000 		.4byte	0x2b5
+ 739 0372 30       		.byte	0x30
+ 740 0373 0C       		.uleb128 0xc
+ 741 0374 74060000 		.4byte	.LASF61
+ 742 0378 05       		.byte	0x5
+ 743 0379 B801     		.2byte	0x1b8
+ 744 037b 6B000000 		.4byte	0x6b
+ 745 037f 3A       		.byte	0x3a
+ 746 0380 0C       		.uleb128 0xc
+ 747 0381 7B020000 		.4byte	.LASF62
+ 748 0385 05       		.byte	0x5
+ 749 0386 BD01     		.2byte	0x1bd
+ 750 0388 6B000000 		.4byte	0x6b
+ 751 038c 3B       		.byte	0x3b
+ 752 038d 0C       		.uleb128 0xc
+ 753 038e C3040000 		.4byte	.LASF63
+ 754 0392 05       		.byte	0x5
+ 755 0393 C201     		.2byte	0x1c2
+ 756 0395 77000000 		.4byte	0x77
+ 757 0399 3C       		.byte	0x3c
+ 758 039a 0C       		.uleb128 0xc
+ 759 039b 09000000 		.4byte	.LASF64
+ 760 039f 05       		.byte	0x5
+ 761 03a0 C701     		.2byte	0x1c7
+ 762 03a2 62020000 		.4byte	0x262
+ 763 03a6 3E       		.byte	0x3e
+ 764 03a7 00       		.byte	0
+ 765 03a8 0A       		.uleb128 0xa
+ 766 03a9 83000000 		.4byte	0x83
+ 767 03ad B8030000 		.4byte	0x3b8
+ 768 03b1 0B       		.uleb128 0xb
+ 769 03b2 B0000000 		.4byte	0xb0
+ 770 03b6 00       		.byte	0
+ 771 03b7 00       		.byte	0
+ 772 03b8 04       		.uleb128 0x4
+ 773 03b9 A5000000 		.4byte	.LASF65
+ 774 03bd 05       		.byte	0x5
+ 775 03be C801     		.2byte	0x1c8
+ 776 03c0 C1020000 		.4byte	0x2c1
+ 777 03c4 0D       		.uleb128 0xd
+ 778 03c5 20       		.byte	0x20
+ 779 03c6 05       		.byte	0x5
+ 780 03c7 2F02     		.2byte	0x22f
+ 781 03c9 50040000 		.4byte	0x450
+ 782 03cd 0C       		.uleb128 0xc
+ 783 03ce 3C060000 		.4byte	.LASF66
+ 784 03d2 05       		.byte	0x5
+ 785 03d3 3802     		.2byte	0x238
+ 786 03d5 50040000 		.4byte	0x450
+ 787 03d9 00       		.byte	0
+ 788 03da 0C       		.uleb128 0xc
+ 789 03db 29030000 		.4byte	.LASF67
+ 790 03df 05       		.byte	0x5
+ 791 03e0 3F02     		.2byte	0x23f
+ 792 03e2 B7000000 		.4byte	0xb7
+ 793 03e6 04       		.byte	0x4
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 19
+
+
+ 794 03e7 0C       		.uleb128 0xc
+ 795 03e8 31060000 		.4byte	.LASF68
+ 796 03ec 05       		.byte	0x5
+ 797 03ed 4502     		.2byte	0x245
+ 798 03ef 57040000 		.4byte	0x457
+ 799 03f3 08       		.byte	0x8
+ 800 03f4 0C       		.uleb128 0xc
+ 801 03f5 49060000 		.4byte	.LASF69
+ 802 03f9 05       		.byte	0x5
+ 803 03fa 4B02     		.2byte	0x24b
+ 804 03fc B7000000 		.4byte	0xb7
+ 805 0400 0C       		.byte	0xc
+ 806 0401 0C       		.uleb128 0xc
+ 807 0402 A9020000 		.4byte	.LASF70
+ 808 0406 05       		.byte	0x5
+ 809 0407 5202     		.2byte	0x252
+ 810 0409 5D040000 		.4byte	0x45d
+ 811 040d 10       		.byte	0x10
+ 812 040e 0C       		.uleb128 0xc
+ 813 040f 14040000 		.4byte	.LASF71
+ 814 0413 05       		.byte	0x5
+ 815 0414 5702     		.2byte	0x257
+ 816 0416 83000000 		.4byte	0x83
+ 817 041a 14       		.byte	0x14
+ 818 041b 0C       		.uleb128 0xc
+ 819 041c 72000000 		.4byte	.LASF72
+ 820 0420 05       		.byte	0x5
+ 821 0421 5E02     		.2byte	0x25e
+ 822 0423 77000000 		.4byte	0x77
+ 823 0427 18       		.byte	0x18
+ 824 0428 0C       		.uleb128 0xc
+ 825 0429 F7020000 		.4byte	.LASF73
+ 826 042d 05       		.byte	0x5
+ 827 042e 6502     		.2byte	0x265
+ 828 0430 6B000000 		.4byte	0x6b
+ 829 0434 1A       		.byte	0x1a
+ 830 0435 0C       		.uleb128 0xc
+ 831 0436 4A030000 		.4byte	.LASF74
+ 832 043a 05       		.byte	0x5
+ 833 043b 6F02     		.2byte	0x26f
+ 834 043d 6B000000 		.4byte	0x6b
+ 835 0441 1B       		.byte	0x1b
+ 836 0442 0C       		.uleb128 0xc
+ 837 0443 CC060000 		.4byte	.LASF75
+ 838 0447 05       		.byte	0x5
+ 839 0448 7702     		.2byte	0x277
+ 840 044a 63040000 		.4byte	0x463
+ 841 044e 1C       		.byte	0x1c
+ 842 044f 00       		.byte	0
+ 843 0450 0F       		.uleb128 0xf
+ 844 0451 04       		.byte	0x4
+ 845 0452 56040000 		.4byte	0x456
+ 846 0456 10       		.uleb128 0x10
+ 847 0457 0F       		.uleb128 0xf
+ 848 0458 04       		.byte	0x4
+ 849 0459 82020000 		.4byte	0x282
+ 850 045d 0F       		.uleb128 0xf
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 20
+
+
+ 851 045e 04       		.byte	0x4
+ 852 045f 6B000000 		.4byte	0x6b
+ 853 0463 0F       		.uleb128 0xf
+ 854 0464 04       		.byte	0x4
+ 855 0465 2E010000 		.4byte	0x12e
+ 856 0469 04       		.uleb128 0x4
+ 857 046a DA000000 		.4byte	.LASF76
+ 858 046e 05       		.byte	0x5
+ 859 046f 7802     		.2byte	0x278
+ 860 0471 C4030000 		.4byte	0x3c4
+ 861 0475 0D       		.uleb128 0xd
+ 862 0476 20       		.byte	0x20
+ 863 0477 05       		.byte	0x5
+ 864 0478 7E02     		.2byte	0x27e
+ 865 047a 8C040000 		.4byte	0x48c
+ 866 047e 0C       		.uleb128 0xc
+ 867 047f 59060000 		.4byte	.LASF77
+ 868 0483 05       		.byte	0x5
+ 869 0484 8302     		.2byte	0x283
+ 870 0486 8C040000 		.4byte	0x48c
+ 871 048a 00       		.byte	0
+ 872 048b 00       		.byte	0
+ 873 048c 0A       		.uleb128 0xa
+ 874 048d 69040000 		.4byte	0x469
+ 875 0491 9C040000 		.4byte	0x49c
+ 876 0495 0B       		.uleb128 0xb
+ 877 0496 B0000000 		.4byte	0xb0
+ 878 049a 00       		.byte	0
+ 879 049b 00       		.byte	0
+ 880 049c 04       		.uleb128 0x4
+ 881 049d 12020000 		.4byte	.LASF78
+ 882 04a1 05       		.byte	0x5
+ 883 04a2 8402     		.2byte	0x284
+ 884 04a4 75040000 		.4byte	0x475
+ 885 04a8 11       		.uleb128 0x11
+ 886 04a9 01       		.byte	0x1
+ 887 04aa 2C000000 		.4byte	0x2c
+ 888 04ae 06       		.byte	0x6
+ 889 04af 2E       		.byte	0x2e
+ 890 04b0 DF040000 		.4byte	0x4df
+ 891 04b4 12       		.uleb128 0x12
+ 892 04b5 19000000 		.4byte	.LASF79
+ 893 04b9 00       		.byte	0
+ 894 04ba 12       		.uleb128 0x12
+ 895 04bb 8B020000 		.4byte	.LASF80
+ 896 04bf 01       		.byte	0x1
+ 897 04c0 12       		.uleb128 0x12
+ 898 04c1 DA020000 		.4byte	.LASF81
+ 899 04c5 02       		.byte	0x2
+ 900 04c6 12       		.uleb128 0x12
+ 901 04c7 39040000 		.4byte	.LASF82
+ 902 04cb 03       		.byte	0x3
+ 903 04cc 12       		.uleb128 0x12
+ 904 04cd 72050000 		.4byte	.LASF83
+ 905 04d1 04       		.byte	0x4
+ 906 04d2 12       		.uleb128 0x12
+ 907 04d3 E1040000 		.4byte	.LASF84
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 21
+
+
+ 908 04d7 05       		.byte	0x5
+ 909 04d8 12       		.uleb128 0x12
+ 910 04d9 69040000 		.4byte	.LASF85
+ 911 04dd 06       		.byte	0x6
+ 912 04de 00       		.byte	0
+ 913 04df 09       		.uleb128 0x9
+ 914 04e0 33020000 		.4byte	.LASF86
+ 915 04e4 06       		.byte	0x6
+ 916 04e5 36       		.byte	0x36
+ 917 04e6 A8040000 		.4byte	0x4a8
+ 918 04ea 13       		.uleb128 0x13
+ 919 04eb BF050000 		.4byte	.LASF104
+ 920 04ef 01       		.byte	0x1
+ 921 04f0 44       		.byte	0x44
+ 922 04f1 00000000 		.4byte	.LFB1
+ 923 04f5 14000000 		.4byte	.LFE1-.LFB1
+ 924 04f9 01       		.uleb128 0x1
+ 925 04fa 9C       		.byte	0x9c
+ 926 04fb 0B050000 		.4byte	0x50b
+ 927 04ff 14       		.uleb128 0x14
+ 928 0500 D9050000 		.4byte	.LASF93
+ 929 0504 01       		.byte	0x1
+ 930 0505 46       		.byte	0x46
+ 931 0506 0B050000 		.4byte	0x50b
+ 932 050a 00       		.byte	0
+ 933 050b 0F       		.uleb128 0xf
+ 934 050c 04       		.byte	0x4
+ 935 050d 11050000 		.4byte	0x511
+ 936 0511 05       		.uleb128 0x5
+ 937 0512 B8030000 		.4byte	0x3b8
+ 938 0516 15       		.uleb128 0x15
+ 939 0517 0F050000 		.4byte	.LASF105
+ 940 051b 01       		.byte	0x1
+ 941 051c 73       		.byte	0x73
+ 942 051d 83000000 		.4byte	0x83
+ 943 0521 00000000 		.4byte	.LFB2
+ 944 0525 08010000 		.4byte	.LFE2-.LFB2
+ 945 0529 01       		.uleb128 0x1
+ 946 052a 9C       		.byte	0x9c
+ 947 052b E3050000 		.4byte	0x5e3
+ 948 052f 16       		.uleb128 0x16
+ 949 0530 4C050000 		.4byte	.LASF87
+ 950 0534 01       		.byte	0x1
+ 951 0535 75       		.byte	0x75
+ 952 0536 6B000000 		.4byte	0x6b
+ 953 053a 00000000 		.4byte	.LLST0
+ 954 053e 16       		.uleb128 0x16
+ 955 053f 4C020000 		.4byte	.LASF88
+ 956 0543 01       		.byte	0x1
+ 957 0544 76       		.byte	0x76
+ 958 0545 83000000 		.4byte	0x83
+ 959 0549 29000000 		.4byte	.LLST1
+ 960 054d 16       		.uleb128 0x16
+ 961 054e 39000000 		.4byte	.LASF89
+ 962 0552 01       		.byte	0x1
+ 963 0553 77       		.byte	0x77
+ 964 0554 83000000 		.4byte	0x83
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 22
+
+
+ 965 0558 3C000000 		.4byte	.LLST2
+ 966 055c 16       		.uleb128 0x16
+ 967 055d 26060000 		.4byte	.LASF90
+ 968 0561 01       		.byte	0x1
+ 969 0562 78       		.byte	0x78
+ 970 0563 83000000 		.4byte	0x83
+ 971 0567 4F000000 		.4byte	.LLST3
+ 972 056b 16       		.uleb128 0x16
+ 973 056c BF060000 		.4byte	.LASF91
+ 974 0570 01       		.byte	0x1
+ 975 0571 79       		.byte	0x79
+ 976 0572 DF040000 		.4byte	0x4df
+ 977 0576 0F010000 		.4byte	.LLST4
+ 978 057a 16       		.uleb128 0x16
+ 979 057b A9060000 		.4byte	.LASF92
+ 980 057f 01       		.byte	0x1
+ 981 0580 7A       		.byte	0x7a
+ 982 0581 83000000 		.4byte	0x83
+ 983 0585 22010000 		.4byte	.LLST5
+ 984 0589 14       		.uleb128 0x14
+ 985 058a D9050000 		.4byte	.LASF93
+ 986 058e 01       		.byte	0x1
+ 987 058f 7C       		.byte	0x7c
+ 988 0590 0B050000 		.4byte	0x50b
+ 989 0594 16       		.uleb128 0x16
+ 990 0595 A1030000 		.4byte	.LASF94
+ 991 0599 01       		.byte	0x1
+ 992 059a 7D       		.byte	0x7d
+ 993 059b E3050000 		.4byte	0x5e3
+ 994 059f 63010000 		.4byte	.LLST6
+ 995 05a3 17       		.uleb128 0x17
+ 996 05a4 12000000 		.4byte	.LVL3
+ 997 05a8 1C060000 		.4byte	0x61c
+ 998 05ac 17       		.uleb128 0x17
+ 999 05ad 1C000000 		.4byte	.LVL4
+ 1000 05b1 27060000 		.4byte	0x627
+ 1001 05b5 17       		.uleb128 0x17
+ 1002 05b6 46000000 		.4byte	.LVL10
+ 1003 05ba 32060000 		.4byte	0x632
+ 1004 05be 17       		.uleb128 0x17
+ 1005 05bf 76000000 		.4byte	.LVL19
+ 1006 05c3 1C060000 		.4byte	0x61c
+ 1007 05c7 17       		.uleb128 0x17
+ 1008 05c8 90000000 		.4byte	.LVL20
+ 1009 05cc 27060000 		.4byte	0x627
+ 1010 05d0 17       		.uleb128 0x17
+ 1011 05d1 DE000000 		.4byte	.LVL28
+ 1012 05d5 1C060000 		.4byte	0x61c
+ 1013 05d9 17       		.uleb128 0x17
+ 1014 05da F0000000 		.4byte	.LVL29
+ 1015 05de 27060000 		.4byte	0x627
+ 1016 05e2 00       		.byte	0
+ 1017 05e3 0F       		.uleb128 0xf
+ 1018 05e4 04       		.byte	0x4
+ 1019 05e5 E9050000 		.4byte	0x5e9
+ 1020 05e9 05       		.uleb128 0x5
+ 1021 05ea 82020000 		.4byte	0x282
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 23
+
+
+ 1022 05ee 18       		.uleb128 0x18
+ 1023 05ef 69050000 		.4byte	.LASF95
+ 1024 05f3 01       		.byte	0x1
+ 1025 05f4 35       		.byte	0x35
+ 1026 05f5 83000000 		.4byte	0x83
+ 1027 05f9 05       		.uleb128 0x5
+ 1028 05fa 03       		.byte	0x3
+ 1029 05fb 00000000 		.4byte	tunerFsm
+ 1030 05ff 19       		.uleb128 0x19
+ 1031 0600 6E030000 		.4byte	.LASF96
+ 1032 0604 05       		.byte	0x5
+ 1033 0605 1B04     		.2byte	0x41b
+ 1034 0607 B8030000 		.4byte	0x3b8
+ 1035 060b 19       		.uleb128 0x19
+ 1036 060c 35030000 		.4byte	.LASF97
+ 1037 0610 05       		.byte	0x5
+ 1038 0611 1C04     		.2byte	0x41c
+ 1039 0613 17060000 		.4byte	0x617
+ 1040 0617 1A       		.uleb128 0x1a
+ 1041 0618 9C040000 		.4byte	0x49c
+ 1042 061c 1B       		.uleb128 0x1b
+ 1043 061d AB030000 		.4byte	.LASF98
+ 1044 0621 AB030000 		.4byte	.LASF98
+ 1045 0625 07       		.byte	0x7
+ 1046 0626 F8       		.byte	0xf8
+ 1047 0627 1B       		.uleb128 0x1b
+ 1048 0628 5C000000 		.4byte	.LASF99
+ 1049 062c 5C000000 		.4byte	.LASF99
+ 1050 0630 07       		.byte	0x7
+ 1051 0631 F9       		.byte	0xf9
+ 1052 0632 1B       		.uleb128 0x1b
+ 1053 0633 BE020000 		.4byte	.LASF100
+ 1054 0637 BE020000 		.4byte	.LASF100
+ 1055 063b 08       		.byte	0x8
+ 1056 063c 3B       		.byte	0x3b
+ 1057 063d 00       		.byte	0
+ 1058              		.section	.debug_abbrev,"",%progbits
+ 1059              	.Ldebug_abbrev0:
+ 1060 0000 01       		.uleb128 0x1
+ 1061 0001 11       		.uleb128 0x11
+ 1062 0002 01       		.byte	0x1
+ 1063 0003 25       		.uleb128 0x25
+ 1064 0004 0E       		.uleb128 0xe
+ 1065 0005 13       		.uleb128 0x13
+ 1066 0006 0B       		.uleb128 0xb
+ 1067 0007 03       		.uleb128 0x3
+ 1068 0008 0E       		.uleb128 0xe
+ 1069 0009 1B       		.uleb128 0x1b
+ 1070 000a 0E       		.uleb128 0xe
+ 1071 000b 55       		.uleb128 0x55
+ 1072 000c 17       		.uleb128 0x17
+ 1073 000d 11       		.uleb128 0x11
+ 1074 000e 01       		.uleb128 0x1
+ 1075 000f 10       		.uleb128 0x10
+ 1076 0010 17       		.uleb128 0x17
+ 1077 0011 00       		.byte	0
+ 1078 0012 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 24
+
+
+ 1079 0013 02       		.uleb128 0x2
+ 1080 0014 24       		.uleb128 0x24
+ 1081 0015 00       		.byte	0
+ 1082 0016 0B       		.uleb128 0xb
+ 1083 0017 0B       		.uleb128 0xb
+ 1084 0018 3E       		.uleb128 0x3e
+ 1085 0019 0B       		.uleb128 0xb
+ 1086 001a 03       		.uleb128 0x3
+ 1087 001b 0E       		.uleb128 0xe
+ 1088 001c 00       		.byte	0
+ 1089 001d 00       		.byte	0
+ 1090 001e 03       		.uleb128 0x3
+ 1091 001f 24       		.uleb128 0x24
+ 1092 0020 00       		.byte	0
+ 1093 0021 0B       		.uleb128 0xb
+ 1094 0022 0B       		.uleb128 0xb
+ 1095 0023 3E       		.uleb128 0x3e
+ 1096 0024 0B       		.uleb128 0xb
+ 1097 0025 03       		.uleb128 0x3
+ 1098 0026 08       		.uleb128 0x8
+ 1099 0027 00       		.byte	0
+ 1100 0028 00       		.byte	0
+ 1101 0029 04       		.uleb128 0x4
+ 1102 002a 16       		.uleb128 0x16
+ 1103 002b 00       		.byte	0
+ 1104 002c 03       		.uleb128 0x3
+ 1105 002d 0E       		.uleb128 0xe
+ 1106 002e 3A       		.uleb128 0x3a
+ 1107 002f 0B       		.uleb128 0xb
+ 1108 0030 3B       		.uleb128 0x3b
+ 1109 0031 05       		.uleb128 0x5
+ 1110 0032 49       		.uleb128 0x49
+ 1111 0033 13       		.uleb128 0x13
+ 1112 0034 00       		.byte	0
+ 1113 0035 00       		.byte	0
+ 1114 0036 05       		.uleb128 0x5
+ 1115 0037 35       		.uleb128 0x35
+ 1116 0038 00       		.byte	0
+ 1117 0039 49       		.uleb128 0x49
+ 1118 003a 13       		.uleb128 0x13
+ 1119 003b 00       		.byte	0
+ 1120 003c 00       		.byte	0
+ 1121 003d 06       		.uleb128 0x6
+ 1122 003e 0F       		.uleb128 0xf
+ 1123 003f 00       		.byte	0
+ 1124 0040 0B       		.uleb128 0xb
+ 1125 0041 0B       		.uleb128 0xb
+ 1126 0042 00       		.byte	0
+ 1127 0043 00       		.byte	0
+ 1128 0044 07       		.uleb128 0x7
+ 1129 0045 13       		.uleb128 0x13
+ 1130 0046 01       		.byte	0x1
+ 1131 0047 0B       		.uleb128 0xb
+ 1132 0048 0B       		.uleb128 0xb
+ 1133 0049 3A       		.uleb128 0x3a
+ 1134 004a 0B       		.uleb128 0xb
+ 1135 004b 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 25
+
+
+ 1136 004c 0B       		.uleb128 0xb
+ 1137 004d 01       		.uleb128 0x1
+ 1138 004e 13       		.uleb128 0x13
+ 1139 004f 00       		.byte	0
+ 1140 0050 00       		.byte	0
+ 1141 0051 08       		.uleb128 0x8
+ 1142 0052 0D       		.uleb128 0xd
+ 1143 0053 00       		.byte	0
+ 1144 0054 03       		.uleb128 0x3
+ 1145 0055 0E       		.uleb128 0xe
+ 1146 0056 3A       		.uleb128 0x3a
+ 1147 0057 0B       		.uleb128 0xb
+ 1148 0058 3B       		.uleb128 0x3b
+ 1149 0059 0B       		.uleb128 0xb
+ 1150 005a 49       		.uleb128 0x49
+ 1151 005b 13       		.uleb128 0x13
+ 1152 005c 38       		.uleb128 0x38
+ 1153 005d 0B       		.uleb128 0xb
+ 1154 005e 00       		.byte	0
+ 1155 005f 00       		.byte	0
+ 1156 0060 09       		.uleb128 0x9
+ 1157 0061 16       		.uleb128 0x16
+ 1158 0062 00       		.byte	0
+ 1159 0063 03       		.uleb128 0x3
+ 1160 0064 0E       		.uleb128 0xe
+ 1161 0065 3A       		.uleb128 0x3a
+ 1162 0066 0B       		.uleb128 0xb
+ 1163 0067 3B       		.uleb128 0x3b
+ 1164 0068 0B       		.uleb128 0xb
+ 1165 0069 49       		.uleb128 0x49
+ 1166 006a 13       		.uleb128 0x13
+ 1167 006b 00       		.byte	0
+ 1168 006c 00       		.byte	0
+ 1169 006d 0A       		.uleb128 0xa
+ 1170 006e 01       		.uleb128 0x1
+ 1171 006f 01       		.byte	0x1
+ 1172 0070 49       		.uleb128 0x49
+ 1173 0071 13       		.uleb128 0x13
+ 1174 0072 01       		.uleb128 0x1
+ 1175 0073 13       		.uleb128 0x13
+ 1176 0074 00       		.byte	0
+ 1177 0075 00       		.byte	0
+ 1178 0076 0B       		.uleb128 0xb
+ 1179 0077 21       		.uleb128 0x21
+ 1180 0078 00       		.byte	0
+ 1181 0079 49       		.uleb128 0x49
+ 1182 007a 13       		.uleb128 0x13
+ 1183 007b 2F       		.uleb128 0x2f
+ 1184 007c 0B       		.uleb128 0xb
+ 1185 007d 00       		.byte	0
+ 1186 007e 00       		.byte	0
+ 1187 007f 0C       		.uleb128 0xc
+ 1188 0080 0D       		.uleb128 0xd
+ 1189 0081 00       		.byte	0
+ 1190 0082 03       		.uleb128 0x3
+ 1191 0083 0E       		.uleb128 0xe
+ 1192 0084 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 26
+
+
+ 1193 0085 0B       		.uleb128 0xb
+ 1194 0086 3B       		.uleb128 0x3b
+ 1195 0087 05       		.uleb128 0x5
+ 1196 0088 49       		.uleb128 0x49
+ 1197 0089 13       		.uleb128 0x13
+ 1198 008a 38       		.uleb128 0x38
+ 1199 008b 0B       		.uleb128 0xb
+ 1200 008c 00       		.byte	0
+ 1201 008d 00       		.byte	0
+ 1202 008e 0D       		.uleb128 0xd
+ 1203 008f 13       		.uleb128 0x13
+ 1204 0090 01       		.byte	0x1
+ 1205 0091 0B       		.uleb128 0xb
+ 1206 0092 0B       		.uleb128 0xb
+ 1207 0093 3A       		.uleb128 0x3a
+ 1208 0094 0B       		.uleb128 0xb
+ 1209 0095 3B       		.uleb128 0x3b
+ 1210 0096 05       		.uleb128 0x5
+ 1211 0097 01       		.uleb128 0x1
+ 1212 0098 13       		.uleb128 0x13
+ 1213 0099 00       		.byte	0
+ 1214 009a 00       		.byte	0
+ 1215 009b 0E       		.uleb128 0xe
+ 1216 009c 0D       		.uleb128 0xd
+ 1217 009d 00       		.byte	0
+ 1218 009e 03       		.uleb128 0x3
+ 1219 009f 08       		.uleb128 0x8
+ 1220 00a0 3A       		.uleb128 0x3a
+ 1221 00a1 0B       		.uleb128 0xb
+ 1222 00a2 3B       		.uleb128 0x3b
+ 1223 00a3 05       		.uleb128 0x5
+ 1224 00a4 49       		.uleb128 0x49
+ 1225 00a5 13       		.uleb128 0x13
+ 1226 00a6 38       		.uleb128 0x38
+ 1227 00a7 0B       		.uleb128 0xb
+ 1228 00a8 00       		.byte	0
+ 1229 00a9 00       		.byte	0
+ 1230 00aa 0F       		.uleb128 0xf
+ 1231 00ab 0F       		.uleb128 0xf
+ 1232 00ac 00       		.byte	0
+ 1233 00ad 0B       		.uleb128 0xb
+ 1234 00ae 0B       		.uleb128 0xb
+ 1235 00af 49       		.uleb128 0x49
+ 1236 00b0 13       		.uleb128 0x13
+ 1237 00b1 00       		.byte	0
+ 1238 00b2 00       		.byte	0
+ 1239 00b3 10       		.uleb128 0x10
+ 1240 00b4 26       		.uleb128 0x26
+ 1241 00b5 00       		.byte	0
+ 1242 00b6 00       		.byte	0
+ 1243 00b7 00       		.byte	0
+ 1244 00b8 11       		.uleb128 0x11
+ 1245 00b9 04       		.uleb128 0x4
+ 1246 00ba 01       		.byte	0x1
+ 1247 00bb 0B       		.uleb128 0xb
+ 1248 00bc 0B       		.uleb128 0xb
+ 1249 00bd 49       		.uleb128 0x49
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 27
+
+
+ 1250 00be 13       		.uleb128 0x13
+ 1251 00bf 3A       		.uleb128 0x3a
+ 1252 00c0 0B       		.uleb128 0xb
+ 1253 00c1 3B       		.uleb128 0x3b
+ 1254 00c2 0B       		.uleb128 0xb
+ 1255 00c3 01       		.uleb128 0x1
+ 1256 00c4 13       		.uleb128 0x13
+ 1257 00c5 00       		.byte	0
+ 1258 00c6 00       		.byte	0
+ 1259 00c7 12       		.uleb128 0x12
+ 1260 00c8 28       		.uleb128 0x28
+ 1261 00c9 00       		.byte	0
+ 1262 00ca 03       		.uleb128 0x3
+ 1263 00cb 0E       		.uleb128 0xe
+ 1264 00cc 1C       		.uleb128 0x1c
+ 1265 00cd 0B       		.uleb128 0xb
+ 1266 00ce 00       		.byte	0
+ 1267 00cf 00       		.byte	0
+ 1268 00d0 13       		.uleb128 0x13
+ 1269 00d1 2E       		.uleb128 0x2e
+ 1270 00d2 01       		.byte	0x1
+ 1271 00d3 3F       		.uleb128 0x3f
+ 1272 00d4 19       		.uleb128 0x19
+ 1273 00d5 03       		.uleb128 0x3
+ 1274 00d6 0E       		.uleb128 0xe
+ 1275 00d7 3A       		.uleb128 0x3a
+ 1276 00d8 0B       		.uleb128 0xb
+ 1277 00d9 3B       		.uleb128 0x3b
+ 1278 00da 0B       		.uleb128 0xb
+ 1279 00db 27       		.uleb128 0x27
+ 1280 00dc 19       		.uleb128 0x19
+ 1281 00dd 11       		.uleb128 0x11
+ 1282 00de 01       		.uleb128 0x1
+ 1283 00df 12       		.uleb128 0x12
+ 1284 00e0 06       		.uleb128 0x6
+ 1285 00e1 40       		.uleb128 0x40
+ 1286 00e2 18       		.uleb128 0x18
+ 1287 00e3 9742     		.uleb128 0x2117
+ 1288 00e5 19       		.uleb128 0x19
+ 1289 00e6 01       		.uleb128 0x1
+ 1290 00e7 13       		.uleb128 0x13
+ 1291 00e8 00       		.byte	0
+ 1292 00e9 00       		.byte	0
+ 1293 00ea 14       		.uleb128 0x14
+ 1294 00eb 34       		.uleb128 0x34
+ 1295 00ec 00       		.byte	0
+ 1296 00ed 03       		.uleb128 0x3
+ 1297 00ee 0E       		.uleb128 0xe
+ 1298 00ef 3A       		.uleb128 0x3a
+ 1299 00f0 0B       		.uleb128 0xb
+ 1300 00f1 3B       		.uleb128 0x3b
+ 1301 00f2 0B       		.uleb128 0xb
+ 1302 00f3 49       		.uleb128 0x49
+ 1303 00f4 13       		.uleb128 0x13
+ 1304 00f5 00       		.byte	0
+ 1305 00f6 00       		.byte	0
+ 1306 00f7 15       		.uleb128 0x15
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 28
+
+
+ 1307 00f8 2E       		.uleb128 0x2e
+ 1308 00f9 01       		.byte	0x1
+ 1309 00fa 3F       		.uleb128 0x3f
+ 1310 00fb 19       		.uleb128 0x19
+ 1311 00fc 03       		.uleb128 0x3
+ 1312 00fd 0E       		.uleb128 0xe
+ 1313 00fe 3A       		.uleb128 0x3a
+ 1314 00ff 0B       		.uleb128 0xb
+ 1315 0100 3B       		.uleb128 0x3b
+ 1316 0101 0B       		.uleb128 0xb
+ 1317 0102 27       		.uleb128 0x27
+ 1318 0103 19       		.uleb128 0x19
+ 1319 0104 49       		.uleb128 0x49
+ 1320 0105 13       		.uleb128 0x13
+ 1321 0106 11       		.uleb128 0x11
+ 1322 0107 01       		.uleb128 0x1
+ 1323 0108 12       		.uleb128 0x12
+ 1324 0109 06       		.uleb128 0x6
+ 1325 010a 40       		.uleb128 0x40
+ 1326 010b 18       		.uleb128 0x18
+ 1327 010c 9742     		.uleb128 0x2117
+ 1328 010e 19       		.uleb128 0x19
+ 1329 010f 01       		.uleb128 0x1
+ 1330 0110 13       		.uleb128 0x13
+ 1331 0111 00       		.byte	0
+ 1332 0112 00       		.byte	0
+ 1333 0113 16       		.uleb128 0x16
+ 1334 0114 34       		.uleb128 0x34
+ 1335 0115 00       		.byte	0
+ 1336 0116 03       		.uleb128 0x3
+ 1337 0117 0E       		.uleb128 0xe
+ 1338 0118 3A       		.uleb128 0x3a
+ 1339 0119 0B       		.uleb128 0xb
+ 1340 011a 3B       		.uleb128 0x3b
+ 1341 011b 0B       		.uleb128 0xb
+ 1342 011c 49       		.uleb128 0x49
+ 1343 011d 13       		.uleb128 0x13
+ 1344 011e 02       		.uleb128 0x2
+ 1345 011f 17       		.uleb128 0x17
+ 1346 0120 00       		.byte	0
+ 1347 0121 00       		.byte	0
+ 1348 0122 17       		.uleb128 0x17
+ 1349 0123 898201   		.uleb128 0x4109
+ 1350 0126 00       		.byte	0
+ 1351 0127 11       		.uleb128 0x11
+ 1352 0128 01       		.uleb128 0x1
+ 1353 0129 31       		.uleb128 0x31
+ 1354 012a 13       		.uleb128 0x13
+ 1355 012b 00       		.byte	0
+ 1356 012c 00       		.byte	0
+ 1357 012d 18       		.uleb128 0x18
+ 1358 012e 34       		.uleb128 0x34
+ 1359 012f 00       		.byte	0
+ 1360 0130 03       		.uleb128 0x3
+ 1361 0131 0E       		.uleb128 0xe
+ 1362 0132 3A       		.uleb128 0x3a
+ 1363 0133 0B       		.uleb128 0xb
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 29
+
+
+ 1364 0134 3B       		.uleb128 0x3b
+ 1365 0135 0B       		.uleb128 0xb
+ 1366 0136 49       		.uleb128 0x49
+ 1367 0137 13       		.uleb128 0x13
+ 1368 0138 02       		.uleb128 0x2
+ 1369 0139 18       		.uleb128 0x18
+ 1370 013a 00       		.byte	0
+ 1371 013b 00       		.byte	0
+ 1372 013c 19       		.uleb128 0x19
+ 1373 013d 34       		.uleb128 0x34
+ 1374 013e 00       		.byte	0
+ 1375 013f 03       		.uleb128 0x3
+ 1376 0140 0E       		.uleb128 0xe
+ 1377 0141 3A       		.uleb128 0x3a
+ 1378 0142 0B       		.uleb128 0xb
+ 1379 0143 3B       		.uleb128 0x3b
+ 1380 0144 05       		.uleb128 0x5
+ 1381 0145 49       		.uleb128 0x49
+ 1382 0146 13       		.uleb128 0x13
+ 1383 0147 3F       		.uleb128 0x3f
+ 1384 0148 19       		.uleb128 0x19
+ 1385 0149 3C       		.uleb128 0x3c
+ 1386 014a 19       		.uleb128 0x19
+ 1387 014b 00       		.byte	0
+ 1388 014c 00       		.byte	0
+ 1389 014d 1A       		.uleb128 0x1a
+ 1390 014e 26       		.uleb128 0x26
+ 1391 014f 00       		.byte	0
+ 1392 0150 49       		.uleb128 0x49
+ 1393 0151 13       		.uleb128 0x13
+ 1394 0152 00       		.byte	0
+ 1395 0153 00       		.byte	0
+ 1396 0154 1B       		.uleb128 0x1b
+ 1397 0155 2E       		.uleb128 0x2e
+ 1398 0156 00       		.byte	0
+ 1399 0157 3F       		.uleb128 0x3f
+ 1400 0158 19       		.uleb128 0x19
+ 1401 0159 3C       		.uleb128 0x3c
+ 1402 015a 19       		.uleb128 0x19
+ 1403 015b 6E       		.uleb128 0x6e
+ 1404 015c 0E       		.uleb128 0xe
+ 1405 015d 03       		.uleb128 0x3
+ 1406 015e 0E       		.uleb128 0xe
+ 1407 015f 3A       		.uleb128 0x3a
+ 1408 0160 0B       		.uleb128 0xb
+ 1409 0161 3B       		.uleb128 0x3b
+ 1410 0162 0B       		.uleb128 0xb
+ 1411 0163 00       		.byte	0
+ 1412 0164 00       		.byte	0
+ 1413 0165 00       		.byte	0
+ 1414              		.section	.debug_loc,"",%progbits
+ 1415              	.Ldebug_loc0:
+ 1416              	.LLST0:
+ 1417 0000 12000000 		.4byte	.LVL3
+ 1418 0004 1B000000 		.4byte	.LVL4-1
+ 1419 0008 0100     		.2byte	0x1
+ 1420 000a 50       		.byte	0x50
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 30
+
+
+ 1421 000b 76000000 		.4byte	.LVL19
+ 1422 000f 8F000000 		.4byte	.LVL20-1
+ 1423 0013 0100     		.2byte	0x1
+ 1424 0015 50       		.byte	0x50
+ 1425 0016 DE000000 		.4byte	.LVL28
+ 1426 001a EF000000 		.4byte	.LVL29-1
+ 1427 001e 0100     		.2byte	0x1
+ 1428 0020 50       		.byte	0x50
+ 1429 0021 00000000 		.4byte	0
+ 1430 0025 00000000 		.4byte	0
+ 1431              	.LLST1:
+ 1432 0029 A6000000 		.4byte	.LVL22
+ 1433 002d CC000000 		.4byte	.LVL24
+ 1434 0031 0100     		.2byte	0x1
+ 1435 0033 53       		.byte	0x53
+ 1436 0034 00000000 		.4byte	0
+ 1437 0038 00000000 		.4byte	0
+ 1438              	.LLST2:
+ 1439 003c AC000000 		.4byte	.LVL23
+ 1440 0040 D6000000 		.4byte	.LVL26
+ 1441 0044 0100     		.2byte	0x1
+ 1442 0046 52       		.byte	0x52
+ 1443 0047 00000000 		.4byte	0
+ 1444 004b 00000000 		.4byte	0
+ 1445              	.LLST3:
+ 1446 004f 02000000 		.4byte	.LVL1
+ 1447 0053 06000000 		.4byte	.LVL2
+ 1448 0057 0200     		.2byte	0x2
+ 1449 0059 30       		.byte	0x30
+ 1450 005a 9F       		.byte	0x9f
+ 1451 005b 06000000 		.4byte	.LVL2
+ 1452 005f 34000000 		.4byte	.LVL6
+ 1453 0063 0100     		.2byte	0x1
+ 1454 0065 56       		.byte	0x56
+ 1455 0066 34000000 		.4byte	.LVL6
+ 1456 006a 38000000 		.4byte	.LVL7
+ 1457 006e 0200     		.2byte	0x2
+ 1458 0070 31       		.byte	0x31
+ 1459 0071 9F       		.byte	0x9f
+ 1460 0072 38000000 		.4byte	.LVL7
+ 1461 0076 3E000000 		.4byte	.LVL8
+ 1462 007a 0100     		.2byte	0x1
+ 1463 007c 56       		.byte	0x56
+ 1464 007d 3E000000 		.4byte	.LVL8
+ 1465 0081 42000000 		.4byte	.LVL9
+ 1466 0085 0200     		.2byte	0x2
+ 1467 0087 31       		.byte	0x31
+ 1468 0088 9F       		.byte	0x9f
+ 1469 0089 42000000 		.4byte	.LVL9
+ 1470 008d 4C000000 		.4byte	.LVL11
+ 1471 0091 0100     		.2byte	0x1
+ 1472 0093 56       		.byte	0x56
+ 1473 0094 4C000000 		.4byte	.LVL11
+ 1474 0098 52000000 		.4byte	.LVL12
+ 1475 009c 0200     		.2byte	0x2
+ 1476 009e 31       		.byte	0x31
+ 1477 009f 9F       		.byte	0x9f
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 31
+
+
+ 1478 00a0 52000000 		.4byte	.LVL12
+ 1479 00a4 58000000 		.4byte	.LVL13
+ 1480 00a8 0100     		.2byte	0x1
+ 1481 00aa 56       		.byte	0x56
+ 1482 00ab 58000000 		.4byte	.LVL13
+ 1483 00af 5C000000 		.4byte	.LVL14
+ 1484 00b3 0200     		.2byte	0x2
+ 1485 00b5 31       		.byte	0x31
+ 1486 00b6 9F       		.byte	0x9f
+ 1487 00b7 5C000000 		.4byte	.LVL14
+ 1488 00bb 62000000 		.4byte	.LVL15
+ 1489 00bf 0100     		.2byte	0x1
+ 1490 00c1 56       		.byte	0x56
+ 1491 00c2 62000000 		.4byte	.LVL15
+ 1492 00c6 66000000 		.4byte	.LVL16
+ 1493 00ca 0200     		.2byte	0x2
+ 1494 00cc 31       		.byte	0x31
+ 1495 00cd 9F       		.byte	0x9f
+ 1496 00ce 66000000 		.4byte	.LVL16
+ 1497 00d2 6C000000 		.4byte	.LVL17
+ 1498 00d6 0100     		.2byte	0x1
+ 1499 00d8 56       		.byte	0x56
+ 1500 00d9 6C000000 		.4byte	.LVL17
+ 1501 00dd 6E000000 		.4byte	.LVL18
+ 1502 00e1 0200     		.2byte	0x2
+ 1503 00e3 30       		.byte	0x30
+ 1504 00e4 9F       		.byte	0x9f
+ 1505 00e5 6E000000 		.4byte	.LVL18
+ 1506 00e9 90000000 		.4byte	.LVL20
+ 1507 00ed 0100     		.2byte	0x1
+ 1508 00ef 56       		.byte	0x56
+ 1509 00f0 90000000 		.4byte	.LVL20
+ 1510 00f4 92000000 		.4byte	.LVL21
+ 1511 00f8 0200     		.2byte	0x2
+ 1512 00fa 30       		.byte	0x30
+ 1513 00fb 9F       		.byte	0x9f
+ 1514 00fc 92000000 		.4byte	.LVL21
+ 1515 0100 F2000000 		.4byte	.LVL31
+ 1516 0104 0100     		.2byte	0x1
+ 1517 0106 56       		.byte	0x56
+ 1518 0107 00000000 		.4byte	0
+ 1519 010b 00000000 		.4byte	0
+ 1520              	.LLST4:
+ 1521 010f 22000000 		.4byte	.LVL5
+ 1522 0113 D2000000 		.4byte	.LVL25
+ 1523 0117 0100     		.2byte	0x1
+ 1524 0119 54       		.byte	0x54
+ 1525 011a 00000000 		.4byte	0
+ 1526 011e 00000000 		.4byte	0
+ 1527              	.LLST5:
+ 1528 0122 02000000 		.4byte	.LVL1
+ 1529 0126 06000000 		.4byte	.LVL2
+ 1530 012a 0200     		.2byte	0x2
+ 1531 012c 30       		.byte	0x30
+ 1532 012d 9F       		.byte	0x9f
+ 1533 012e 06000000 		.4byte	.LVL2
+ 1534 0132 46000000 		.4byte	.LVL10
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 32
+
+
+ 1535 0136 0100     		.2byte	0x1
+ 1536 0138 55       		.byte	0x55
+ 1537 0139 46000000 		.4byte	.LVL10
+ 1538 013d 52000000 		.4byte	.LVL12
+ 1539 0141 0200     		.2byte	0x2
+ 1540 0143 31       		.byte	0x31
+ 1541 0144 9F       		.byte	0x9f
+ 1542 0145 52000000 		.4byte	.LVL12
+ 1543 0149 F2000000 		.4byte	.LVL30
+ 1544 014d 0100     		.2byte	0x1
+ 1545 014f 55       		.byte	0x55
+ 1546 0150 F2000000 		.4byte	.LVL30
+ 1547 0154 08010000 		.4byte	.LFE2
+ 1548 0158 0100     		.2byte	0x1
+ 1549 015a 50       		.byte	0x50
+ 1550 015b 00000000 		.4byte	0
+ 1551 015f 00000000 		.4byte	0
+ 1552              	.LLST6:
+ 1553 0163 D2000000 		.4byte	.LVL25
+ 1554 0167 F0000000 		.4byte	.LVL29
+ 1555 016b 0100     		.2byte	0x1
+ 1556 016d 54       		.byte	0x54
+ 1557 016e 00000000 		.4byte	0
+ 1558 0172 00000000 		.4byte	0
+ 1559              		.section	.debug_aranges,"",%progbits
+ 1560 0000 24000000 		.4byte	0x24
+ 1561 0004 0200     		.2byte	0x2
+ 1562 0006 00000000 		.4byte	.Ldebug_info0
+ 1563 000a 04       		.byte	0x4
+ 1564 000b 00       		.byte	0
+ 1565 000c 0000     		.2byte	0
+ 1566 000e 0000     		.2byte	0
+ 1567 0010 00000000 		.4byte	.LFB1
+ 1568 0014 14000000 		.4byte	.LFE1-.LFB1
+ 1569 0018 00000000 		.4byte	.LFB2
+ 1570 001c 08010000 		.4byte	.LFE2-.LFB2
+ 1571 0020 00000000 		.4byte	0
+ 1572 0024 00000000 		.4byte	0
+ 1573              		.section	.debug_ranges,"",%progbits
+ 1574              	.Ldebug_ranges0:
+ 1575 0000 00000000 		.4byte	.LFB1
+ 1576 0004 14000000 		.4byte	.LFE1
+ 1577 0008 00000000 		.4byte	.LFB2
+ 1578 000c 08010000 		.4byte	.LFE2
+ 1579 0010 00000000 		.4byte	0
+ 1580 0014 00000000 		.4byte	0
+ 1581              		.section	.debug_line,"",%progbits
+ 1582              	.Ldebug_line0:
+ 1583 0000 4C010000 		.section	.debug_str,"MS",%progbits,1
+ 1583      0200E800 
+ 1583      00000201 
+ 1583      FB0E0D00 
+ 1583      01010101 
+ 1584              	.LASF59:
+ 1585 0000 77646774 		.ascii	"wdgtList\000"
+ 1585      4C697374 
+ 1585      00
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 33
+
+
+ 1586              	.LASF64:
+ 1587 0009 736E7254 		.ascii	"snrTestRawCount\000"
+ 1587      65737452 
+ 1587      6177436F 
+ 1587      756E7400 
+ 1588              	.LASF79:
+ 1589 0019 63794361 		.ascii	"cyCapsense_1_TU_CMD_NONE_E\000"
+ 1589      7073656E 
+ 1589      73655F31 
+ 1589      5F54555F 
+ 1589      434D445F 
+ 1590              	.LASF42:
+ 1591 0034 62736C6E 		.ascii	"bsln\000"
+ 1591      00
+ 1592              	.LASF89:
+ 1593 0039 73656E73 		.ascii	"sensorId\000"
+ 1593      6F724964 
+ 1593      00
+ 1594              	.LASF40:
+ 1595 0042 62757474 		.ascii	"button0\000"
+ 1595      6F6E3000 
+ 1596              	.LASF25:
+ 1597 004a 70617261 		.ascii	"param6\000"
+ 1597      6D3600
+ 1598              	.LASF33:
+ 1599 0051 6C6F7742 		.ascii	"lowBslnRst\000"
+ 1599      736C6E52 
+ 1599      737400
+ 1600              	.LASF99:
+ 1601 005c 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1601      69744372 
+ 1601      69746963 
+ 1601      616C5365 
+ 1601      6374696F 
+ 1602              	.LASF72:
+ 1603 0072 746F7461 		.ascii	"totalNumSns\000"
+ 1603      6C4E756D 
+ 1603      536E7300 
+ 1604              	.LASF18:
+ 1605 007e 63794361 		.ascii	"cyCapsense_1_LOW_BSLN_RST_TYPE\000"
+ 1605      7073656E 
+ 1605      73655F31 
+ 1605      5F4C4F57 
+ 1605      5F42534C 
+ 1606              	.LASF34:
+ 1607 009d 69646163 		.ascii	"idacMod\000"
+ 1607      4D6F6400 
+ 1608              	.LASF65:
+ 1609 00a5 63794361 		.ascii	"cyCapsense_1_RAM_STRUCT\000"
+ 1609      7073656E 
+ 1609      73655F31 
+ 1609      5F52414D 
+ 1609      5F535452 
+ 1610              	.LASF32:
+ 1611 00bd 6F6E4465 		.ascii	"onDebounce\000"
+ 1611      626F756E 
+ 1611      636500
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 34
+
+
+ 1612              	.LASF16:
+ 1613 00c8 73697A65 		.ascii	"sizetype\000"
+ 1613      74797065 
+ 1613      00
+ 1614              	.LASF48:
+ 1615 00d1 636F6E66 		.ascii	"configId\000"
+ 1615      69674964 
+ 1615      00
+ 1616              	.LASF76:
+ 1617 00da 63794361 		.ascii	"cyCapsense_1_FLASH_WD_STRUCT\000"
+ 1617      7073656E 
+ 1617      73655F31 
+ 1617      5F464C41 
+ 1617      53485F57 
+ 1618              	.LASF57:
+ 1619 00f7 63736430 		.ascii	"csd0Config\000"
+ 1619      436F6E66 
+ 1619      696700
+ 1620              	.LASF6:
+ 1621 0102 6C6F6E67 		.ascii	"long long int\000"
+ 1621      206C6F6E 
+ 1621      6720696E 
+ 1621      7400
+ 1622              	.LASF19:
+ 1623 0110 70617261 		.ascii	"param0\000"
+ 1623      6D3000
+ 1624              	.LASF36:
+ 1625 0117 736E7343 		.ascii	"snsClkSource\000"
+ 1625      6C6B536F 
+ 1625      75726365 
+ 1625      00
+ 1626              	.LASF21:
+ 1627 0124 70617261 		.ascii	"param2\000"
+ 1627      6D3200
+ 1628              	.LASF22:
+ 1629 012b 70617261 		.ascii	"param3\000"
+ 1629      6D3300
+ 1630              	.LASF23:
+ 1631 0132 70617261 		.ascii	"param4\000"
+ 1631      6D3400
+ 1632              	.LASF24:
+ 1633 0139 70617261 		.ascii	"param5\000"
+ 1633      6D3500
+ 1634              	.LASF2:
+ 1635 0140 73686F72 		.ascii	"short int\000"
+ 1635      7420696E 
+ 1635      7400
+ 1636              	.LASF29:
+ 1637 014a 6E6F6973 		.ascii	"noiseTh\000"
+ 1637      65546800 
+ 1638              	.LASF49:
+ 1639 0152 64657669 		.ascii	"deviceId\000"
+ 1639      63654964 
+ 1639      00
+ 1640              	.LASF10:
+ 1641 015b 75696E74 		.ascii	"uint16\000"
+ 1641      313600
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 35
+
+
+ 1642              	.LASF101:
+ 1643 0162 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1643      43313120 
+ 1643      352E342E 
+ 1643      31203230 
+ 1643      31363036 
+ 1644 0195 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1644      20726576 
+ 1644      6973696F 
+ 1644      6E203233 
+ 1644      37373135 
+ 1645 01c8 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1645      66756E63 
+ 1645      74696F6E 
+ 1645      2D736563 
+ 1645      74696F6E 
+ 1646              	.LASF17:
+ 1647 01f0 63794361 		.ascii	"cyCapsense_1_THRESHOLD_TYPE\000"
+ 1647      7073656E 
+ 1647      73655F31 
+ 1647      5F544852 
+ 1647      4553484F 
+ 1648              	.LASF9:
+ 1649 020c 75696E74 		.ascii	"uint8\000"
+ 1649      3800
+ 1650              	.LASF78:
+ 1651 0212 63794361 		.ascii	"cyCapsense_1_FLASH_STRUCT\000"
+ 1651      7073656E 
+ 1651      73655F31 
+ 1651      5F464C41 
+ 1651      53485F53 
+ 1652              	.LASF35:
+ 1653 022c 736E7343 		.ascii	"snsClk\000"
+ 1653      6C6B00
+ 1654              	.LASF86:
+ 1655 0233 63794361 		.ascii	"cyCapsense_1_TU_CMD_ENUM\000"
+ 1655      7073656E 
+ 1655      73655F31 
+ 1655      5F54555F 
+ 1655      434D445F 
+ 1656              	.LASF88:
+ 1657 024c 77696467 		.ascii	"widgetId\000"
+ 1657      65744964 
+ 1657      00
+ 1658              	.LASF41:
+ 1659 0255 63794361 		.ascii	"cyCapsense_1_RAM_WD_LIST_STRUCT\000"
+ 1659      7073656E 
+ 1659      73655F31 
+ 1659      5F52414D 
+ 1659      5F57445F 
+ 1660              	.LASF12:
+ 1661 0275 666C6F61 		.ascii	"float\000"
+ 1661      7400
+ 1662              	.LASF62:
+ 1663 027b 736E7254 		.ascii	"snrTestSensorId\000"
+ 1663      65737453 
+ 1663      656E736F 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 36
+
+
+ 1663      72496400 
+ 1664              	.LASF80:
+ 1665 028b 63794361 		.ascii	"cyCapsense_1_TU_CMD_SUSPEND_E\000"
+ 1665      7073656E 
+ 1665      73655F31 
+ 1665      5F54555F 
+ 1665      434D445F 
+ 1666              	.LASF70:
+ 1667 02a9 70747232 		.ascii	"ptr2DebounceArr\000"
+ 1667      4465626F 
+ 1667      756E6365 
+ 1667      41727200 
+ 1668              	.LASF14:
+ 1669 02b9 63686172 		.ascii	"char\000"
+ 1669      00
+ 1670              	.LASF100:
+ 1671 02be 63794361 		.ascii	"cyCapsense_1_Start\000"
+ 1671      7073656E 
+ 1671      73655F31 
+ 1671      5F537461 
+ 1671      727400
+ 1672              	.LASF4:
+ 1673 02d1 6C6F6E67 		.ascii	"long int\000"
+ 1673      20696E74 
+ 1673      00
+ 1674              	.LASF81:
+ 1675 02da 63794361 		.ascii	"cyCapsense_1_TU_CMD_RESUME_E\000"
+ 1675      7073656E 
+ 1675      73655F31 
+ 1675      5F54555F 
+ 1675      434D445F 
+ 1676              	.LASF73:
+ 1677 02f7 77646774 		.ascii	"wdgtType\000"
+ 1677      54797065 
+ 1677      00
+ 1678              	.LASF5:
+ 1679 0300 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1679      20756E73 
+ 1679      69676E65 
+ 1679      6420696E 
+ 1679      7400
+ 1680              	.LASF28:
+ 1681 0312 66696E67 		.ascii	"fingerTh\000"
+ 1681      65725468 
+ 1681      00
+ 1682              	.LASF45:
+ 1683 031b 6E656742 		.ascii	"negBslnRstCnt\000"
+ 1683      736C6E52 
+ 1683      7374436E 
+ 1683      7400
+ 1684              	.LASF67:
+ 1685 0329 70747232 		.ascii	"ptr2WdgtRam\000"
+ 1685      57646774 
+ 1685      52616D00 
+ 1686              	.LASF97:
+ 1687 0335 63794361 		.ascii	"cyCapsense_1_dsFlash\000"
+ 1687      7073656E 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 37
+
+
+ 1687      73655F31 
+ 1687      5F647346 
+ 1687      6C617368 
+ 1688              	.LASF74:
+ 1689 034a 6E756D43 		.ascii	"numCols\000"
+ 1689      6F6C7300 
+ 1690              	.LASF46:
+ 1691 0352 63794361 		.ascii	"cyCapsense_1_RAM_SNS_STRUCT\000"
+ 1691      7073656E 
+ 1691      73655F31 
+ 1691      5F52414D 
+ 1691      5F534E53 
+ 1692              	.LASF96:
+ 1693 036e 63794361 		.ascii	"cyCapsense_1_dsRam\000"
+ 1693      7073656E 
+ 1693      73655F31 
+ 1693      5F647352 
+ 1693      616D00
+ 1694              	.LASF51:
+ 1695 0381 74756E65 		.ascii	"tunerCmd\000"
+ 1695      72436D64 
+ 1695      00
+ 1696              	.LASF15:
+ 1697 038a 6C6F6E67 		.ascii	"long double\000"
+ 1697      20646F75 
+ 1697      626C6500 
+ 1698              	.LASF55:
+ 1699 0396 77646774 		.ascii	"wdgtStatus\000"
+ 1699      53746174 
+ 1699      757300
+ 1700              	.LASF94:
+ 1701 03a1 70747253 		.ascii	"ptrSnsTmp\000"
+ 1701      6E73546D 
+ 1701      7000
+ 1702              	.LASF98:
+ 1703 03ab 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1703      74657243 
+ 1703      72697469 
+ 1703      63616C53 
+ 1703      65637469 
+ 1704              	.LASF1:
+ 1705 03c2 756E7369 		.ascii	"unsigned char\000"
+ 1705      676E6564 
+ 1705      20636861 
+ 1705      7200
+ 1706              	.LASF47:
+ 1707 03d0 63794361 		.ascii	"cyCapsense_1_RAM_SNS_LIST_STRUCT\000"
+ 1707      7073656E 
+ 1707      73655F31 
+ 1707      5F52414D 
+ 1707      5F534E53 
+ 1708              	.LASF0:
+ 1709 03f1 7369676E 		.ascii	"signed char\000"
+ 1709      65642063 
+ 1709      68617200 
+ 1710              	.LASF7:
+ 1711 03fd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 38
+
+
+ 1711      206C6F6E 
+ 1711      6720756E 
+ 1711      7369676E 
+ 1711      65642069 
+ 1712              	.LASF71:
+ 1713 0414 73746174 		.ascii	"staticConfig\000"
+ 1713      6963436F 
+ 1713      6E666967 
+ 1713      00
+ 1714              	.LASF31:
+ 1715 0421 68797374 		.ascii	"hysteresis\000"
+ 1715      65726573 
+ 1715      697300
+ 1716              	.LASF8:
+ 1717 042c 756E7369 		.ascii	"unsigned int\000"
+ 1717      676E6564 
+ 1717      20696E74 
+ 1717      00
+ 1718              	.LASF82:
+ 1719 0439 63794361 		.ascii	"cyCapsense_1_TU_CMD_RESTART_E\000"
+ 1719      7073656E 
+ 1719      73655F31 
+ 1719      5F54555F 
+ 1719      434D445F 
+ 1720              	.LASF54:
+ 1721 0457 77646774 		.ascii	"wdgtEnable\000"
+ 1721      456E6162 
+ 1721      6C6500
+ 1722              	.LASF20:
+ 1723 0462 70617261 		.ascii	"param1\000"
+ 1723      6D3100
+ 1724              	.LASF85:
+ 1725 0469 63794361 		.ascii	"cyCapsense_1_TU_CMD_ONE_SCAN_E\000"
+ 1725      7073656E 
+ 1725      73655F31 
+ 1725      5F54555F 
+ 1725      434D445F 
+ 1726              	.LASF53:
+ 1727 0488 73746174 		.ascii	"status\000"
+ 1727      757300
+ 1728              	.LASF50:
+ 1729 048f 6877436C 		.ascii	"hwClock\000"
+ 1729      6F636B00 
+ 1730              	.LASF102:
+ 1731 0497 47656E65 		.ascii	"Generated_Source\\PSoC4\\cyCapsense_1_Tuner.c\000"
+ 1731      72617465 
+ 1731      645F536F 
+ 1731      75726365 
+ 1731      5C50536F 
+ 1732              	.LASF63:
+ 1733 04c3 736E7254 		.ascii	"snrTestScanCounter\000"
+ 1733      65737453 
+ 1733      63616E43 
+ 1733      6F756E74 
+ 1733      657200
+ 1734              	.LASF27:
+ 1735 04d6 7265736F 		.ascii	"resolution\000"
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 39
+
+
+ 1735      6C757469 
+ 1735      6F6E00
+ 1736              	.LASF84:
+ 1737 04e1 63794361 		.ascii	"cyCapsense_1_TU_CMD_PING_E\000"
+ 1737      7073656E 
+ 1737      73655F31 
+ 1737      5F54555F 
+ 1737      434D445F 
+ 1738              	.LASF3:
+ 1739 04fc 73686F72 		.ascii	"short unsigned int\000"
+ 1739      7420756E 
+ 1739      7369676E 
+ 1739      65642069 
+ 1739      6E7400
+ 1740              	.LASF105:
+ 1741 050f 63794361 		.ascii	"cyCapsense_1_RunTuner\000"
+ 1741      7073656E 
+ 1741      73655F31 
+ 1741      5F52756E 
+ 1741      54756E65 
+ 1742              	.LASF60:
+ 1743 0525 736E734C 		.ascii	"snsList\000"
+ 1743      69737400 
+ 1744              	.LASF58:
+ 1745 052d 6D6F6443 		.ascii	"modCsdClk\000"
+ 1745      7364436C 
+ 1745      6B00
+ 1746              	.LASF52:
+ 1747 0537 7363616E 		.ascii	"scanCounter\000"
+ 1747      436F756E 
+ 1747      74657200 
+ 1748              	.LASF30:
+ 1749 0543 6E4E6F69 		.ascii	"nNoiseTh\000"
+ 1749      73655468 
+ 1749      00
+ 1750              	.LASF87:
+ 1751 054c 696E7465 		.ascii	"interruptState\000"
+ 1751      72727570 
+ 1751      74537461 
+ 1751      746500
+ 1752              	.LASF38:
+ 1753 055b 73696750 		.ascii	"sigPFC\000"
+ 1753      464300
+ 1754              	.LASF11:
+ 1755 0562 75696E74 		.ascii	"uint32\000"
+ 1755      333200
+ 1756              	.LASF95:
+ 1757 0569 74756E65 		.ascii	"tunerFsm\000"
+ 1757      7246736D 
+ 1757      00
+ 1758              	.LASF83:
+ 1759 0572 63794361 		.ascii	"cyCapsense_1_TU_CMD_RUN_SNR_TEST_E\000"
+ 1759      7073656E 
+ 1759      73655F31 
+ 1759      5F54555F 
+ 1759      434D445F 
+ 1760              	.LASF39:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 40
+
+
+ 1761 0595 63794361 		.ascii	"cyCapsense_1_RAM_WD_BUTTON_STRUCT\000"
+ 1761      7073656E 
+ 1761      73655F31 
+ 1761      5F52414D 
+ 1761      5F57445F 
+ 1762              	.LASF43:
+ 1763 05b7 62736C6E 		.ascii	"bslnExt\000"
+ 1763      45787400 
+ 1764              	.LASF104:
+ 1765 05bf 63794361 		.ascii	"cyCapsense_1_TuInitialize\000"
+ 1765      7073656E 
+ 1765      73655F31 
+ 1765      5F547549 
+ 1765      6E697469 
+ 1766              	.LASF93:
+ 1767 05d9 70747244 		.ascii	"ptrDsRam\000"
+ 1767      7352616D 
+ 1767      00
+ 1768              	.LASF103:
+ 1769 05e2 433A5C55 		.ascii	"C:\\Users\\turan\\Desktop\\Dev\\Workspace01\\Test\\"
+ 1769      73657273 
+ 1769      5C747572 
+ 1769      616E5C44 
+ 1769      65736B74 
+ 1770 060e 4C65645F 		.ascii	"Led_Blink_Process.cydsn\000"
+ 1770      426C696E 
+ 1770      6B5F5072 
+ 1770      6F636573 
+ 1770      732E6379 
+ 1771              	.LASF90:
+ 1772 0626 75706461 		.ascii	"updateFlag\000"
+ 1772      7465466C 
+ 1772      616700
+ 1773              	.LASF68:
+ 1774 0631 70747232 		.ascii	"ptr2SnsRam\000"
+ 1774      536E7352 
+ 1774      616D00
+ 1775              	.LASF66:
+ 1776 063c 70747232 		.ascii	"ptr2SnsFlash\000"
+ 1776      536E7346 
+ 1776      6C617368 
+ 1776      00
+ 1777              	.LASF69:
+ 1778 0649 70747232 		.ascii	"ptr2FltrHistory\000"
+ 1778      466C7472 
+ 1778      48697374 
+ 1778      6F727900 
+ 1779              	.LASF77:
+ 1780 0659 77646774 		.ascii	"wdgtArray\000"
+ 1780      41727261 
+ 1780      7900
+ 1781              	.LASF37:
+ 1782 0663 66696E67 		.ascii	"fingerCap\000"
+ 1782      65724361 
+ 1782      7000
+ 1783              	.LASF13:
+ 1784 066d 646F7562 		.ascii	"double\000"
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccayhG5j.s 			page 41
+
+
+ 1784      6C6500
+ 1785              	.LASF61:
+ 1786 0674 736E7254 		.ascii	"snrTestWidgetId\000"
+ 1786      65737457 
+ 1786      69646765 
+ 1786      74496400 
+ 1787              	.LASF26:
+ 1788 0684 534D4152 		.ascii	"SMARTSENSE_CSD_NOISE_ENVELOPE_STRUCT\000"
+ 1788      5453454E 
+ 1788      53455F43 
+ 1788      53445F4E 
+ 1788      4F495345 
+ 1789              	.LASF92:
+ 1790 06a9 74756E65 		.ascii	"tunerStatus\000"
+ 1790      72537461 
+ 1790      74757300 
+ 1791              	.LASF56:
+ 1792 06b5 736E7353 		.ascii	"snsStatus\000"
+ 1792      74617475 
+ 1792      7300
+ 1793              	.LASF91:
+ 1794 06bf 636F6D6D 		.ascii	"command\000"
+ 1794      616E6400 
+ 1795              	.LASF44:
+ 1796 06c7 64696666 		.ascii	"diff\000"
+ 1796      00
+ 1797              	.LASF75:
+ 1798 06cc 70747232 		.ascii	"ptr2NoiseEnvlp\000"
+ 1798      4E6F6973 
+ 1798      65456E76 
+ 1798      6C7000
+ 1799              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

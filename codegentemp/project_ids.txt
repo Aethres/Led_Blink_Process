@@ -1,0 +1,6 @@
+C:\Users\turan\Desktop\Dev\Workspace01\Test\Led_Blink_Process.cydsn\Led_Blink_Process.cyprj|b5ba8350-ade8-4d3c-9cc5-9e812baefa22
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|f3e8fef4-9e31-4b5c-8d90-28822605ac33
+C:\Users\turan\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|52847e91-8074-4dae-83ed-4da6785debe4
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|85b531d9-32d2-43df-9118-002584b6b42e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|fa5a32cb-a61b-4831-8e0b-33dc54c21d7a
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|df58f324-1e08-455d-a336-9b70723036cc

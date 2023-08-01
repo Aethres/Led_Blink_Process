@@ -1,0 +1,3132 @@
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"cyCapsense_INT.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.cyCapsense_SsCSDPostScan,"ax",%progbits
+  20              		.align	2
+  21              		.code	16
+  22              		.thumb_func
+  23              		.type	cyCapsense_SsCSDPostScan, %function
+  24              	cyCapsense_SsCSDPostScan:
+  25              	.LFB3:
+  26              		.file 1 "Generated_Source\\PSoC4\\cyCapsense_INT.c"
+   1:Generated_Source\PSoC4/cyCapsense_INT.c **** /***************************************************************************//**
+   2:Generated_Source\PSoC4/cyCapsense_INT.c **** * \file cyCapsense_INT.c
+   3:Generated_Source\PSoC4/cyCapsense_INT.c **** * \version 6.0
+   4:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+   5:Generated_Source\PSoC4/cyCapsense_INT.c **** * \brief
+   6:Generated_Source\PSoC4/cyCapsense_INT.c **** *   This file contains the source code for implementation of the Component's
+   7:Generated_Source\PSoC4/cyCapsense_INT.c **** *   Interrupt Service Routine (ISR).
+   8:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+   9:Generated_Source\PSoC4/cyCapsense_INT.c **** * \see cyCapsense v6.0 Datasheet
+  10:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+  11:Generated_Source\PSoC4/cyCapsense_INT.c **** *//*****************************************************************************
+  12:Generated_Source\PSoC4/cyCapsense_INT.c **** * Copyright (2016-2018), Cypress Semiconductor Corporation.
+  13:Generated_Source\PSoC4/cyCapsense_INT.c **** ********************************************************************************
+  14:Generated_Source\PSoC4/cyCapsense_INT.c **** * This software is owned by Cypress Semiconductor Corporation (Cypress) and is
+  15:Generated_Source\PSoC4/cyCapsense_INT.c **** * protected by and subject to worldwide patent protection (United States and
+  16:Generated_Source\PSoC4/cyCapsense_INT.c **** * foreign), United States copyright laws and international treaty provisions.
+  17:Generated_Source\PSoC4/cyCapsense_INT.c **** * Cypress hereby grants to licensee a personal, non-exclusive, non-transferable
+  18:Generated_Source\PSoC4/cyCapsense_INT.c **** * license to copy, use, modify, create derivative works of, and compile the
+  19:Generated_Source\PSoC4/cyCapsense_INT.c **** * Cypress Source Code and derivative works for the sole purpose of creating
+  20:Generated_Source\PSoC4/cyCapsense_INT.c **** * custom software in support of licensee product to be used only in conjunction
+  21:Generated_Source\PSoC4/cyCapsense_INT.c **** * with a Cypress integrated circuit as specified in the applicable agreement.
+  22:Generated_Source\PSoC4/cyCapsense_INT.c **** * Any reproduction, modification, translation, compilation, or representation of
+  23:Generated_Source\PSoC4/cyCapsense_INT.c **** * this software except as specified above is prohibited without the express
+  24:Generated_Source\PSoC4/cyCapsense_INT.c **** * written permission of Cypress.
+  25:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+  26:Generated_Source\PSoC4/cyCapsense_INT.c **** * Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH
+  27:Generated_Source\PSoC4/cyCapsense_INT.c **** * REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  28:Generated_Source\PSoC4/cyCapsense_INT.c **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  29:Generated_Source\PSoC4/cyCapsense_INT.c **** * Cypress reserves the right to make changes without further notice to the
+  30:Generated_Source\PSoC4/cyCapsense_INT.c **** * materials described herein. Cypress does not assume any liability arising out
+  31:Generated_Source\PSoC4/cyCapsense_INT.c **** * of the application or use of any product or circuit described herein. Cypress
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 2
+
+
+  32:Generated_Source\PSoC4/cyCapsense_INT.c **** * does not authorize its products for use as critical components in life-support
+  33:Generated_Source\PSoC4/cyCapsense_INT.c **** * systems where a malfunction or failure may reasonably be expected to result in
+  34:Generated_Source\PSoC4/cyCapsense_INT.c **** * significant injury to the user. The inclusion of Cypress' product in a life-
+  35:Generated_Source\PSoC4/cyCapsense_INT.c **** * support systems application implies that the manufacturer assumes all risk of
+  36:Generated_Source\PSoC4/cyCapsense_INT.c **** * such use and in doing so indemnifies Cypress against all charges. Use may be
+  37:Generated_Source\PSoC4/cyCapsense_INT.c **** * limited by and subject to the applicable Cypress software license agreement.
+  38:Generated_Source\PSoC4/cyCapsense_INT.c **** *******************************************************************************/
+  39:Generated_Source\PSoC4/cyCapsense_INT.c **** #include "cytypes.h"
+  40:Generated_Source\PSoC4/cyCapsense_INT.c **** #include "cyfitter.h"
+  41:Generated_Source\PSoC4/cyCapsense_INT.c **** #include "cyCapsense_Configuration.h"
+  42:Generated_Source\PSoC4/cyCapsense_INT.c **** #include "cyCapsense_Structure.h"
+  43:Generated_Source\PSoC4/cyCapsense_INT.c **** #include "cyCapsense_Sensing.h"
+  44:Generated_Source\PSoC4/cyCapsense_INT.c **** #if (cyCapsense_ENABLE == cyCapsense_CSD_EN)
+  45:Generated_Source\PSoC4/cyCapsense_INT.c ****     #include "cyCapsense_SensingCSD_LL.h"
+  46:Generated_Source\PSoC4/cyCapsense_INT.c **** #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_EN) */
+  47:Generated_Source\PSoC4/cyCapsense_INT.c **** #include "cyapicallbacks.h"
+  48:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  49:Generated_Source\PSoC4/cyCapsense_INT.c **** /*******************************************************************************
+  50:Generated_Source\PSoC4/cyCapsense_INT.c **** * Static Function Prototypes
+  51:Generated_Source\PSoC4/cyCapsense_INT.c **** *******************************************************************************/
+  52:Generated_Source\PSoC4/cyCapsense_INT.c **** /**
+  53:Generated_Source\PSoC4/cyCapsense_INT.c **** * \cond SECTION_C_INTERNAL
+  54:Generated_Source\PSoC4/cyCapsense_INT.c **** * \addtogroup group_c_internal
+  55:Generated_Source\PSoC4/cyCapsense_INT.c **** * \{
+  56:Generated_Source\PSoC4/cyCapsense_INT.c **** */
+  57:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  58:Generated_Source\PSoC4/cyCapsense_INT.c **** #if (((cyCapsense_ENABLE == cyCapsense_CSD_EN) || (cyCapsense_ENABLE == cyCapsense_CSD_CSX_EN)) && 
+  59:Generated_Source\PSoC4/cyCapsense_INT.c ****      (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN))
+  60:Generated_Source\PSoC4/cyCapsense_INT.c ****     static void cyCapsense_SsNextFrequencyScan(void);
+  61:Generated_Source\PSoC4/cyCapsense_INT.c **** #endif /* (((cyCapsense_ENABLE == cyCapsense_CSD_EN) || (cyCapsense_ENABLE == cyCapsense_CSD_CSX_EN
+  62:Generated_Source\PSoC4/cyCapsense_INT.c ****             (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)) */
+  63:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  64:Generated_Source\PSoC4/cyCapsense_INT.c **** #if ((cyCapsense_ENABLE == cyCapsense_CSD_EN) || (cyCapsense_ENABLE == cyCapsense_CSD_CSX_EN))
+  65:Generated_Source\PSoC4/cyCapsense_INT.c ****     static void cyCapsense_SsCSDPostScan(void);
+  66:Generated_Source\PSoC4/cyCapsense_INT.c ****     static void cyCapsense_SsCSDInitNextScan(void);
+  67:Generated_Source\PSoC4/cyCapsense_INT.c **** #endif /* ((cyCapsense_ENABLE == cyCapsense_CSD_EN) || (cyCapsense_ENABLE == cyCapsense_CSD_CSX_EN)
+  68:Generated_Source\PSoC4/cyCapsense_INT.c **** /** \}
+  69:Generated_Source\PSoC4/cyCapsense_INT.c **** * \endcond */
+  70:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  71:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  72:Generated_Source\PSoC4/cyCapsense_INT.c **** /**
+  73:Generated_Source\PSoC4/cyCapsense_INT.c **** * \cond SECTION_C_INTERRUPT
+  74:Generated_Source\PSoC4/cyCapsense_INT.c **** * \addtogroup group_c_interrupt
+  75:Generated_Source\PSoC4/cyCapsense_INT.c **** * \{
+  76:Generated_Source\PSoC4/cyCapsense_INT.c **** */
+  77:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  78:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  79:Generated_Source\PSoC4/cyCapsense_INT.c **** #if ((cyCapsense_ENABLE == cyCapsense_CSD_EN) || (cyCapsense_ENABLE == cyCapsense_CSD_CSX_EN))
+  80:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  81:Generated_Source\PSoC4/cyCapsense_INT.c **** #if (cyCapsense_ENABLE == cyCapsense_CSDV2)
+  82:Generated_Source\PSoC4/cyCapsense_INT.c ****     /* Fourth-generation HW block part */
+  83:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+  84:Generated_Source\PSoC4/cyCapsense_INT.c ****     /*******************************************************************************
+  85:Generated_Source\PSoC4/cyCapsense_INT.c ****     * Function Name: cyCapsense_CSDPostSingleScan
+  86:Generated_Source\PSoC4/cyCapsense_INT.c ****     ****************************************************************************//**
+  87:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+  88:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \brief
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 3
+
+
+  89:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This is an internal ISR function for the single-sensor scanning implementation.
+  90:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+  91:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \details
+  92:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This ISR handler is triggered when the user calls the
+  93:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_CSDScanExt() function.
+  94:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+  95:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed for Third-generation HW block:
+  96:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Disable the CSD interrupt.
+  97:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+  98:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Connect the Vref buffer to the AMUX bus.
+  99:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Update the Scan Counter.
+ 100:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Reset the BUSY flag.
+ 101:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Enable the CSD interrupt.
+ 102:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 103:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed for Fourth-generation HW block:
+ 104:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Check if the raw data is not noisy.
+ 105:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+ 106:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Configure and start the scan for the next frequency if the
+ 107:Generated_Source\PSoC4/cyCapsense_INT.c ****     *      multi-frequency is enabled.
+ 108:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Update the Scan Counter.
+ 109:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Reset the BUSY flag.
+ 110:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Enable the CSD interrupt.
+ 111:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 112:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler changes the IMO and initializes scanning for the next frequency
+ 113:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  channels when multi-frequency scanning is enabled.
+ 114:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 115:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This function has two Macro Callbacks that allow calling the user code
+ 116:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  from macros specified in Component's generated code. Refer to the
+ 117:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  \ref group_c_macrocallbacks section of the PSoC Creator User Guide
+ 118:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  for details.
+ 119:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 120:Generated_Source\PSoC4/cyCapsense_INT.c ****     *******************************************************************************/
+ 121:Generated_Source\PSoC4/cyCapsense_INT.c ****     CY_ISR(cyCapsense_CSDPostSingleScan)
+ 122:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 123:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_ENTRY_CALLBACK
+ 124:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_EntryCallback();
+ 125:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_ENTRY_CALLBACK */
+ 126:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 127:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Clear pending interrupt */
+ 128:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_INTR_PTR, cyCapsense_INTR_SET_MASK);
+ 129:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 130:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN)
+ 131:Generated_Source\PSoC4/cyCapsense_INT.c ****             if ((cyCapsense_CSD_NOISE_METRIC_TH < ((CY_GET_REG32(cyCapsense_RESULT_VAL1_PTR) &
+ 132:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                         cyCapsense_RESULT_VAL1_BAD_CONVS_MASK) >>
+ 133:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                         cyCapsense_RESULT_VAL1_BAD_CONVS_SHIFT)) &&
+ 134:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                         (0u < cyCapsense_badConversionsNum))
+ 135:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 136:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Decrement bad conversions number */
+ 137:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_badConversionsNum--;
+ 138:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 139:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Start the re-scan */
+ 140:Generated_Source\PSoC4/cyCapsense_INT.c ****                 CY_SET_REG32(cyCapsense_SEQ_START_PTR, cyCapsense_SEQ_START_AZ0_SKIP_MASK |
+ 141:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                              cyCapsense_SEQ_START_AZ1_SKIP_MASK |
+ 142:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                              cyCapsense_SEQ_START_START_MASK);
+ 143:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 144:Generated_Source\PSoC4/cyCapsense_INT.c ****             else
+ 145:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 4
+
+
+ 146:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN) */
+ 147:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 148:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsCSDPostScan();
+ 149:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 150:Generated_Source\PSoC4/cyCapsense_INT.c ****             #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 151:Generated_Source\PSoC4/cyCapsense_INT.c ****                 if (cyCapsense_FREQ_CHANNEL_2 > cyCapsense_scanFreqIndex)
+ 152:Generated_Source\PSoC4/cyCapsense_INT.c ****                 {
+ 153:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Scan the next channel */
+ 154:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsNextFrequencyScan();
+ 155:Generated_Source\PSoC4/cyCapsense_INT.c ****                 }
+ 156:Generated_Source\PSoC4/cyCapsense_INT.c ****                 else
+ 157:Generated_Source\PSoC4/cyCapsense_INT.c ****                 {
+ 158:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* All channels are scanned. Set IMO to zero channel */
+ 159:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_scanFreqIndex = cyCapsense_FREQ_CHANNEL_0;
+ 160:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 161:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD)
+ 162:Generated_Source\PSoC4/cyCapsense_INT.c ****                         cyCapsense_SsChangeImoFreq(cyCapsense_FREQ_CHANNEL_0);
+ 163:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #else
+ 164:Generated_Source\PSoC4/cyCapsense_INT.c ****                         cyCapsense_SsChangeClkFreq(cyCapsense_FREQ_CHANNEL_0);
+ 165:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD) */
+ 166:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 167:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN)
+ 168:Generated_Source\PSoC4/cyCapsense_INT.c ****                         /* Disable Fourth-generation HW block */
+ 169:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd);
+ 170:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN) */
+ 171:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 172:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Update Scan Counter */
+ 173:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_dsRam.scanCounter++;
+ 174:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 175:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Sensor is totally scanned. Reset BUSY flag */
+ 176:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_dsRam.status &= ~(cyCapsense_SW_STS_BUSY | cyCapsense_WDGT_SW_STS_BU
+ 177:Generated_Source\PSoC4/cyCapsense_INT.c ****                 }
+ 178:Generated_Source\PSoC4/cyCapsense_INT.c ****             #else
+ 179:Generated_Source\PSoC4/cyCapsense_INT.c ****                 {
+ 180:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN)
+ 181:Generated_Source\PSoC4/cyCapsense_INT.c ****                         /* Disable Fourth-generation HW block */
+ 182:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd);
+ 183:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN) */
+ 184:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 185:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Update Scan Counter */
+ 186:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_dsRam.scanCounter++;
+ 187:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 188:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Sensor is totally scanned. Reset BUSY flag */
+ 189:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_dsRam.status &= ~(cyCapsense_SW_STS_BUSY | cyCapsense_WDGT_SW_STS_BU
+ 190:Generated_Source\PSoC4/cyCapsense_INT.c ****                 }
+ 191:Generated_Source\PSoC4/cyCapsense_INT.c ****             #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 192:Generated_Source\PSoC4/cyCapsense_INT.c ****     #if (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN)
+ 193:Generated_Source\PSoC4/cyCapsense_INT.c ****         }
+ 194:Generated_Source\PSoC4/cyCapsense_INT.c ****     #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN) */
+ 195:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 196:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_EXIT_CALLBACK
+ 197:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_ExitCallback();
+ 198:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_EXIT_CALLBACK */
+ 199:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 200:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 201:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 202:Generated_Source\PSoC4/cyCapsense_INT.c ****     /*******************************************************************************
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 5
+
+
+ 203:Generated_Source\PSoC4/cyCapsense_INT.c ****     * Function Name: cyCapsense_CSDPostMultiScan
+ 204:Generated_Source\PSoC4/cyCapsense_INT.c ****     ****************************************************************************//**
+ 205:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 206:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \brief
+ 207:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This is an internal ISR function for the multiple-sensor scanning
+ 208:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  implementation.
+ 209:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 210:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \details
+ 211:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This ISR handler is triggered when the user calls the
+ 212:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_Scan() or cyCapsense_ScanAllWidgets() APIs.
+ 213:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 214:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed:
+ 215:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Disable the CSD interrupt.
+ 216:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+ 217:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Connect the Vref buffer to the AMUX bus.
+ 218:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Disable the CSD block (after the widget has been scanned).
+ 219:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Update the Scan Counter.
+ 220:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Reset the BUSY flag.
+ 221:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    7. Enable the CSD interrupt.
+ 222:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 223:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the previous sensor when the
+ 224:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  widget has more than one sensor.
+ 225:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the next widget when the
+ 226:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_ScanAllWidgets() APIs are called and the project has
+ 227:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  more than one widget.
+ 228:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler changes the IMO and initializes scanning for the next
+ 229:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  frequency channels when multi-frequency scanning is enabled.
+ 230:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 231:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This function has two Macro Callbacks that allow calling the user
+ 232:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  code from macros specified in Component's generated code. Refer to the
+ 233:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  \ref group_c_macrocallbacks section of the PSoC Creator User Guide
+ 234:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  for details.
+ 235:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 236:Generated_Source\PSoC4/cyCapsense_INT.c ****     *******************************************************************************/
+ 237:Generated_Source\PSoC4/cyCapsense_INT.c ****     CY_ISR(cyCapsense_CSDPostMultiScan)
+ 238:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 239:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Declare and initialize ptr to sensor IO structure to appropriate address */
+ 240:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_FLASH_IO_STRUCT const *curSnsIOPtr = (cyCapsense_FLASH_IO_STRUCT const *)
+ 241:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                           cyCapsense_dsFlash.wdgtArray[cyCapsense_w
+ 242:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                           + cyCapsense_sensorIndex;
+ 243:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 244:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_ENTRY_CALLBACK
+ 245:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_EntryCallback();
+ 246:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_ENTRY_CALLBACK */
+ 247:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 248:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Clear pending interrupt */
+ 249:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_INTR_PTR, cyCapsense_INTR_SET_MASK);
+ 250:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 251:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN)
+ 252:Generated_Source\PSoC4/cyCapsense_INT.c ****             if ((cyCapsense_CSD_NOISE_METRIC_TH < ((CY_GET_REG32(cyCapsense_RESULT_VAL1_PTR) &
+ 253:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                       cyCapsense_RESULT_VAL1_BAD_CONVS_MASK) >>
+ 254:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                       cyCapsense_RESULT_VAL1_BAD_CONVS_SHIFT)) &&
+ 255:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                       (0u < cyCapsense_badConversionsNum))
+ 256:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 257:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Decrement bad conversions number */
+ 258:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_badConversionsNum--;
+ 259:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 6
+
+
+ 260:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Start the re-scan */
+ 261:Generated_Source\PSoC4/cyCapsense_INT.c ****                 CY_SET_REG32(cyCapsense_SEQ_START_PTR, cyCapsense_SEQ_START_AZ0_SKIP_MASK |
+ 262:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                              cyCapsense_SEQ_START_AZ1_SKIP_MASK |
+ 263:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                              cyCapsense_SEQ_START_START_MASK);
+ 264:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 265:Generated_Source\PSoC4/cyCapsense_INT.c ****             else
+ 266:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 267:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN) */
+ 268:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 269:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsCSDPostScan();
+ 270:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 271:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Disable sensor when all frequency channels are scanned */
+ 272:Generated_Source\PSoC4/cyCapsense_INT.c ****             #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 273:Generated_Source\PSoC4/cyCapsense_INT.c ****                 if (cyCapsense_FREQ_CHANNEL_2 == cyCapsense_scanFreqIndex)
+ 274:Generated_Source\PSoC4/cyCapsense_INT.c ****             #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 275:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 276:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Disable sensor */
+ 277:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_CSDDisconnectSns(curSnsIOPtr);
+ 278:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 279:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 280:Generated_Source\PSoC4/cyCapsense_INT.c ****             #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 281:Generated_Source\PSoC4/cyCapsense_INT.c ****                 if (cyCapsense_FREQ_CHANNEL_2 > cyCapsense_scanFreqIndex)
+ 282:Generated_Source\PSoC4/cyCapsense_INT.c ****                 {
+ 283:Generated_Source\PSoC4/cyCapsense_INT.c ****                      /* Scan the next channel */
+ 284:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsNextFrequencyScan();
+ 285:Generated_Source\PSoC4/cyCapsense_INT.c ****                 }
+ 286:Generated_Source\PSoC4/cyCapsense_INT.c ****                 else
+ 287:Generated_Source\PSoC4/cyCapsense_INT.c ****                 {
+ 288:Generated_Source\PSoC4/cyCapsense_INT.c ****                      /* All channels are scanned. Set IMO to zero channel */
+ 289:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_scanFreqIndex = cyCapsense_FREQ_CHANNEL_0;
+ 290:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 291:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD)
+ 292:Generated_Source\PSoC4/cyCapsense_INT.c ****                         cyCapsense_SsChangeImoFreq(cyCapsense_FREQ_CHANNEL_0);
+ 293:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #else
+ 294:Generated_Source\PSoC4/cyCapsense_INT.c ****                         cyCapsense_SsChangeClkFreq(cyCapsense_FREQ_CHANNEL_0);
+ 295:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD) */
+ 296:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 297:Generated_Source\PSoC4/cyCapsense_INT.c ****                      /* Scan the next sensor */
+ 298:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsCSDInitNextScan();
+ 299:Generated_Source\PSoC4/cyCapsense_INT.c ****                 }
+ 300:Generated_Source\PSoC4/cyCapsense_INT.c ****             #else
+ 301:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Scan the next sensor */
+ 302:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsCSDInitNextScan();
+ 303:Generated_Source\PSoC4/cyCapsense_INT.c ****             #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 304:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN)
+ 305:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 306:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN) */
+ 307:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 308:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_EXIT_CALLBACK
+ 309:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_ExitCallback();
+ 310:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_EXIT_CALLBACK */
+ 311:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 312:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 313:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 314:Generated_Source\PSoC4/cyCapsense_INT.c ****     #if (cyCapsense_ENABLE == cyCapsense_CSD_GANGED_SNS_EN)
+ 315:Generated_Source\PSoC4/cyCapsense_INT.c ****     /*******************************************************************************
+ 316:Generated_Source\PSoC4/cyCapsense_INT.c ****     * Function Name: cyCapsense_CSDPostMultiScanGanged
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 7
+
+
+ 317:Generated_Source\PSoC4/cyCapsense_INT.c ****     ****************************************************************************//**
+ 318:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 319:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \brief
+ 320:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This is an internal ISR function for the multiple-sensor scanning
+ 321:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  implementation for ganged sensors.
+ 322:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 323:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \details
+ 324:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This ISR handler is triggered when the user calls the
+ 325:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_Scan() API for a ganged sensor or the
+ 326:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_ScanAllWidgets() API in the project with ganged sensors.
+ 327:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 328:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed:
+ 329:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Disable the CSD interrupt.
+ 330:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+ 331:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Connect the Vref buffer to the AMUX bus.
+ 332:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Disable the CSD block (after the widget has been scanned).
+ 333:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Update the Scan Counter.
+ 334:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Reset the BUSY flag.
+ 335:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    7. Enable the CSD interrupt.
+ 336:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 337:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the previous sensor when the
+ 338:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  widget has more than one sensor.
+ 339:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the next widget when the
+ 340:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_ScanAllWidgets() APIs are called and the project has
+ 341:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  more than one widget.
+ 342:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler changes the IMO and initializes scanning for the next
+ 343:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  frequency channels when multi-frequency scanning is enabled.
+ 344:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 345:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This function has two Macro Callbacks that allow calling the user
+ 346:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  code from macros specified in Component's generated code. Refer to the
+ 347:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  \ref group_c_macrocallbacks section of the PSoC Creator User Guide
+ 348:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  for details.
+ 349:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 350:Generated_Source\PSoC4/cyCapsense_INT.c ****     *******************************************************************************/
+ 351:Generated_Source\PSoC4/cyCapsense_INT.c ****     CY_ISR(cyCapsense_CSDPostMultiScanGanged)
+ 352:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 353:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_ENTRY_CALLBACK
+ 354:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_EntryCallback();
+ 355:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_ENTRY_CALLBACK */
+ 356:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 357:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Clear pending interrupt */
+ 358:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_INTR_PTR, cyCapsense_INTR_SET_MASK);
+ 359:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 360:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN)
+ 361:Generated_Source\PSoC4/cyCapsense_INT.c ****             if ((cyCapsense_CSD_NOISE_METRIC_TH < ((CY_GET_REG32(cyCapsense_RESULT_VAL1_PTR) &
+ 362:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                       cyCapsense_RESULT_VAL1_BAD_CONVS_MASK) >>
+ 363:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                       cyCapsense_RESULT_VAL1_BAD_CONVS_SHIFT)) &&
+ 364:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                       (0u < cyCapsense_badConversionsNum))
+ 365:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 366:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Decrement bad conversions number */
+ 367:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_badConversionsNum--;
+ 368:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 369:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Start the re-scan */
+ 370:Generated_Source\PSoC4/cyCapsense_INT.c ****                 CY_SET_REG32(cyCapsense_SEQ_START_PTR, cyCapsense_SEQ_START_AZ0_SKIP_MASK |
+ 371:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                              cyCapsense_SEQ_START_AZ1_SKIP_MASK |
+ 372:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                              cyCapsense_SEQ_START_START_MASK);
+ 373:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 8
+
+
+ 374:Generated_Source\PSoC4/cyCapsense_INT.c ****             else
+ 375:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 376:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN) */
+ 377:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 378:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsCSDPostScan();
+ 379:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 380:Generated_Source\PSoC4/cyCapsense_INT.c ****             #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 381:Generated_Source\PSoC4/cyCapsense_INT.c ****                 if (cyCapsense_FREQ_CHANNEL_2 == cyCapsense_scanFreqIndex)
+ 382:Generated_Source\PSoC4/cyCapsense_INT.c ****             #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 383:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 384:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsCSDDisconnectSnsExt((uint32)cyCapsense_widgetIndex, (uint32)cyCapsense
+ 385:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 386:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 387:Generated_Source\PSoC4/cyCapsense_INT.c ****             #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 388:Generated_Source\PSoC4/cyCapsense_INT.c ****                 if (cyCapsense_FREQ_CHANNEL_2 > cyCapsense_scanFreqIndex)
+ 389:Generated_Source\PSoC4/cyCapsense_INT.c ****                 {
+ 390:Generated_Source\PSoC4/cyCapsense_INT.c ****                      /* Scan the next channel */
+ 391:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsNextFrequencyScan();
+ 392:Generated_Source\PSoC4/cyCapsense_INT.c ****                 }
+ 393:Generated_Source\PSoC4/cyCapsense_INT.c ****                 else
+ 394:Generated_Source\PSoC4/cyCapsense_INT.c ****                 {
+ 395:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* All channels are scanned. Set IMO to zero channel */
+ 396:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_scanFreqIndex = cyCapsense_FREQ_CHANNEL_0;
+ 397:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 398:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD)
+ 399:Generated_Source\PSoC4/cyCapsense_INT.c ****                         cyCapsense_SsChangeImoFreq(cyCapsense_FREQ_CHANNEL_0);
+ 400:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #else
+ 401:Generated_Source\PSoC4/cyCapsense_INT.c ****                         cyCapsense_SsChangeClkFreq(cyCapsense_FREQ_CHANNEL_0);
+ 402:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD) */
+ 403:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 404:Generated_Source\PSoC4/cyCapsense_INT.c ****                      /* Scan the next sensor */
+ 405:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsCSDInitNextScan();
+ 406:Generated_Source\PSoC4/cyCapsense_INT.c ****                 }
+ 407:Generated_Source\PSoC4/cyCapsense_INT.c ****             #else
+ 408:Generated_Source\PSoC4/cyCapsense_INT.c ****                  /* Scan the next sensor */
+ 409:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsCSDInitNextScan();
+ 410:Generated_Source\PSoC4/cyCapsense_INT.c ****             #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 411:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN)
+ 412:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 413:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN) */
+ 414:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 415:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_EXIT_CALLBACK
+ 416:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_ExitCallback();
+ 417:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_EXIT_CALLBACK */
+ 418:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 419:Generated_Source\PSoC4/cyCapsense_INT.c ****     #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_GANGED_SNS_EN) */
+ 420:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 421:Generated_Source\PSoC4/cyCapsense_INT.c **** #else
+ 422:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 423:Generated_Source\PSoC4/cyCapsense_INT.c ****     /* Third-generation HW block part */
+ 424:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 425:Generated_Source\PSoC4/cyCapsense_INT.c ****     /*******************************************************************************
+ 426:Generated_Source\PSoC4/cyCapsense_INT.c ****     * Function Name: cyCapsense_CSDPostSingleScan
+ 427:Generated_Source\PSoC4/cyCapsense_INT.c ****     ****************************************************************************//**
+ 428:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 429:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \brief
+ 430:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This is an internal ISR function for the single-sensor scanning implementation.
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 9
+
+
+ 431:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 432:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \details
+ 433:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This ISR handler is triggered when the user calls the
+ 434:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_CSDScanExt() function.
+ 435:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 436:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed for Third-generation HW block:
+ 437:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Disable the CSD interrupt.
+ 438:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+ 439:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Connect the Vref buffer to the AMUX bus.
+ 440:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Update the Scan Counter.
+ 441:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Reset the BUSY flag.
+ 442:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Enable the CSD interrupt.
+ 443:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 444:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed for Fourth-generation HW block:
+ 445:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Check if the raw data is not noisy.
+ 446:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+ 447:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Configure and start the scan for the next frequency if the
+ 448:Generated_Source\PSoC4/cyCapsense_INT.c ****     *      multi-frequency is enabled.
+ 449:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Update the Scan Counter.
+ 450:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Reset the BUSY flag.
+ 451:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Enable the CSD interrupt.
+ 452:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 453:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler changes the IMO and initializes scanning for the next frequency
+ 454:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  channels when multi-frequency scanning is enabled.
+ 455:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 456:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This function has two Macro Callbacks that allow calling the user code
+ 457:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  from macros specified in Component's generated code. Refer to the
+ 458:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  \ref group_c_macrocallbacks section of the PSoC Creator User Guide
+ 459:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  for details.
+ 460:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 461:Generated_Source\PSoC4/cyCapsense_INT.c ****     *******************************************************************************/
+ 462:Generated_Source\PSoC4/cyCapsense_INT.c ****     CY_ISR(cyCapsense_CSDPostSingleScan)
+ 463:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 464:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_ENTRY_CALLBACK
+ 465:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_EntryCallback();
+ 466:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_ENTRY_CALLBACK */
+ 467:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 468:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Clear pending interrupt */
+ 469:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_INTR_PTR, cyCapsense_INTR_SET_MASK);
+ 470:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 471:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Read Rawdata */
+ 472:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_SsCSDPostScan();
+ 473:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 474:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 475:Generated_Source\PSoC4/cyCapsense_INT.c ****             if (cyCapsense_FREQ_CHANNEL_2 > cyCapsense_scanFreqIndex)
+ 476:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 477:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Connect Vref Buffer to AMUX bus. Third-generation HW block is enabled */
+ 478:Generated_Source\PSoC4/cyCapsense_INT.c ****                 CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK_PRECHAR
+ 479:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 480:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsNextFrequencyScan();
+ 481:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 482:Generated_Source\PSoC4/cyCapsense_INT.c ****             else
+ 483:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 484:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_scanFreqIndex = cyCapsense_FREQ_CHANNEL_0;
+ 485:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 486:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #if (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD)
+ 487:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsChangeImoFreq(cyCapsense_FREQ_CHANNEL_0);
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 10
+
+
+ 488:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #else
+ 489:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsChangeClkFreq(cyCapsense_FREQ_CHANNEL_0);
+ 490:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD) */
+ 491:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 492:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #if (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN)
+ 493:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Disable Third-generation HW block. Connect Vref Buffer to AMUX bus */
+ 494:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if ((cyCapsense_CSH_PRECHARGE_IO_BUF == cyCapsense_CSD_CSH_PRECHARGE_SRC) &&\
+ 495:Generated_Source\PSoC4/cyCapsense_INT.c ****                          (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_TANK_EN))
+ 496:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CMOD_
+ 497:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #else
+ 498:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK
+ 499:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* ((cyCapsense_CSH_PRECHARGE_IO_BUF == cyCapsense_CSD_CSH_PRECHARGE_SRC
+ 500:Generated_Source\PSoC4/cyCapsense_INT.c ****                                (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_TANK_EN)) */
+ 501:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #else
+ 502:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Connect Vref Buffer to AMUX bus. Third-generation HW block is enabled */
+ 503:Generated_Source\PSoC4/cyCapsense_INT.c ****                     CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK_PRE
+ 504:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN) */
+ 505:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 506:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Update Scan Counter */
+ 507:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_dsRam.scanCounter++;
+ 508:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 509:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Sensor is totally scanned. Reset BUSY flag */
+ 510:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_dsRam.status &= ~(cyCapsense_SW_STS_BUSY | cyCapsense_WDGT_SW_STS_BUSY);
+ 511:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 512:Generated_Source\PSoC4/cyCapsense_INT.c ****         #else
+ 513:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 514:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #if (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN)
+ 515:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Disable Third-generation HW block. Connect Vref Buffer to AMUX bus */
+ 516:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if ((cyCapsense_CSH_PRECHARGE_IO_BUF == cyCapsense_CSD_CSH_PRECHARGE_SRC) &&\
+ 517:Generated_Source\PSoC4/cyCapsense_INT.c ****                          (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_TANK_EN))
+ 518:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CMOD_
+ 519:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #else
+ 520:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK
+ 521:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* ((cyCapsense_CSH_PRECHARGE_IO_BUF == cyCapsense_CSD_CSH_PRECHARGE_SRC
+ 522:Generated_Source\PSoC4/cyCapsense_INT.c ****                                (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_TANK_EN)) */
+ 523:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #else
+ 524:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Connect Vref Buffer to AMUX bus. Third-generation HW block is enabled */
+ 525:Generated_Source\PSoC4/cyCapsense_INT.c ****                     CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK_PRE
+ 526:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN) */
+ 527:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 528:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Update Scan Counter */
+ 529:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_dsRam.scanCounter++;
+ 530:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 531:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Sensor is totally scanned. Reset BUSY flag */
+ 532:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_dsRam.status &= ~(cyCapsense_SW_STS_BUSY | cyCapsense_WDGT_SW_STS_BUSY);
+ 533:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 534:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 535:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 536:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_EXIT_CALLBACK
+ 537:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_ExitCallback();
+ 538:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_EXIT_CALLBACK */
+ 539:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 540:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 541:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 542:Generated_Source\PSoC4/cyCapsense_INT.c ****     /*******************************************************************************
+ 543:Generated_Source\PSoC4/cyCapsense_INT.c ****     * Function Name: cyCapsense_CSDPostMultiScan
+ 544:Generated_Source\PSoC4/cyCapsense_INT.c ****     ****************************************************************************//**
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 11
+
+
+ 545:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 546:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \brief
+ 547:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This is an internal ISR function for the multiple-sensor scanning
+ 548:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  implementation.
+ 549:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 550:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \details
+ 551:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This ISR handler is triggered when the user calls the
+ 552:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_Scan() or cyCapsense_ScanAllWidgets() APIs.
+ 553:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 554:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed:
+ 555:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Disable the CSD interrupt.
+ 556:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+ 557:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Connect the Vref buffer to the AMUX bus.
+ 558:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Disable the CSD block (after the widget has been scanned).
+ 559:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Update the Scan Counter.
+ 560:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Reset the BUSY flag.
+ 561:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    7. Enable the CSD interrupt.
+ 562:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 563:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the previous sensor when the
+ 564:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  widget has more than one sensor.
+ 565:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the next widget when the
+ 566:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_ScanAllWidgets() APIs are called and the project has
+ 567:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  more than one widget.
+ 568:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler changes the IMO and initializes scanning for the next
+ 569:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  frequency channels when multi-frequency scanning is enabled.
+ 570:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 571:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This function has two Macro Callbacks that allow calling the user
+ 572:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  code from macros specified in Component's generated code. Refer to the
+ 573:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  \ref group_c_macrocallbacks section of the PSoC Creator User Guide
+ 574:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  for details.
+ 575:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 576:Generated_Source\PSoC4/cyCapsense_INT.c ****     *******************************************************************************/
+ 577:Generated_Source\PSoC4/cyCapsense_INT.c ****     CY_ISR(cyCapsense_CSDPostMultiScan)
+ 578:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 579:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Declare and initialize ptr to sensor IO structure to appropriate address        */
+ 580:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_FLASH_IO_STRUCT const *curSnsIOPtr = (cyCapsense_FLASH_IO_STRUCT const *)
+ 581:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                           cyCapsense_dsFlash.wdgtArray[cyCapsense_w
+ 582:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                           + cyCapsense_sensorIndex;
+ 583:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 584:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_ENTRY_CALLBACK
+ 585:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_EntryCallback();
+ 586:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_ENTRY_CALLBACK */
+ 587:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 588:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Clear pending interrupt */
+ 589:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_INTR_PTR, cyCapsense_INTR_SET_MASK);
+ 590:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 591:Generated_Source\PSoC4/cyCapsense_INT.c ****          /* Read Rawdata */
+ 592:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_SsCSDPostScan();
+ 593:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 594:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Connect Vref Buffer to AMUX bus */
+ 595:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK_PRECHARGE_CONFI
+ 596:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 597:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 598:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Disable sensor when all frequency channels are scanned */
+ 599:Generated_Source\PSoC4/cyCapsense_INT.c ****             if (cyCapsense_FREQ_CHANNEL_2 == cyCapsense_scanFreqIndex)
+ 600:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 601:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* Disable sensor */
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 12
+
+
+ 602:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_CSDDisconnectSns(curSnsIOPtr);
+ 603:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 604:Generated_Source\PSoC4/cyCapsense_INT.c ****         #else
+ 605:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Disable sensor */
+ 606:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_CSDDisconnectSns(curSnsIOPtr);
+ 607:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 608:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 609:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 610:Generated_Source\PSoC4/cyCapsense_INT.c ****             if (cyCapsense_FREQ_CHANNEL_2 > cyCapsense_scanFreqIndex)
+ 611:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 612:Generated_Source\PSoC4/cyCapsense_INT.c ****                  /* Scan the next channel */
+ 613:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsNextFrequencyScan();
+ 614:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 615:Generated_Source\PSoC4/cyCapsense_INT.c ****             else
+ 616:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 617:Generated_Source\PSoC4/cyCapsense_INT.c ****                  /* All channels are scanned. Set IMO to zero channel */
+ 618:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_scanFreqIndex = cyCapsense_FREQ_CHANNEL_0;
+ 619:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 620:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #if (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD)
+ 621:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsChangeImoFreq(cyCapsense_FREQ_CHANNEL_0);
+ 622:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #else
+ 623:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsChangeClkFreq(cyCapsense_FREQ_CHANNEL_0);
+ 624:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD) */
+ 625:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 626:Generated_Source\PSoC4/cyCapsense_INT.c ****                  /* Scan the next sensor */
+ 627:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsCSDInitNextScan();
+ 628:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 629:Generated_Source\PSoC4/cyCapsense_INT.c ****         #else
+ 630:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Scan the next sensor */
+ 631:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsCSDInitNextScan();
+ 632:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 633:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 634:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_EXIT_CALLBACK
+ 635:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_ExitCallback();
+ 636:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_EXIT_CALLBACK */
+ 637:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 638:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 639:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 640:Generated_Source\PSoC4/cyCapsense_INT.c ****     #if (cyCapsense_ENABLE == cyCapsense_CSD_GANGED_SNS_EN)
+ 641:Generated_Source\PSoC4/cyCapsense_INT.c ****     /*******************************************************************************
+ 642:Generated_Source\PSoC4/cyCapsense_INT.c ****     * Function Name: cyCapsense_CSDPostMultiScanGanged
+ 643:Generated_Source\PSoC4/cyCapsense_INT.c ****     ****************************************************************************//**
+ 644:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 645:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \brief
+ 646:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This is an internal ISR function for the multiple-sensor scanning
+ 647:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  implementation for ganged sensors.
+ 648:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 649:Generated_Source\PSoC4/cyCapsense_INT.c ****     * \details
+ 650:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This ISR handler is triggered when the user calls the
+ 651:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_Scan() API for a ganged sensor or the
+ 652:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_ScanAllWidgets() API in the project with ganged sensors.
+ 653:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 654:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The following tasks are performed:
+ 655:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    1. Disable the CSD interrupt.
+ 656:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    2. Read the Counter register and update the data structure with raw data.
+ 657:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    3. Connect the Vref buffer to the AMUX bus.
+ 658:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    4. Disable the CSD block (after the widget has been scanned).
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 13
+
+
+ 659:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    5. Update the Scan Counter.
+ 660:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    6. Reset the BUSY flag.
+ 661:Generated_Source\PSoC4/cyCapsense_INT.c ****     *    7. Enable the CSD interrupt.
+ 662:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 663:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the previous sensor when the
+ 664:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  widget has more than one sensor.
+ 665:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler initializes scanning for the next widget when the
+ 666:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  cyCapsense_ScanAllWidgets() APIs are called and the project has
+ 667:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  more than one widget.
+ 668:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  The ISR handler changes the IMO and initializes scanning for the next
+ 669:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  frequency channels when multi-frequency scanning is enabled.
+ 670:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 671:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  This function has two Macro Callbacks that allow calling the user
+ 672:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  code from macros specified in Component's generated code. Refer to the
+ 673:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  \ref group_c_macrocallbacks section of the PSoC Creator User Guide
+ 674:Generated_Source\PSoC4/cyCapsense_INT.c ****     *  for details.
+ 675:Generated_Source\PSoC4/cyCapsense_INT.c ****     *
+ 676:Generated_Source\PSoC4/cyCapsense_INT.c ****     *******************************************************************************/
+ 677:Generated_Source\PSoC4/cyCapsense_INT.c ****     CY_ISR(cyCapsense_CSDPostMultiScanGanged)
+ 678:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 679:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_ENTRY_CALLBACK
+ 680:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_EntryCallback();
+ 681:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_ENTRY_CALLBACK */
+ 682:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 683:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Clear pending interrupt */
+ 684:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_INTR_PTR, cyCapsense_INTR_SET_MASK);
+ 685:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 686:Generated_Source\PSoC4/cyCapsense_INT.c ****          /* Read Rawdata */
+ 687:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_SsCSDPostScan();
+ 688:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 689:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Connect Vref Buffer to AMUX bus */
+ 690:Generated_Source\PSoC4/cyCapsense_INT.c ****         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK_PRECHARGE_CONFI
+ 691:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 692:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 693:Generated_Source\PSoC4/cyCapsense_INT.c ****             if (cyCapsense_FREQ_CHANNEL_2 == cyCapsense_scanFreqIndex)
+ 694:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 695:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsCSDDisconnectSnsExt((uint32)cyCapsense_widgetIndex, (uint32)cyCapsense
+ 696:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 697:Generated_Source\PSoC4/cyCapsense_INT.c ****         #else
+ 698:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsCSDDisconnectSnsExt((uint32)cyCapsense_widgetIndex, (uint32)cyCapsense_sen
+ 699:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 700:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 701:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN)
+ 702:Generated_Source\PSoC4/cyCapsense_INT.c ****             if (cyCapsense_FREQ_CHANNEL_2 > cyCapsense_scanFreqIndex)
+ 703:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 704:Generated_Source\PSoC4/cyCapsense_INT.c ****                  /* Scan the next channel */
+ 705:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsNextFrequencyScan();
+ 706:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 707:Generated_Source\PSoC4/cyCapsense_INT.c ****             else
+ 708:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 709:Generated_Source\PSoC4/cyCapsense_INT.c ****                 /* All channels are scanned. Set IMO to zero channel */
+ 710:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_scanFreqIndex = cyCapsense_FREQ_CHANNEL_0;
+ 711:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 712:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #if (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD)
+ 713:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsChangeImoFreq(cyCapsense_FREQ_CHANNEL_0);
+ 714:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #else
+ 715:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsChangeClkFreq(cyCapsense_FREQ_CHANNEL_0);
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 14
+
+
+ 716:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_MFS_IMO == cyCapsense_MFS_METHOD) */
+ 717:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 718:Generated_Source\PSoC4/cyCapsense_INT.c ****                  /* Scan the next sensor */
+ 719:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsCSDInitNextScan();
+ 720:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 721:Generated_Source\PSoC4/cyCapsense_INT.c ****         #else
+ 722:Generated_Source\PSoC4/cyCapsense_INT.c ****              /* Scan the next sensor */
+ 723:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsCSDInitNextScan();
+ 724:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 725:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 726:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_EXIT_CALLBACK
+ 727:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_ExitCallback();
+ 728:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* cyCapsense_EXIT_CALLBACK */
+ 729:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 730:Generated_Source\PSoC4/cyCapsense_INT.c ****     #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_GANGED_SNS_EN) */
+ 731:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 732:Generated_Source\PSoC4/cyCapsense_INT.c **** #endif /* (cyCapsense_ENABLE == cyCapsense_CSDV2) */
+ 733:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 734:Generated_Source\PSoC4/cyCapsense_INT.c **** #endif /* ((cyCapsense_ENABLE == cyCapsense_CSD_EN) || (cyCapsense_ENABLE == cyCapsense_CSD_CSX_EN)
+ 735:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 736:Generated_Source\PSoC4/cyCapsense_INT.c **** /** \}
+ 737:Generated_Source\PSoC4/cyCapsense_INT.c ****  * \endcond */
+ 738:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 739:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 740:Generated_Source\PSoC4/cyCapsense_INT.c **** #if ((cyCapsense_ENABLE == cyCapsense_CSD_EN) || (cyCapsense_ENABLE == cyCapsense_CSD_CSX_EN))
+ 741:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 742:Generated_Source\PSoC4/cyCapsense_INT.c **** /*******************************************************************************
+ 743:Generated_Source\PSoC4/cyCapsense_INT.c **** * Function Name: cyCapsense_SsCSDPostScan
+ 744:Generated_Source\PSoC4/cyCapsense_INT.c **** ****************************************************************************//**
+ 745:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+ 746:Generated_Source\PSoC4/cyCapsense_INT.c **** * \brief
+ 747:Generated_Source\PSoC4/cyCapsense_INT.c **** *   This function reads rawdata and releases required HW resources after scan.
+ 748:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+ 749:Generated_Source\PSoC4/cyCapsense_INT.c **** * \details
+ 750:Generated_Source\PSoC4/cyCapsense_INT.c **** *   This function performs following tasks after scan:
+ 751:Generated_Source\PSoC4/cyCapsense_INT.c **** *   - Reads SlotResult from Raw Counter;
+ 752:Generated_Source\PSoC4/cyCapsense_INT.c **** *   - Inits bad Conversions number;
+ 753:Generated_Source\PSoC4/cyCapsense_INT.c **** *   - Disconnects Vrefhi from AMUBUF positive input;
+ 754:Generated_Source\PSoC4/cyCapsense_INT.c **** *   - Disconnects AMUBUF output from CSDBUSB with sych PHI2+HSCMP;
+ 755:Generated_Source\PSoC4/cyCapsense_INT.c **** *   - Opens HCBV and HCBG switches.
+ 756:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+ 757:Generated_Source\PSoC4/cyCapsense_INT.c **** *******************************************************************************/
+ 758:Generated_Source\PSoC4/cyCapsense_INT.c **** static void cyCapsense_SsCSDPostScan(void)
+ 759:Generated_Source\PSoC4/cyCapsense_INT.c **** {
+  27              		.loc 1 759 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+ 760:Generated_Source\PSoC4/cyCapsense_INT.c ****     #if (cyCapsense_ENABLE == cyCapsense_CSDV2)
+ 761:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 762:Generated_Source\PSoC4/cyCapsense_INT.c ****         uint32 tmpRawData;
+ 763:Generated_Source\PSoC4/cyCapsense_INT.c ****         uint32 tmpMaxCount;
+ 764:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_RAM_WD_BASE_STRUCT const *ptrWdgt = (cyCapsense_RAM_WD_BASE_STRUCT *)
+ 765:Generated_Source\PSoC4/cyCapsense_INT.c ****                                             cyCapsense_dsFlash.wdgtArray[cyCapsense_widgetIndex].pt
+ 766:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 767:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Read SlotResult from Raw Counter */
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 15
+
+
+ 768:Generated_Source\PSoC4/cyCapsense_INT.c ****         tmpRawData = cyCapsense_RESULT_VAL1_VALUE_MASK & CY_GET_REG32(cyCapsense_COUNTER_PTR);
+ 769:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 770:Generated_Source\PSoC4/cyCapsense_INT.c ****         tmpMaxCount = ((1uL << ptrWdgt->resolution) - 1uL);
+ 771:Generated_Source\PSoC4/cyCapsense_INT.c ****         if(tmpRawData < tmpMaxCount)
+ 772:Generated_Source\PSoC4/cyCapsense_INT.c ****         {
+ 773:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_curRamSnsPtr->raw[cyCapsense_scanFreqIndex] = LO16(tmpRawData);
+ 774:Generated_Source\PSoC4/cyCapsense_INT.c ****         }
+ 775:Generated_Source\PSoC4/cyCapsense_INT.c ****         else
+ 776:Generated_Source\PSoC4/cyCapsense_INT.c ****         {
+ 777:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_curRamSnsPtr->raw[cyCapsense_scanFreqIndex] = LO16(tmpMaxCount);
+ 778:Generated_Source\PSoC4/cyCapsense_INT.c ****         }
+ 779:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 780:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN)
+ 781:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Init bad Conversions number */
+ 782:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_badConversionsNum = cyCapsense_BAD_CONVERSIONS_NUM;
+ 783:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_NOISE_METRIC_EN) */
+ 784:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 785:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_EN)
+ 786:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Open HCBV and HCBG switches */
+ 787:Generated_Source\PSoC4/cyCapsense_INT.c ****             CY_SET_REG32(cyCapsense_SW_SHIELD_SEL_PTR, cyCapsense_SW_SHIELD_SEL_SW_HCBV_STATIC_OPEN
+ 788:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                              cyCapsense_SW_SHIELD_SEL_SW_HCBG_STATI
+ 789:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_EN) */
+ 790:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 791:Generated_Source\PSoC4/cyCapsense_INT.c ****     #else
+ 792:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 793:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Read SlotResult from Raw Counter */
+ 794:Generated_Source\PSoC4/cyCapsense_INT.c ****        cyCapsense_curRamSnsPtr->raw[cyCapsense_scanFreqIndex] = (uint16)CY_GET_REG32(cyCapsense_COU
+  32              		.loc 1 794 0
+  33 0000 044B     		ldr	r3, .L2
+  34 0002 1A68     		ldr	r2, [r3]
+  35 0004 044B     		ldr	r3, .L2+4
+  36 0006 1B78     		ldrb	r3, [r3]
+  37 0008 0449     		ldr	r1, .L2+8
+  38 000a 0968     		ldr	r1, [r1]
+  39 000c 5B00     		lsls	r3, r3, #1
+  40 000e D152     		strh	r1, [r2, r3]
+ 795:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 796:Generated_Source\PSoC4/cyCapsense_INT.c ****     #endif /* (cyCapsense_ENABLE == cyCapsense_CSDV2) */
+ 797:Generated_Source\PSoC4/cyCapsense_INT.c **** }
+  41              		.loc 1 797 0
+  42              		@ sp needed
+  43 0010 7047     		bx	lr
+  44              	.L3:
+  45 0012 C046     		.align	2
+  46              	.L2:
+  47 0014 00000000 		.word	cyCapsense_curRamSnsPtr
+  48 0018 00000000 		.word	cyCapsense_scanFreqIndex
+  49 001c 0C002840 		.word	1076363276
+  50              		.cfi_endproc
+  51              	.LFE3:
+  52              		.size	cyCapsense_SsCSDPostScan, .-cyCapsense_SsCSDPostScan
+  53              		.section	.text.cyCapsense_SsCSDInitNextScan,"ax",%progbits
+  54              		.align	2
+  55              		.code	16
+  56              		.thumb_func
+  57              		.type	cyCapsense_SsCSDInitNextScan, %function
+  58              	cyCapsense_SsCSDInitNextScan:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 16
+
+
+  59              	.LFB4:
+ 798:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 799:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 800:Generated_Source\PSoC4/cyCapsense_INT.c **** /*******************************************************************************
+ 801:Generated_Source\PSoC4/cyCapsense_INT.c **** * Function Name: cyCapsense_SsCSDInitNextScan
+ 802:Generated_Source\PSoC4/cyCapsense_INT.c **** ****************************************************************************//**
+ 803:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+ 804:Generated_Source\PSoC4/cyCapsense_INT.c **** * \brief
+ 805:Generated_Source\PSoC4/cyCapsense_INT.c **** *   This function initializes the next sensor scan.
+ 806:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+ 807:Generated_Source\PSoC4/cyCapsense_INT.c **** * \details
+ 808:Generated_Source\PSoC4/cyCapsense_INT.c **** *   The function increments the sensor index, updates sense clock for matrix
+ 809:Generated_Source\PSoC4/cyCapsense_INT.c **** *   or touchpad widgets only, sets up Compensation IDAC, enables the sensor and
+ 810:Generated_Source\PSoC4/cyCapsense_INT.c **** *   scans it. When all the sensors are scanned it continues to set up the next widget
+ 811:Generated_Source\PSoC4/cyCapsense_INT.c **** *   until all the widgets are scanned. The CSD block is disabled when all the widgets are
+ 812:Generated_Source\PSoC4/cyCapsense_INT.c **** *   scanned.
+ 813:Generated_Source\PSoC4/cyCapsense_INT.c **** *
+ 814:Generated_Source\PSoC4/cyCapsense_INT.c **** *******************************************************************************/
+ 815:Generated_Source\PSoC4/cyCapsense_INT.c **** static void cyCapsense_SsCSDInitNextScan(void)
+ 816:Generated_Source\PSoC4/cyCapsense_INT.c **** {
+  60              		.loc 1 816 0
+  61              		.cfi_startproc
+  62              		@ args = 0, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64 0000 10B5     		push	{r4, lr}
+  65              		.cfi_def_cfa_offset 8
+  66              		.cfi_offset 4, -8
+  67              		.cfi_offset 14, -4
+ 817:Generated_Source\PSoC4/cyCapsense_INT.c ****     /* Declare and initialize ptr to widget and sensor structures to appropriate address */
+ 818:Generated_Source\PSoC4/cyCapsense_INT.c ****     #if (((cyCapsense_ENABLE == cyCapsense_CSD_IDAC_COMP_EN) || \
+ 819:Generated_Source\PSoC4/cyCapsense_INT.c ****           (cyCapsense_CSD_MATRIX_WIDGET_EN || cyCapsense_CSD_TOUCHPAD_WIDGET_EN)) || \
+ 820:Generated_Source\PSoC4/cyCapsense_INT.c ****           (((cyCapsense_DISABLE == cyCapsense_CSD_COMMON_SNS_CLK_EN) && \
+ 821:Generated_Source\PSoC4/cyCapsense_INT.c ****           (cyCapsense_ENABLE == cyCapsense_CSDV2) && \
+ 822:Generated_Source\PSoC4/cyCapsense_INT.c ****           (cyCapsense_CSD_MATRIX_WIDGET_EN || cyCapsense_CSD_TOUCHPAD_WIDGET_EN))))
+ 823:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_RAM_WD_BASE_STRUCT *ptrWdgt = (cyCapsense_RAM_WD_BASE_STRUCT *)
+ 824:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                         cyCapsense_dsFlash.wdgtArray[cyCapsense_wid
+ 825:Generated_Source\PSoC4/cyCapsense_INT.c ****     #endif
+ 826:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 827:Generated_Source\PSoC4/cyCapsense_INT.c ****     /* Check if all the sensors are scanned in widget */
+ 828:Generated_Source\PSoC4/cyCapsense_INT.c ****     if (((uint8)cyCapsense_dsFlash.wdgtArray[(cyCapsense_widgetIndex)].totalNumSns - 1u) > cyCapsen
+  68              		.loc 1 828 0
+  69 0002 204B     		ldr	r3, .L8
+  70 0004 1B78     		ldrb	r3, [r3]
+  71 0006 5B01     		lsls	r3, r3, #5
+  72 0008 1F4A     		ldr	r2, .L8+4
+  73 000a D318     		adds	r3, r2, r3
+  74 000c 1A7E     		ldrb	r2, [r3, #24]
+  75 000e 013A     		subs	r2, r2, #1
+  76 0010 1E4B     		ldr	r3, .L8+8
+  77 0012 1B78     		ldrb	r3, [r3]
+  78 0014 DBB2     		uxtb	r3, r3
+  79 0016 9A42     		cmp	r2, r3
+  80 0018 1BD9     		bls	.L5
+ 829:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 830:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Increment sensor index to configure next sensor in widget */
+ 831:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_sensorIndex++;
+  81              		.loc 1 831 0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 17
+
+
+  82 001a 1C4A     		ldr	r2, .L8+8
+  83 001c 1378     		ldrb	r3, [r2]
+  84 001e 0133     		adds	r3, r3, #1
+  85 0020 DBB2     		uxtb	r3, r3
+  86 0022 1370     		strb	r3, [r2]
+ 832:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 833:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Update global pointer to cyCapsense_RAM_SNS_STRUCT to current sensor  */
+ 834:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_curRamSnsPtr = (cyCapsense_RAM_SNS_STRUCT *)
+  87              		.loc 1 834 0
+  88 0024 1748     		ldr	r0, .L8
+  89 0026 0378     		ldrb	r3, [r0]
+ 835:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                   cyCapsense_dsFlash.wdgtArray[cyCapsense_widgetInd
+  90              		.loc 1 835 0
+  91 0028 5B01     		lsls	r3, r3, #5
+  92 002a 1749     		ldr	r1, .L8+4
+  93 002c CB18     		adds	r3, r1, r3
+  94 002e 9C68     		ldr	r4, [r3, #8]
+ 836:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                   + cyCapsense_sensorIndex;
+  95              		.loc 1 836 0
+  96 0030 1378     		ldrb	r3, [r2]
+  97 0032 DBB2     		uxtb	r3, r3
+  98 0034 9900     		lsls	r1, r3, #2
+  99 0036 CB18     		adds	r3, r1, r3
+ 100 0038 5900     		lsls	r1, r3, #1
+ 101 003a 6118     		adds	r1, r4, r1
+ 834:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                   cyCapsense_dsFlash.wdgtArray[cyCapsense_widgetInd
+ 102              		.loc 1 834 0
+ 103 003c 144B     		ldr	r3, .L8+12
+ 104 003e 1960     		str	r1, [r3]
+ 837:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 838:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Configure clock divider to row or column */
+ 839:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if ((cyCapsense_DISABLE == cyCapsense_CSD_COMMON_SNS_CLK_EN) && \
+ 840:Generated_Source\PSoC4/cyCapsense_INT.c ****              (cyCapsense_CSD_MATRIX_WIDGET_EN || cyCapsense_CSD_TOUCHPAD_WIDGET_EN))
+ 841:Generated_Source\PSoC4/cyCapsense_INT.c ****             if ((cyCapsense_WD_TOUCHPAD_E == (cyCapsense_WD_TYPE_ENUM)cyCapsense_dsFlash.wdgtArray[
+ 842:Generated_Source\PSoC4/cyCapsense_INT.c ****                 (cyCapsense_WD_MATRIX_BUTTON_E == (cyCapsense_WD_TYPE_ENUM)cyCapsense_dsFlash.wdgtA
+ 843:Generated_Source\PSoC4/cyCapsense_INT.c ****             {
+ 844:Generated_Source\PSoC4/cyCapsense_INT.c ****                 cyCapsense_SsCSDConfigClock();
+ 845:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 846:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #if (cyCapsense_ENABLE == cyCapsense_CSDV2)
+ 847:Generated_Source\PSoC4/cyCapsense_INT.c ****                      /* Set up scanning resolution */
+ 848:Generated_Source\PSoC4/cyCapsense_INT.c ****                     cyCapsense_SsCSDCalculateScanDuration(ptrWdgt);
+ 849:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_ENABLE == cyCapsense_CSDV2) */
+ 850:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 851:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* ((cyCapsense_DISABLE == cyCapsense_CSD_COMMON_SNS_CLK_EN) && \
+ 852:Generated_Source\PSoC4/cyCapsense_INT.c ****                    (cyCapsense_CSD_MATRIX_WIDGET_EN || cyCapsense_CSD_TOUCHPAD_WIDGET_EN))) */
+ 853:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 854:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Setup Compensation IDAC for next sensor in widget */
+ 855:Generated_Source\PSoC4/cyCapsense_INT.c ****         #if ((cyCapsense_ENABLE == cyCapsense_CSD_IDAC_COMP_EN) || \
+ 856:Generated_Source\PSoC4/cyCapsense_INT.c ****              (cyCapsense_CSD_MATRIX_WIDGET_EN || cyCapsense_CSD_TOUCHPAD_WIDGET_EN))
+ 857:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsCSDSetUpIdacs(ptrWdgt);
+ 858:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* ((cyCapsense_ENABLE == cyCapsense_CSD_IDAC_COMP_EN) || \
+ 859:Generated_Source\PSoC4/cyCapsense_INT.c ****                    (cyCapsense_CSD_MATRIX_WIDGET_EN || cyCapsense_CSD_TOUCHPAD_WIDGET_EN)) */
+ 860:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 861:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Enable sensor */
+ 862:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_SsCSDConnectSensorExt((uint32)cyCapsense_widgetIndex, (uint32)cyCapsense_sensorI
+ 105              		.loc 1 862 0
+ 106 0040 0078     		ldrb	r0, [r0]
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 18
+
+
+ 107 0042 C0B2     		uxtb	r0, r0
+ 108 0044 1178     		ldrb	r1, [r2]
+ 109 0046 C9B2     		uxtb	r1, r1
+ 110 0048 FFF7FEFF 		bl	cyCapsense_SsCSDConnectSensorExt
+ 111              	.LVL0:
+ 863:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 864:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Proceed scanning */
+ 865:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_SsCSDStartSample();
+ 112              		.loc 1 865 0
+ 113 004c FFF7FEFF 		bl	cyCapsense_SsCSDStartSample
+ 114              	.LVL1:
+ 115 0050 16E0     		b	.L4
+ 116              	.L5:
+ 866:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 867:Generated_Source\PSoC4/cyCapsense_INT.c ****     /* Call scan next widget API if requested, if not, complete the scan  */
+ 868:Generated_Source\PSoC4/cyCapsense_INT.c ****     else
+ 869:Generated_Source\PSoC4/cyCapsense_INT.c ****     {
+ 870:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_sensorIndex = 0u;
+ 117              		.loc 1 870 0
+ 118 0052 0022     		movs	r2, #0
+ 119 0054 0D4B     		ldr	r3, .L8+8
+ 120 0056 1A70     		strb	r2, [r3]
+ 871:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 872:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Current widget is totally scanned. Reset WIDGET BUSY flag */
+ 873:Generated_Source\PSoC4/cyCapsense_INT.c ****         cyCapsense_dsRam.status &= ~cyCapsense_WDGT_SW_STS_BUSY;
+ 121              		.loc 1 873 0
+ 122 0058 0E4A     		ldr	r2, .L8+16
+ 123 005a D168     		ldr	r1, [r2, #12]
+ 124 005c 0E4B     		ldr	r3, .L8+20
+ 125 005e 0B40     		ands	r3, r1
+ 126 0060 D360     		str	r3, [r2, #12]
+ 874:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 875:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Check if all the widgets have been scanned */
+ 876:Generated_Source\PSoC4/cyCapsense_INT.c ****         if (cyCapsense_ENABLE == cyCapsense_requestScanAllWidget)
+ 127              		.loc 1 876 0
+ 128 0062 0E4B     		ldr	r3, .L8+24
+ 129 0064 1B78     		ldrb	r3, [r3]
+ 130 0066 012B     		cmp	r3, #1
+ 131 0068 02D1     		bne	.L7
+ 877:Generated_Source\PSoC4/cyCapsense_INT.c ****         {
+ 878:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Configure and begin scanning next widget */
+ 879:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_SsPostAllWidgetsScan();
+ 132              		.loc 1 879 0
+ 133 006a FFF7FEFF 		bl	cyCapsense_SsPostAllWidgetsScan
+ 134              	.LVL2:
+ 135 006e 07E0     		b	.L4
+ 136              	.L7:
+ 880:Generated_Source\PSoC4/cyCapsense_INT.c ****         }
+ 881:Generated_Source\PSoC4/cyCapsense_INT.c ****         else
+ 882:Generated_Source\PSoC4/cyCapsense_INT.c ****         {
+ 883:Generated_Source\PSoC4/cyCapsense_INT.c ****             #if (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN)
+ 884:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #if (cyCapsense_ENABLE == cyCapsense_CSDV2)
+ 885:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Disable the CSD block */
+ 886:Generated_Source\PSoC4/cyCapsense_INT.c ****                     CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd);
+ 887:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #else
+ 888:Generated_Source\PSoC4/cyCapsense_INT.c ****                     /* Disable the CSD block. Connect Vref Buffer to AMUX bus */
+ 889:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #if ((cyCapsense_CSH_PRECHARGE_IO_BUF == cyCapsense_CSD_CSH_PRECHARGE_SRC) &&\
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 19
+
+
+ 890:Generated_Source\PSoC4/cyCapsense_INT.c ****                          (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_TANK_EN))
+ 891:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CMOD_
+ 892:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #else
+ 893:Generated_Source\PSoC4/cyCapsense_INT.c ****                         CY_SET_REG32(cyCapsense_CONFIG_PTR, cyCapsense_configCsd | cyCapsense_CTANK
+ 894:Generated_Source\PSoC4/cyCapsense_INT.c ****                     #endif /* ((cyCapsense_CSH_PRECHARGE_IO_BUF == cyCapsense_CSD_CSH_PRECHARGE_SRC
+ 895:Generated_Source\PSoC4/cyCapsense_INT.c ****                                (cyCapsense_ENABLE == cyCapsense_CSD_SHIELD_TANK_EN)) */
+ 896:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_ENABLE == cyCapsense_CSDV2) */
+ 897:Generated_Source\PSoC4/cyCapsense_INT.c ****             #endif /* (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN) */
+ 898:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 899:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* All widgets are totally scanned. Reset BUSY flag */
+ 900:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_dsRam.status &= ~cyCapsense_SW_STS_BUSY;
+ 137              		.loc 1 900 0
+ 138 0070 084B     		ldr	r3, .L8+16
+ 139 0072 DA68     		ldr	r2, [r3, #12]
+ 140 0074 8021     		movs	r1, #128
+ 141 0076 8A43     		bics	r2, r1
+ 142 0078 DA60     		str	r2, [r3, #12]
+ 901:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 902:Generated_Source\PSoC4/cyCapsense_INT.c ****             /* Update scan Counter */
+ 903:Generated_Source\PSoC4/cyCapsense_INT.c ****             cyCapsense_dsRam.scanCounter++;
+ 143              		.loc 1 903 0
+ 144 007a 1A89     		ldrh	r2, [r3, #8]
+ 145 007c 0132     		adds	r2, r2, #1
+ 146 007e 1A81     		strh	r2, [r3, #8]
+ 147              	.L4:
+ 904:Generated_Source\PSoC4/cyCapsense_INT.c ****         }
+ 905:Generated_Source\PSoC4/cyCapsense_INT.c ****     }
+ 906:Generated_Source\PSoC4/cyCapsense_INT.c **** }
+ 148              		.loc 1 906 0
+ 149              		@ sp needed
+ 150 0080 10BD     		pop	{r4, pc}
+ 151              	.L9:
+ 152 0082 C046     		.align	2
+ 153              	.L8:
+ 154 0084 00000000 		.word	cyCapsense_widgetIndex
+ 155 0088 00000000 		.word	cyCapsense_dsFlash
+ 156 008c 00000000 		.word	cyCapsense_sensorIndex
+ 157 0090 00000000 		.word	cyCapsense_curRamSnsPtr
+ 158 0094 00000000 		.word	cyCapsense_dsRam
+ 159 0098 FFFFFEFF 		.word	-65537
+ 160 009c 00000000 		.word	cyCapsense_requestScanAllWidget
+ 161              		.cfi_endproc
+ 162              	.LFE4:
+ 163              		.size	cyCapsense_SsCSDInitNextScan, .-cyCapsense_SsCSDInitNextScan
+ 164              		.section	.text.cyCapsense_CSDPostSingleScan,"ax",%progbits
+ 165              		.align	2
+ 166              		.global	cyCapsense_CSDPostSingleScan
+ 167              		.code	16
+ 168              		.thumb_func
+ 169              		.type	cyCapsense_CSDPostSingleScan, %function
+ 170              	cyCapsense_CSDPostSingleScan:
+ 171              	.LFB1:
+ 463:Generated_Source\PSoC4/cyCapsense_INT.c ****         #ifdef cyCapsense_ENTRY_CALLBACK
+ 172              		.loc 1 463 0
+ 173              		.cfi_startproc
+ 174              		@ args = 0, pretend = 0, frame = 0
+ 175              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 20
+
+
+ 176 0000 10B5     		push	{r4, lr}
+ 177              		.cfi_def_cfa_offset 8
+ 178              		.cfi_offset 4, -8
+ 179              		.cfi_offset 14, -4
+ 469:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 180              		.loc 1 469 0
+ 181 0002 0122     		movs	r2, #1
+ 182 0004 094B     		ldr	r3, .L11
+ 183 0006 1A60     		str	r2, [r3]
+ 472:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 184              		.loc 1 472 0
+ 185 0008 FFF7FEFF 		bl	cyCapsense_SsCSDPostScan
+ 186              	.LVL3:
+ 525:Generated_Source\PSoC4/cyCapsense_INT.c ****                 #endif /* (cyCapsense_ENABLE == cyCapsense_BLOCK_OFF_AFTER_SCAN_EN) */
+ 187              		.loc 1 525 0
+ 188 000c 084B     		ldr	r3, .L11+4
+ 189 000e 1B68     		ldr	r3, [r3]
+ 190 0010 084A     		ldr	r2, .L11+8
+ 191 0012 1343     		orrs	r3, r2
+ 192 0014 084A     		ldr	r2, .L11+12
+ 193 0016 1360     		str	r3, [r2]
+ 529:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 194              		.loc 1 529 0
+ 195 0018 084B     		ldr	r3, .L11+16
+ 196 001a 1A89     		ldrh	r2, [r3, #8]
+ 197 001c 0132     		adds	r2, r2, #1
+ 198 001e 1A81     		strh	r2, [r3, #8]
+ 532:Generated_Source\PSoC4/cyCapsense_INT.c ****             }
+ 199              		.loc 1 532 0
+ 200 0020 D968     		ldr	r1, [r3, #12]
+ 201 0022 074A     		ldr	r2, .L11+20
+ 202 0024 0A40     		ands	r2, r1
+ 203 0026 DA60     		str	r2, [r3, #12]
+ 539:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 204              		.loc 1 539 0
+ 205              		@ sp needed
+ 206 0028 10BD     		pop	{r4, pc}
+ 207              	.L12:
+ 208 002a C046     		.align	2
+ 209              	.L11:
+ 210 002c 14002840 		.word	1076363284
+ 211 0030 00000000 		.word	cyCapsense_configCsd
+ 212 0034 2008E881 		.word	-2115500000
+ 213 0038 04002840 		.word	1076363268
+ 214 003c 00000000 		.word	cyCapsense_dsRam
+ 215 0040 7FFFFEFF 		.word	-65665
+ 216              		.cfi_endproc
+ 217              	.LFE1:
+ 218              		.size	cyCapsense_CSDPostSingleScan, .-cyCapsense_CSDPostSingleScan
+ 219              		.section	.text.cyCapsense_CSDPostMultiScan,"ax",%progbits
+ 220              		.align	2
+ 221              		.global	cyCapsense_CSDPostMultiScan
+ 222              		.code	16
+ 223              		.thumb_func
+ 224              		.type	cyCapsense_CSDPostMultiScan, %function
+ 225              	cyCapsense_CSDPostMultiScan:
+ 226              	.LFB2:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 21
+
+
+ 578:Generated_Source\PSoC4/cyCapsense_INT.c ****         /* Declare and initialize ptr to sensor IO structure to appropriate address        */
+ 227              		.loc 1 578 0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231 0000 10B5     		push	{r4, lr}
+ 232              		.cfi_def_cfa_offset 8
+ 233              		.cfi_offset 4, -8
+ 234              		.cfi_offset 14, -4
+ 580:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                           cyCapsense_dsFlash.wdgtArray[cyCapsense_w
+ 235              		.loc 1 580 0
+ 236 0002 0E4B     		ldr	r3, .L14
+ 237 0004 1B78     		ldrb	r3, [r3]
+ 581:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                           + cyCapsense_sensorIndex;
+ 238              		.loc 1 581 0
+ 239 0006 5B01     		lsls	r3, r3, #5
+ 240 0008 0D4A     		ldr	r2, .L14+4
+ 241 000a 9C58     		ldr	r4, [r3, r2]
+ 582:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 242              		.loc 1 582 0
+ 243 000c 0D4B     		ldr	r3, .L14+8
+ 244 000e 1A78     		ldrb	r2, [r3]
+ 245 0010 D2B2     		uxtb	r2, r2
+ 246 0012 D100     		lsls	r1, r2, #3
+ 247 0014 8A1A     		subs	r2, r1, r2
+ 248 0016 9300     		lsls	r3, r2, #2
+ 580:Generated_Source\PSoC4/cyCapsense_INT.c ****                                                           cyCapsense_dsFlash.wdgtArray[cyCapsense_w
+ 249              		.loc 1 580 0
+ 250 0018 E418     		adds	r4, r4, r3
+ 251              	.LVL4:
+ 589:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 252              		.loc 1 589 0
+ 253 001a 0122     		movs	r2, #1
+ 254 001c 0A4B     		ldr	r3, .L14+12
+ 255 001e 1A60     		str	r2, [r3]
+ 592:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 256              		.loc 1 592 0
+ 257 0020 FFF7FEFF 		bl	cyCapsense_SsCSDPostScan
+ 258              	.LVL5:
+ 595:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ 259              		.loc 1 595 0
+ 260 0024 094B     		ldr	r3, .L14+16
+ 261 0026 1B68     		ldr	r3, [r3]
+ 262 0028 094A     		ldr	r2, .L14+20
+ 263 002a 1343     		orrs	r3, r2
+ 264 002c 094A     		ldr	r2, .L14+24
+ 265 002e 1360     		str	r3, [r2]
+ 606:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 266              		.loc 1 606 0
+ 267 0030 2000     		movs	r0, r4
+ 268 0032 FFF7FEFF 		bl	cyCapsense_CSDDisconnectSns
+ 269              	.LVL6:
+ 631:Generated_Source\PSoC4/cyCapsense_INT.c ****         #endif /* (cyCapsense_ENABLE == cyCapsense_MULTI_FREQ_SCAN_EN) */
+ 270              		.loc 1 631 0
+ 271 0036 FFF7FEFF 		bl	cyCapsense_SsCSDInitNextScan
+ 272              	.LVL7:
+ 637:Generated_Source\PSoC4/cyCapsense_INT.c **** 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 22
+
+
+ 273              		.loc 1 637 0
+ 274              		@ sp needed
+ 275              	.LVL8:
+ 276 003a 10BD     		pop	{r4, pc}
+ 277              	.L15:
+ 278              		.align	2
+ 279              	.L14:
+ 280 003c 00000000 		.word	cyCapsense_widgetIndex
+ 281 0040 00000000 		.word	cyCapsense_dsFlash
+ 282 0044 00000000 		.word	cyCapsense_sensorIndex
+ 283 0048 14002840 		.word	1076363284
+ 284 004c 00000000 		.word	cyCapsense_configCsd
+ 285 0050 2008E881 		.word	-2115500000
+ 286 0054 04002840 		.word	1076363268
+ 287              		.cfi_endproc
+ 288              	.LFE2:
+ 289              		.size	cyCapsense_CSDPostMultiScan, .-cyCapsense_CSDPostMultiScan
+ 290              		.text
+ 291              	.Letext0:
+ 292              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 293              		.file 3 "Generated_Source\\PSoC4\\cyCapsense_Configuration.h"
+ 294              		.file 4 "Generated_Source\\PSoC4\\cyCapsense_SmartSense_LL.h"
+ 295              		.file 5 "Generated_Source\\PSoC4\\cyCapsense_Structure.h"
+ 296              		.file 6 "Generated_Source\\PSoC4\\cyCapsense_Sensing.h"
+ 297              		.file 7 "Generated_Source\\PSoC4\\cyCapsense_SensingCSD_LL.h"
+ 298              		.section	.debug_info,"",%progbits
+ 299              	.Ldebug_info0:
+ 300 0000 DB060000 		.4byte	0x6db
+ 301 0004 0400     		.2byte	0x4
+ 302 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 303 000a 04       		.byte	0x4
+ 304 000b 01       		.uleb128 0x1
+ 305 000c C9010000 		.4byte	.LASF106
+ 306 0010 0C       		.byte	0xc
+ 307 0011 67060000 		.4byte	.LASF107
+ 308 0015 E3050000 		.4byte	.LASF108
+ 309 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 310 001d 00000000 		.4byte	0
+ 311 0021 00000000 		.4byte	.Ldebug_line0
+ 312 0025 02       		.uleb128 0x2
+ 313 0026 01       		.byte	0x1
+ 314 0027 06       		.byte	0x6
+ 315 0028 CA030000 		.4byte	.LASF0
+ 316 002c 02       		.uleb128 0x2
+ 317 002d 01       		.byte	0x1
+ 318 002e 08       		.byte	0x8
+ 319 002f 66030000 		.4byte	.LASF1
+ 320 0033 02       		.uleb128 0x2
+ 321 0034 02       		.byte	0x2
+ 322 0035 05       		.byte	0x5
+ 323 0036 CE000000 		.4byte	.LASF2
+ 324 003a 02       		.uleb128 0x2
+ 325 003b 02       		.byte	0x2
+ 326 003c 07       		.byte	0x7
+ 327 003d 81040000 		.4byte	.LASF3
+ 328 0041 02       		.uleb128 0x2
+ 329 0042 04       		.byte	0x4
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 23
+
+
+ 330 0043 05       		.byte	0x5
+ 331 0044 ED020000 		.4byte	.LASF4
+ 332 0048 02       		.uleb128 0x2
+ 333 0049 04       		.byte	0x4
+ 334 004a 07       		.byte	0x7
+ 335 004b 05030000 		.4byte	.LASF5
+ 336 004f 02       		.uleb128 0x2
+ 337 0050 08       		.byte	0x8
+ 338 0051 05       		.byte	0x5
+ 339 0052 3D010000 		.4byte	.LASF6
+ 340 0056 02       		.uleb128 0x2
+ 341 0057 08       		.byte	0x8
+ 342 0058 07       		.byte	0x7
+ 343 0059 D1020000 		.4byte	.LASF7
+ 344 005d 03       		.uleb128 0x3
+ 345 005e 04       		.byte	0x4
+ 346 005f 05       		.byte	0x5
+ 347 0060 696E7400 		.ascii	"int\000"
+ 348 0064 02       		.uleb128 0x2
+ 349 0065 04       		.byte	0x4
+ 350 0066 07       		.byte	0x7
+ 351 0067 FB030000 		.4byte	.LASF8
+ 352 006b 04       		.uleb128 0x4
+ 353 006c 67020000 		.4byte	.LASF9
+ 354 0070 02       		.byte	0x2
+ 355 0071 F701     		.2byte	0x1f7
+ 356 0073 2C000000 		.4byte	0x2c
+ 357 0077 04       		.uleb128 0x4
+ 358 0078 C2010000 		.4byte	.LASF10
+ 359 007c 02       		.byte	0x2
+ 360 007d F801     		.2byte	0x1f8
+ 361 007f 3A000000 		.4byte	0x3a
+ 362 0083 04       		.uleb128 0x4
+ 363 0084 2C050000 		.4byte	.LASF11
+ 364 0088 02       		.byte	0x2
+ 365 0089 F901     		.2byte	0x1f9
+ 366 008b 48000000 		.4byte	0x48
+ 367 008f 02       		.uleb128 0x2
+ 368 0090 04       		.byte	0x4
+ 369 0091 04       		.byte	0x4
+ 370 0092 AF020000 		.4byte	.LASF12
+ 371 0096 02       		.uleb128 0x2
+ 372 0097 08       		.byte	0x8
+ 373 0098 04       		.byte	0x4
+ 374 0099 53050000 		.4byte	.LASF13
+ 375 009d 02       		.uleb128 0x2
+ 376 009e 01       		.byte	0x1
+ 377 009f 08       		.byte	0x8
+ 378 00a0 E8020000 		.4byte	.LASF14
+ 379 00a4 05       		.uleb128 0x5
+ 380 00a5 6B000000 		.4byte	0x6b
+ 381 00a9 04       		.uleb128 0x4
+ 382 00aa 1F050000 		.4byte	.LASF15
+ 383 00ae 02       		.byte	0x2
+ 384 00af A302     		.2byte	0x2a3
+ 385 00b1 B5000000 		.4byte	0xb5
+ 386 00b5 05       		.uleb128 0x5
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 24
+
+
+ 387 00b6 83000000 		.4byte	0x83
+ 388 00ba 04       		.uleb128 0x4
+ 389 00bb 00000000 		.4byte	.LASF16
+ 390 00bf 03       		.byte	0x3
+ 391 00c0 2501     		.2byte	0x125
+ 392 00c2 77000000 		.4byte	0x77
+ 393 00c6 04       		.uleb128 0x4
+ 394 00c7 49030000 		.4byte	.LASF17
+ 395 00cb 03       		.byte	0x3
+ 396 00cc 2901     		.2byte	0x129
+ 397 00ce 6B000000 		.4byte	0x6b
+ 398 00d2 06       		.uleb128 0x6
+ 399 00d3 0C       		.byte	0xc
+ 400 00d4 04       		.byte	0x4
+ 401 00d5 6E       		.byte	0x6e
+ 402 00d6 2F010000 		.4byte	0x12f
+ 403 00da 07       		.uleb128 0x7
+ 404 00db 27040000 		.4byte	.LASF18
+ 405 00df 04       		.byte	0x4
+ 406 00e0 73       		.byte	0x73
+ 407 00e1 77000000 		.4byte	0x77
+ 408 00e5 00       		.byte	0
+ 409 00e6 07       		.uleb128 0x7
+ 410 00e7 3A030000 		.4byte	.LASF19
+ 411 00eb 04       		.byte	0x4
+ 412 00ec 77       		.byte	0x77
+ 413 00ed 77000000 		.4byte	0x77
+ 414 00f1 02       		.byte	0x2
+ 415 00f2 07       		.uleb128 0x7
+ 416 00f3 74010000 		.4byte	.LASF20
+ 417 00f7 04       		.byte	0x4
+ 418 00f8 7B       		.byte	0x7b
+ 419 00f9 77000000 		.4byte	0x77
+ 420 00fd 04       		.byte	0x4
+ 421 00fe 07       		.uleb128 0x7
+ 422 00ff 7B010000 		.4byte	.LASF21
+ 423 0103 04       		.byte	0x4
+ 424 0104 7F       		.byte	0x7f
+ 425 0105 77000000 		.4byte	0x77
+ 426 0109 06       		.byte	0x6
+ 427 010a 07       		.uleb128 0x7
+ 428 010b 82010000 		.4byte	.LASF22
+ 429 010f 04       		.byte	0x4
+ 430 0110 83       		.byte	0x83
+ 431 0111 77000000 		.4byte	0x77
+ 432 0115 08       		.byte	0x8
+ 433 0116 07       		.uleb128 0x7
+ 434 0117 89010000 		.4byte	.LASF23
+ 435 011b 04       		.byte	0x4
+ 436 011c 87       		.byte	0x87
+ 437 011d 6B000000 		.4byte	0x6b
+ 438 0121 0A       		.byte	0xa
+ 439 0122 07       		.uleb128 0x7
+ 440 0123 90010000 		.4byte	.LASF24
+ 441 0127 04       		.byte	0x4
+ 442 0128 8B       		.byte	0x8b
+ 443 0129 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 25
+
+
+ 444 012d 0B       		.byte	0xb
+ 445 012e 00       		.byte	0
+ 446 012f 08       		.uleb128 0x8
+ 447 0130 9F060000 		.4byte	.LASF25
+ 448 0134 04       		.byte	0x4
+ 449 0135 8C       		.byte	0x8c
+ 450 0136 D2000000 		.4byte	0xd2
+ 451 013a 09       		.uleb128 0x9
+ 452 013b 6B000000 		.4byte	0x6b
+ 453 013f 4A010000 		.4byte	0x14a
+ 454 0143 0A       		.uleb128 0xa
+ 455 0144 4A010000 		.4byte	0x14a
+ 456 0148 00       		.byte	0
+ 457 0149 00       		.byte	0
+ 458 014a 02       		.uleb128 0x2
+ 459 014b 04       		.byte	0x4
+ 460 014c 07       		.byte	0x7
+ 461 014d 0D010000 		.4byte	.LASF26
+ 462 0151 06       		.uleb128 0x6
+ 463 0152 12       		.byte	0x12
+ 464 0153 05       		.byte	0x5
+ 465 0154 DA       		.byte	0xda
+ 466 0155 F0010000 		.4byte	0x1f0
+ 467 0159 07       		.uleb128 0x7
+ 468 015a D4040000 		.4byte	.LASF27
+ 469 015e 05       		.byte	0x5
+ 470 015f DF       		.byte	0xdf
+ 471 0160 77000000 		.4byte	0x77
+ 472 0164 00       		.byte	0
+ 473 0165 07       		.uleb128 0x7
+ 474 0166 17030000 		.4byte	.LASF28
+ 475 016a 05       		.byte	0x5
+ 476 016b E4       		.byte	0xe4
+ 477 016c BA000000 		.4byte	0xba
+ 478 0170 02       		.byte	0x2
+ 479 0171 07       		.uleb128 0x7
+ 480 0172 97010000 		.4byte	.LASF29
+ 481 0176 05       		.byte	0x5
+ 482 0177 E9       		.byte	0xe9
+ 483 0178 6B000000 		.4byte	0x6b
+ 484 017c 04       		.byte	0x4
+ 485 017d 07       		.uleb128 0x7
+ 486 017e 16050000 		.4byte	.LASF30
+ 487 0182 05       		.byte	0x5
+ 488 0183 EE       		.byte	0xee
+ 489 0184 6B000000 		.4byte	0x6b
+ 490 0188 05       		.byte	0x5
+ 491 0189 07       		.uleb128 0x7
+ 492 018a 74030000 		.4byte	.LASF31
+ 493 018e 05       		.byte	0x5
+ 494 018f F4       		.byte	0xf4
+ 495 0190 6B000000 		.4byte	0x6b
+ 496 0194 06       		.byte	0x6
+ 497 0195 07       		.uleb128 0x7
+ 498 0196 E1000000 		.4byte	.LASF32
+ 499 019a 05       		.byte	0x5
+ 500 019b FA       		.byte	0xfa
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 26
+
+
+ 501 019c 6B000000 		.4byte	0x6b
+ 502 01a0 07       		.byte	0x7
+ 503 01a1 0B       		.uleb128 0xb
+ 504 01a2 9F030000 		.4byte	.LASF33
+ 505 01a6 05       		.byte	0x5
+ 506 01a7 0101     		.2byte	0x101
+ 507 01a9 C6000000 		.4byte	0xc6
+ 508 01ad 08       		.byte	0x8
+ 509 01ae 0B       		.uleb128 0xb
+ 510 01af 9E000000 		.4byte	.LASF34
+ 511 01b3 05       		.byte	0x5
+ 512 01b4 0801     		.2byte	0x108
+ 513 01b6 3A010000 		.4byte	0x13a
+ 514 01ba 09       		.byte	0x9
+ 515 01bb 0B       		.uleb128 0xb
+ 516 01bc 73020000 		.4byte	.LASF35
+ 517 01c0 05       		.byte	0x5
+ 518 01c1 1001     		.2byte	0x110
+ 519 01c3 77000000 		.4byte	0x77
+ 520 01c7 0A       		.byte	0xa
+ 521 01c8 0B       		.uleb128 0xb
+ 522 01c9 67010000 		.4byte	.LASF36
+ 523 01cd 05       		.byte	0x5
+ 524 01ce 1501     		.2byte	0x115
+ 525 01d0 6B000000 		.4byte	0x6b
+ 526 01d4 0C       		.byte	0xc
+ 527 01d5 0B       		.uleb128 0xb
+ 528 01d6 5D060000 		.4byte	.LASF37
+ 529 01da 05       		.byte	0x5
+ 530 01db 1B01     		.2byte	0x11b
+ 531 01dd 77000000 		.4byte	0x77
+ 532 01e1 0E       		.byte	0xe
+ 533 01e2 0B       		.uleb128 0xb
+ 534 01e3 25050000 		.4byte	.LASF38
+ 535 01e7 05       		.byte	0x5
+ 536 01e8 2001     		.2byte	0x120
+ 537 01ea 77000000 		.4byte	0x77
+ 538 01ee 10       		.byte	0x10
+ 539 01ef 00       		.byte	0
+ 540 01f0 04       		.uleb128 0x4
+ 541 01f1 AA030000 		.4byte	.LASF39
+ 542 01f5 05       		.byte	0x5
+ 543 01f6 2101     		.2byte	0x121
+ 544 01f8 51010000 		.4byte	0x151
+ 545 01fc 0C       		.uleb128 0xc
+ 546 01fd 36       		.byte	0x36
+ 547 01fe 05       		.byte	0x5
+ 548 01ff 2701     		.2byte	0x127
+ 549 0201 2D020000 		.4byte	0x22d
+ 550 0205 0B       		.uleb128 0xb
+ 551 0206 55000000 		.4byte	.LASF40
+ 552 020a 05       		.byte	0x5
+ 553 020b 2C01     		.2byte	0x12c
+ 554 020d F0010000 		.4byte	0x1f0
+ 555 0211 00       		.byte	0
+ 556 0212 0B       		.uleb128 0xb
+ 557 0213 BC050000 		.4byte	.LASF41
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 27
+
+
+ 558 0217 05       		.byte	0x5
+ 559 0218 3101     		.2byte	0x131
+ 560 021a F0010000 		.4byte	0x1f0
+ 561 021e 12       		.byte	0x12
+ 562 021f 0B       		.uleb128 0xb
+ 563 0220 C4050000 		.4byte	.LASF42
+ 564 0224 05       		.byte	0x5
+ 565 0225 3601     		.2byte	0x136
+ 566 0227 F0010000 		.4byte	0x1f0
+ 567 022b 24       		.byte	0x24
+ 568 022c 00       		.byte	0
+ 569 022d 04       		.uleb128 0x4
+ 570 022e 5A050000 		.4byte	.LASF43
+ 571 0232 05       		.byte	0x5
+ 572 0233 3701     		.2byte	0x137
+ 573 0235 FC010000 		.4byte	0x1fc
+ 574 0239 0C       		.uleb128 0xc
+ 575 023a 0A       		.byte	0xa
+ 576 023b 05       		.byte	0x5
+ 577 023c 3D01     		.2byte	0x13d
+ 578 023e 84020000 		.4byte	0x284
+ 579 0242 0D       		.uleb128 0xd
+ 580 0243 72617700 		.ascii	"raw\000"
+ 581 0247 05       		.byte	0x5
+ 582 0248 4201     		.2byte	0x142
+ 583 024a 84020000 		.4byte	0x284
+ 584 024e 00       		.byte	0
+ 585 024f 0B       		.uleb128 0xb
+ 586 0250 50000000 		.4byte	.LASF44
+ 587 0254 05       		.byte	0x5
+ 588 0255 4701     		.2byte	0x147
+ 589 0257 84020000 		.4byte	0x284
+ 590 025b 02       		.byte	0x2
+ 591 025c 0B       		.uleb128 0xb
+ 592 025d 78050000 		.4byte	.LASF45
+ 593 0261 05       		.byte	0x5
+ 594 0262 4D01     		.2byte	0x14d
+ 595 0264 3A010000 		.4byte	0x13a
+ 596 0268 04       		.byte	0x4
+ 597 0269 0B       		.uleb128 0xb
+ 598 026a 8D000000 		.4byte	.LASF46
+ 599 026e 05       		.byte	0x5
+ 600 026f 5201     		.2byte	0x152
+ 601 0271 BA000000 		.4byte	0xba
+ 602 0275 06       		.byte	0x6
+ 603 0276 0B       		.uleb128 0xb
+ 604 0277 20030000 		.4byte	.LASF47
+ 605 027b 05       		.byte	0x5
+ 606 027c 5701     		.2byte	0x157
+ 607 027e 94020000 		.4byte	0x294
+ 608 0282 08       		.byte	0x8
+ 609 0283 00       		.byte	0
+ 610 0284 09       		.uleb128 0x9
+ 611 0285 77000000 		.4byte	0x77
+ 612 0289 94020000 		.4byte	0x294
+ 613 028d 0A       		.uleb128 0xa
+ 614 028e 4A010000 		.4byte	0x14a
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 28
+
+
+ 615 0292 00       		.byte	0
+ 616 0293 00       		.byte	0
+ 617 0294 09       		.uleb128 0x9
+ 618 0295 C6000000 		.4byte	0xc6
+ 619 0299 A4020000 		.4byte	0x2a4
+ 620 029d 0A       		.uleb128 0xa
+ 621 029e 4A010000 		.4byte	0x14a
+ 622 02a2 00       		.byte	0
+ 623 02a3 00       		.byte	0
+ 624 02a4 04       		.uleb128 0x4
+ 625 02a5 A8010000 		.4byte	.LASF48
+ 626 02a9 05       		.byte	0x5
+ 627 02aa 5801     		.2byte	0x158
+ 628 02ac 39020000 		.4byte	0x239
+ 629 02b0 0C       		.uleb128 0xc
+ 630 02b1 1E       		.byte	0x1e
+ 631 02b2 05       		.byte	0x5
+ 632 02b3 5E01     		.2byte	0x15e
+ 633 02b5 E1020000 		.4byte	0x2e1
+ 634 02b9 0B       		.uleb128 0xb
+ 635 02ba 55000000 		.4byte	.LASF40
+ 636 02be 05       		.byte	0x5
+ 637 02bf 6301     		.2byte	0x163
+ 638 02c1 E1020000 		.4byte	0x2e1
+ 639 02c5 00       		.byte	0
+ 640 02c6 0B       		.uleb128 0xb
+ 641 02c7 BC050000 		.4byte	.LASF41
+ 642 02cb 05       		.byte	0x5
+ 643 02cc 6801     		.2byte	0x168
+ 644 02ce E1020000 		.4byte	0x2e1
+ 645 02d2 0A       		.byte	0xa
+ 646 02d3 0B       		.uleb128 0xb
+ 647 02d4 C4050000 		.4byte	.LASF42
+ 648 02d8 05       		.byte	0x5
+ 649 02d9 6D01     		.2byte	0x16d
+ 650 02db E1020000 		.4byte	0x2e1
+ 651 02df 14       		.byte	0x14
+ 652 02e0 00       		.byte	0
+ 653 02e1 09       		.uleb128 0x9
+ 654 02e2 A4020000 		.4byte	0x2a4
+ 655 02e6 F1020000 		.4byte	0x2f1
+ 656 02ea 0A       		.uleb128 0xa
+ 657 02eb 4A010000 		.4byte	0x14a
+ 658 02ef 00       		.byte	0
+ 659 02f0 00       		.byte	0
+ 660 02f1 04       		.uleb128 0x4
+ 661 02f2 08040000 		.4byte	.LASF49
+ 662 02f6 05       		.byte	0x5
+ 663 02f7 6E01     		.2byte	0x16e
+ 664 02f9 B0020000 		.4byte	0x2b0
+ 665 02fd 0C       		.uleb128 0xc
+ 666 02fe 7C       		.byte	0x7c
+ 667 02ff 05       		.byte	0x5
+ 668 0300 7401     		.2byte	0x174
+ 669 0302 E4030000 		.4byte	0x3e4
+ 670 0306 0B       		.uleb128 0xb
+ 671 0307 B8040000 		.4byte	.LASF50
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 29
+
+
+ 672 030b 05       		.byte	0x5
+ 673 030c 7B01     		.2byte	0x17b
+ 674 030e 77000000 		.4byte	0x77
+ 675 0312 00       		.byte	0
+ 676 0313 0B       		.uleb128 0xb
+ 677 0314 9F010000 		.4byte	.LASF51
+ 678 0318 05       		.byte	0x5
+ 679 0319 8001     		.2byte	0x180
+ 680 031b 77000000 		.4byte	0x77
+ 681 031f 02       		.byte	0x2
+ 682 0320 0B       		.uleb128 0xb
+ 683 0321 B0040000 		.4byte	.LASF52
+ 684 0325 05       		.byte	0x5
+ 685 0326 8501     		.2byte	0x185
+ 686 0328 77000000 		.4byte	0x77
+ 687 032c 04       		.byte	0x4
+ 688 032d 0B       		.uleb128 0xb
+ 689 032e 7F030000 		.4byte	.LASF53
+ 690 0332 05       		.byte	0x5
+ 691 0333 8B01     		.2byte	0x18b
+ 692 0335 77000000 		.4byte	0x77
+ 693 0339 06       		.byte	0x6
+ 694 033a 0B       		.uleb128 0xb
+ 695 033b 0A050000 		.4byte	.LASF54
+ 696 033f 05       		.byte	0x5
+ 697 0340 9001     		.2byte	0x190
+ 698 0342 77000000 		.4byte	0x77
+ 699 0346 08       		.byte	0x8
+ 700 0347 0B       		.uleb128 0xb
+ 701 0348 4E040000 		.4byte	.LASF55
+ 702 034c 05       		.byte	0x5
+ 703 034d 9501     		.2byte	0x195
+ 704 034f B5000000 		.4byte	0xb5
+ 705 0353 0C       		.byte	0xc
+ 706 0354 0B       		.uleb128 0xb
+ 707 0355 2E040000 		.4byte	.LASF56
+ 708 0359 05       		.byte	0x5
+ 709 035a 9B01     		.2byte	0x19b
+ 710 035c E4030000 		.4byte	0x3e4
+ 711 0360 10       		.byte	0x10
+ 712 0361 0B       		.uleb128 0xb
+ 713 0362 94030000 		.4byte	.LASF57
+ 714 0366 05       		.byte	0x5
+ 715 0367 A201     		.2byte	0x1a2
+ 716 0369 E4030000 		.4byte	0x3e4
+ 717 036d 14       		.byte	0x14
+ 718 036e 0B       		.uleb128 0xb
+ 719 036f D1060000 		.4byte	.LASF58
+ 720 0373 05       		.byte	0x5
+ 721 0374 B201     		.2byte	0x1b2
+ 722 0376 F4030000 		.4byte	0x3f4
+ 723 037a 18       		.byte	0x18
+ 724 037b 0B       		.uleb128 0xb
+ 725 037c 32010000 		.4byte	.LASF59
+ 726 0380 05       		.byte	0x5
+ 727 0381 B801     		.2byte	0x1b8
+ 728 0383 77000000 		.4byte	0x77
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 30
+
+
+ 729 0387 1C       		.byte	0x1c
+ 730 0388 0B       		.uleb128 0xb
+ 731 0389 00050000 		.4byte	.LASF60
+ 732 038d 05       		.byte	0x5
+ 733 038e BD01     		.2byte	0x1bd
+ 734 0390 6B000000 		.4byte	0x6b
+ 735 0394 1E       		.byte	0x1e
+ 736 0395 0B       		.uleb128 0xb
+ 737 0396 1A000000 		.4byte	.LASF61
+ 738 039a 05       		.byte	0x5
+ 739 039b C201     		.2byte	0x1c2
+ 740 039d 2D020000 		.4byte	0x22d
+ 741 03a1 20       		.byte	0x20
+ 742 03a2 0B       		.uleb128 0xb
+ 743 03a3 F8040000 		.4byte	.LASF62
+ 744 03a7 05       		.byte	0x5
+ 745 03a8 C701     		.2byte	0x1c7
+ 746 03aa F1020000 		.4byte	0x2f1
+ 747 03ae 56       		.byte	0x56
+ 748 03af 0B       		.uleb128 0xb
+ 749 03b0 8F060000 		.4byte	.LASF63
+ 750 03b4 05       		.byte	0x5
+ 751 03b5 CC01     		.2byte	0x1cc
+ 752 03b7 6B000000 		.4byte	0x6b
+ 753 03bb 74       		.byte	0x74
+ 754 03bc 0B       		.uleb128 0xb
+ 755 03bd C1020000 		.4byte	.LASF64
+ 756 03c1 05       		.byte	0x5
+ 757 03c2 D101     		.2byte	0x1d1
+ 758 03c4 6B000000 		.4byte	0x6b
+ 759 03c8 75       		.byte	0x75
+ 760 03c9 0B       		.uleb128 0xb
+ 761 03ca C1040000 		.4byte	.LASF65
+ 762 03ce 05       		.byte	0x5
+ 763 03cf D601     		.2byte	0x1d6
+ 764 03d1 77000000 		.4byte	0x77
+ 765 03d5 76       		.byte	0x76
+ 766 03d6 0B       		.uleb128 0xb
+ 767 03d7 23000000 		.4byte	.LASF66
+ 768 03db 05       		.byte	0x5
+ 769 03dc DB01     		.2byte	0x1db
+ 770 03de 84020000 		.4byte	0x284
+ 771 03e2 78       		.byte	0x78
+ 772 03e3 00       		.byte	0
+ 773 03e4 09       		.uleb128 0x9
+ 774 03e5 83000000 		.4byte	0x83
+ 775 03e9 F4030000 		.4byte	0x3f4
+ 776 03ed 0A       		.uleb128 0xa
+ 777 03ee 4A010000 		.4byte	0x14a
+ 778 03f2 00       		.byte	0
+ 779 03f3 00       		.byte	0
+ 780 03f4 09       		.uleb128 0x9
+ 781 03f5 6B000000 		.4byte	0x6b
+ 782 03f9 04040000 		.4byte	0x404
+ 783 03fd 0A       		.uleb128 0xa
+ 784 03fe 4A010000 		.4byte	0x14a
+ 785 0402 02       		.byte	0x2
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 31
+
+
+ 786 0403 00       		.byte	0
+ 787 0404 04       		.uleb128 0x4
+ 788 0405 16010000 		.4byte	.LASF67
+ 789 0409 05       		.byte	0x5
+ 790 040a DC01     		.2byte	0x1dc
+ 791 040c FD020000 		.4byte	0x2fd
+ 792 0410 0C       		.uleb128 0xc
+ 793 0411 1C       		.byte	0x1c
+ 794 0412 05       		.byte	0x5
+ 795 0413 E201     		.2byte	0x1e2
+ 796 0415 8F040000 		.4byte	0x48f
+ 797 0419 0B       		.uleb128 0xb
+ 798 041a D8000000 		.4byte	.LASF68
+ 799 041e 05       		.byte	0x5
+ 800 041f E701     		.2byte	0x1e7
+ 801 0421 8F040000 		.4byte	0x48f
+ 802 0425 00       		.byte	0
+ 803 0426 0B       		.uleb128 0xb
+ 804 0427 2C010000 		.4byte	.LASF69
+ 805 042b 05       		.byte	0x5
+ 806 042c EC01     		.2byte	0x1ec
+ 807 042e 8F040000 		.4byte	0x48f
+ 808 0432 04       		.byte	0x4
+ 809 0433 0B       		.uleb128 0xb
+ 810 0434 8B050000 		.4byte	.LASF70
+ 811 0438 05       		.byte	0x5
+ 812 0439 F101     		.2byte	0x1f1
+ 813 043b 8F040000 		.4byte	0x48f
+ 814 043f 08       		.byte	0x8
+ 815 0440 0B       		.uleb128 0xb
+ 816 0441 6D020000 		.4byte	.LASF71
+ 817 0445 05       		.byte	0x5
+ 818 0446 F601     		.2byte	0x1f6
+ 819 0448 8F040000 		.4byte	0x48f
+ 820 044c 0C       		.byte	0xc
+ 821 044d 0B       		.uleb128 0xb
+ 822 044e EE060000 		.4byte	.LASF72
+ 823 0452 05       		.byte	0x5
+ 824 0453 FB01     		.2byte	0x1fb
+ 825 0455 83000000 		.4byte	0x83
+ 826 0459 10       		.byte	0x10
+ 827 045a 0B       		.uleb128 0xb
+ 828 045b 91050000 		.4byte	.LASF73
+ 829 045f 05       		.byte	0x5
+ 830 0460 0002     		.2byte	0x200
+ 831 0462 83000000 		.4byte	0x83
+ 832 0466 14       		.byte	0x14
+ 833 0467 0B       		.uleb128 0xb
+ 834 0468 80050000 		.4byte	.LASF74
+ 835 046c 05       		.byte	0x5
+ 836 046d 0502     		.2byte	0x205
+ 837 046f 6B000000 		.4byte	0x6b
+ 838 0473 18       		.byte	0x18
+ 839 0474 0B       		.uleb128 0xb
+ 840 0475 A6000000 		.4byte	.LASF75
+ 841 0479 05       		.byte	0x5
+ 842 047a 0A02     		.2byte	0x20a
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 32
+
+
+ 843 047c 6B000000 		.4byte	0x6b
+ 844 0480 19       		.byte	0x19
+ 845 0481 0B       		.uleb128 0xb
+ 846 0482 F6020000 		.4byte	.LASF76
+ 847 0486 05       		.byte	0x5
+ 848 0487 0F02     		.2byte	0x20f
+ 849 0489 6B000000 		.4byte	0x6b
+ 850 048d 1A       		.byte	0x1a
+ 851 048e 00       		.byte	0
+ 852 048f 0E       		.uleb128 0xe
+ 853 0490 04       		.byte	0x4
+ 854 0491 A9000000 		.4byte	0xa9
+ 855 0495 04       		.uleb128 0x4
+ 856 0496 55040000 		.4byte	.LASF77
+ 857 049a 05       		.byte	0x5
+ 858 049b 1002     		.2byte	0x210
+ 859 049d 10040000 		.4byte	0x410
+ 860 04a1 0C       		.uleb128 0xc
+ 861 04a2 20       		.byte	0x20
+ 862 04a3 05       		.byte	0x5
+ 863 04a4 4302     		.2byte	0x243
+ 864 04a6 2D050000 		.4byte	0x52d
+ 865 04aa 0B       		.uleb128 0xb
+ 866 04ab C4060000 		.4byte	.LASF78
+ 867 04af 05       		.byte	0x5
+ 868 04b0 4C02     		.2byte	0x24c
+ 869 04b2 2D050000 		.4byte	0x52d
+ 870 04b6 00       		.byte	0
+ 871 04b7 0B       		.uleb128 0xb
+ 872 04b8 2E030000 		.4byte	.LASF79
+ 873 04bc 05       		.byte	0x5
+ 874 04bd 5302     		.2byte	0x253
+ 875 04bf 34050000 		.4byte	0x534
+ 876 04c3 04       		.byte	0x4
+ 877 04c4 0B       		.uleb128 0xb
+ 878 04c5 B1050000 		.4byte	.LASF80
+ 879 04c9 05       		.byte	0x5
+ 880 04ca 5902     		.2byte	0x259
+ 881 04cc 36050000 		.4byte	0x536
+ 882 04d0 08       		.byte	0x8
+ 883 04d1 0B       		.uleb128 0xb
+ 884 04d2 27060000 		.4byte	.LASF81
+ 885 04d6 05       		.byte	0x5
+ 886 04d7 5F02     		.2byte	0x25f
+ 887 04d9 34050000 		.4byte	0x534
+ 888 04dd 0C       		.byte	0xc
+ 889 04de 0B       		.uleb128 0xb
+ 890 04df 57020000 		.4byte	.LASF82
+ 891 04e3 05       		.byte	0x5
+ 892 04e4 6602     		.2byte	0x266
+ 893 04e6 3C050000 		.4byte	0x53c
+ 894 04ea 10       		.byte	0x10
+ 895 04eb 0B       		.uleb128 0xb
+ 896 04ec EE030000 		.4byte	.LASF83
+ 897 04f0 05       		.byte	0x5
+ 898 04f1 6B02     		.2byte	0x26b
+ 899 04f3 83000000 		.4byte	0x83
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 33
+
+
+ 900 04f7 14       		.byte	0x14
+ 901 04f8 0B       		.uleb128 0xb
+ 902 04f9 92000000 		.4byte	.LASF84
+ 903 04fd 05       		.byte	0x5
+ 904 04fe 7202     		.2byte	0x272
+ 905 0500 77000000 		.4byte	0x77
+ 906 0504 18       		.byte	0x18
+ 907 0505 0B       		.uleb128 0xb
+ 908 0506 FC020000 		.4byte	.LASF85
+ 909 050a 05       		.byte	0x5
+ 910 050b 7902     		.2byte	0x279
+ 911 050d 6B000000 		.4byte	0x6b
+ 912 0511 1A       		.byte	0x1a
+ 913 0512 0B       		.uleb128 0xb
+ 914 0513 41030000 		.4byte	.LASF86
+ 915 0517 05       		.byte	0x5
+ 916 0518 8302     		.2byte	0x283
+ 917 051a 6B000000 		.4byte	0x6b
+ 918 051e 1B       		.byte	0x1b
+ 919 051f 0B       		.uleb128 0xb
+ 920 0520 F8060000 		.4byte	.LASF87
+ 921 0524 05       		.byte	0x5
+ 922 0525 8B02     		.2byte	0x28b
+ 923 0527 42050000 		.4byte	0x542
+ 924 052b 1C       		.byte	0x1c
+ 925 052c 00       		.byte	0
+ 926 052d 0E       		.uleb128 0xe
+ 927 052e 04       		.byte	0x4
+ 928 052f 33050000 		.4byte	0x533
+ 929 0533 0F       		.uleb128 0xf
+ 930 0534 10       		.uleb128 0x10
+ 931 0535 04       		.byte	0x4
+ 932 0536 0E       		.uleb128 0xe
+ 933 0537 04       		.byte	0x4
+ 934 0538 A4020000 		.4byte	0x2a4
+ 935 053c 0E       		.uleb128 0xe
+ 936 053d 04       		.byte	0x4
+ 937 053e 6B000000 		.4byte	0x6b
+ 938 0542 0E       		.uleb128 0xe
+ 939 0543 04       		.byte	0x4
+ 940 0544 2F010000 		.4byte	0x12f
+ 941 0548 04       		.uleb128 0x4
+ 942 0549 96050000 		.4byte	.LASF88
+ 943 054d 05       		.byte	0x5
+ 944 054e 8C02     		.2byte	0x28c
+ 945 0550 A1040000 		.4byte	0x4a1
+ 946 0554 0C       		.uleb128 0xc
+ 947 0555 60       		.byte	0x60
+ 948 0556 05       		.byte	0x5
+ 949 0557 9202     		.2byte	0x292
+ 950 0559 6B050000 		.4byte	0x56b
+ 951 055d 0B       		.uleb128 0xb
+ 952 055e 37060000 		.4byte	.LASF89
+ 953 0562 05       		.byte	0x5
+ 954 0563 9702     		.2byte	0x297
+ 955 0565 6B050000 		.4byte	0x56b
+ 956 0569 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 34
+
+
+ 957 056a 00       		.byte	0
+ 958 056b 09       		.uleb128 0x9
+ 959 056c 48050000 		.4byte	0x548
+ 960 0570 7B050000 		.4byte	0x57b
+ 961 0574 0A       		.uleb128 0xa
+ 962 0575 4A010000 		.4byte	0x14a
+ 963 0579 02       		.byte	0x2
+ 964 057a 00       		.byte	0
+ 965 057b 04       		.uleb128 0x4
+ 966 057c 7A020000 		.4byte	.LASF90
+ 967 0580 05       		.byte	0x5
+ 968 0581 9802     		.2byte	0x298
+ 969 0583 54050000 		.4byte	0x554
+ 970 0587 02       		.uleb128 0x2
+ 971 0588 08       		.byte	0x8
+ 972 0589 04       		.byte	0x4
+ 973 058a 88030000 		.4byte	.LASF91
+ 974 058e 11       		.uleb128 0x11
+ 975 058f 74000000 		.4byte	.LASF109
+ 976 0593 01       		.byte	0x1
+ 977 0594 F602     		.2byte	0x2f6
+ 978 0596 00000000 		.4byte	.LFB3
+ 979 059a 20000000 		.4byte	.LFE3-.LFB3
+ 980 059e 01       		.uleb128 0x1
+ 981 059f 9C       		.byte	0x9c
+ 982 05a0 12       		.uleb128 0x12
+ 983 05a1 92020000 		.4byte	.LASF110
+ 984 05a5 01       		.byte	0x1
+ 985 05a6 2F03     		.2byte	0x32f
+ 986 05a8 00000000 		.4byte	.LFB4
+ 987 05ac A0000000 		.4byte	.LFE4-.LFB4
+ 988 05b0 01       		.uleb128 0x1
+ 989 05b1 9C       		.byte	0x9c
+ 990 05b2 D2050000 		.4byte	0x5d2
+ 991 05b6 13       		.uleb128 0x13
+ 992 05b7 4C000000 		.4byte	.LVL0
+ 993 05bb AF060000 		.4byte	0x6af
+ 994 05bf 13       		.uleb128 0x13
+ 995 05c0 50000000 		.4byte	.LVL1
+ 996 05c4 BB060000 		.4byte	0x6bb
+ 997 05c8 13       		.uleb128 0x13
+ 998 05c9 6E000000 		.4byte	.LVL2
+ 999 05cd C7060000 		.4byte	0x6c7
+ 1000 05d1 00       		.byte	0
+ 1001 05d2 14       		.uleb128 0x14
+ 1002 05d3 33000000 		.4byte	.LASF92
+ 1003 05d7 01       		.byte	0x1
+ 1004 05d8 CE01     		.2byte	0x1ce
+ 1005 05da 00000000 		.4byte	.LFB1
+ 1006 05de 44000000 		.4byte	.LFE1-.LFB1
+ 1007 05e2 01       		.uleb128 0x1
+ 1008 05e3 9C       		.byte	0x9c
+ 1009 05e4 F2050000 		.4byte	0x5f2
+ 1010 05e8 13       		.uleb128 0x13
+ 1011 05e9 0C000000 		.4byte	.LVL3
+ 1012 05ed 8E050000 		.4byte	0x58e
+ 1013 05f1 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 35
+
+
+ 1014 05f2 14       		.uleb128 0x14
+ 1015 05f3 94040000 		.4byte	.LASF93
+ 1016 05f7 01       		.byte	0x1
+ 1017 05f8 4102     		.2byte	0x241
+ 1018 05fa 00000000 		.4byte	.LFB2
+ 1019 05fe 58000000 		.4byte	.LFE2-.LFB2
+ 1020 0602 01       		.uleb128 0x1
+ 1021 0603 9C       		.byte	0x9c
+ 1022 0604 3F060000 		.4byte	0x63f
+ 1023 0608 15       		.uleb128 0x15
+ 1024 0609 B5020000 		.4byte	.LASF111
+ 1025 060d 01       		.byte	0x1
+ 1026 060e 4402     		.2byte	0x244
+ 1027 0610 3F060000 		.4byte	0x63f
+ 1028 0614 00000000 		.4byte	.LLST0
+ 1029 0618 13       		.uleb128 0x13
+ 1030 0619 24000000 		.4byte	.LVL5
+ 1031 061d 8E050000 		.4byte	0x58e
+ 1032 0621 16       		.uleb128 0x16
+ 1033 0622 36000000 		.4byte	.LVL6
+ 1034 0626 D2060000 		.4byte	0x6d2
+ 1035 062a 35060000 		.4byte	0x635
+ 1036 062e 17       		.uleb128 0x17
+ 1037 062f 01       		.uleb128 0x1
+ 1038 0630 50       		.byte	0x50
+ 1039 0631 02       		.uleb128 0x2
+ 1040 0632 74       		.byte	0x74
+ 1041 0633 00       		.sleb128 0
+ 1042 0634 00       		.byte	0
+ 1043 0635 13       		.uleb128 0x13
+ 1044 0636 3A000000 		.4byte	.LVL7
+ 1045 063a A0050000 		.4byte	0x5a0
+ 1046 063e 00       		.byte	0
+ 1047 063f 0E       		.uleb128 0xe
+ 1048 0640 04       		.byte	0x4
+ 1049 0641 45060000 		.4byte	0x645
+ 1050 0645 18       		.uleb128 0x18
+ 1051 0646 95040000 		.4byte	0x495
+ 1052 064a 19       		.uleb128 0x19
+ 1053 064b 70040000 		.4byte	.LASF94
+ 1054 064f 05       		.byte	0x5
+ 1055 0650 2F04     		.2byte	0x42f
+ 1056 0652 04040000 		.4byte	0x404
+ 1057 0656 19       		.uleb128 0x19
+ 1058 0657 DB060000 		.4byte	.LASF95
+ 1059 065b 05       		.byte	0x5
+ 1060 065c 3004     		.2byte	0x430
+ 1061 065e 62060000 		.4byte	0x662
+ 1062 0662 18       		.uleb128 0x18
+ 1063 0663 7B050000 		.4byte	0x57b
+ 1064 0667 1A       		.uleb128 0x1a
+ 1065 0668 CC050000 		.4byte	.LASF96
+ 1066 066c 06       		.byte	0x6
+ 1067 066d 9D       		.byte	0x9d
+ 1068 066e A4000000 		.4byte	0xa4
+ 1069 0672 1A       		.uleb128 0x1a
+ 1070 0673 5D000000 		.4byte	.LASF97
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 36
+
+
+ 1071 0677 06       		.byte	0x6
+ 1072 0678 9E       		.byte	0x9e
+ 1073 0679 A4000000 		.4byte	0xa4
+ 1074 067d 1A       		.uleb128 0x1a
+ 1075 067e AE000000 		.4byte	.LASF98
+ 1076 0682 06       		.byte	0x6
+ 1077 0683 9F       		.byte	0x9f
+ 1078 0684 6B000000 		.4byte	0x6b
+ 1079 0688 1A       		.uleb128 0x1a
+ 1080 0689 D6030000 		.4byte	.LASF99
+ 1081 068d 06       		.byte	0x6
+ 1082 068e A1       		.byte	0xa1
+ 1083 068f 36050000 		.4byte	0x536
+ 1084 0693 1A       		.uleb128 0x1a
+ 1085 0694 DF040000 		.4byte	.LASF100
+ 1086 0698 06       		.byte	0x6
+ 1087 0699 A8       		.byte	0xa8
+ 1088 069a 9E060000 		.4byte	0x69e
+ 1089 069e 18       		.uleb128 0x18
+ 1090 069f 6B000000 		.4byte	0x6b
+ 1091 06a3 19       		.uleb128 0x19
+ 1092 06a4 39040000 		.4byte	.LASF101
+ 1093 06a8 07       		.byte	0x7
+ 1094 06a9 EE01     		.2byte	0x1ee
+ 1095 06ab 83000000 		.4byte	0x83
+ 1096 06af 1B       		.uleb128 0x1b
+ 1097 06b0 EC000000 		.4byte	.LASF102
+ 1098 06b4 EC000000 		.4byte	.LASF102
+ 1099 06b8 07       		.byte	0x7
+ 1100 06b9 DE01     		.2byte	0x1de
+ 1101 06bb 1B       		.uleb128 0x1b
+ 1102 06bc 41060000 		.4byte	.LASF103
+ 1103 06c0 41060000 		.4byte	.LASF103
+ 1104 06c4 07       		.byte	0x7
+ 1105 06c5 D101     		.2byte	0x1d1
+ 1106 06c7 1C       		.uleb128 0x1c
+ 1107 06c8 33050000 		.4byte	.LASF104
+ 1108 06cc 33050000 		.4byte	.LASF104
+ 1109 06d0 06       		.byte	0x6
+ 1110 06d1 6C       		.byte	0x6c
+ 1111 06d2 1B       		.uleb128 0x1b
+ 1112 06d3 4B010000 		.4byte	.LASF105
+ 1113 06d7 4B010000 		.4byte	.LASF105
+ 1114 06db 07       		.byte	0x7
+ 1115 06dc C101     		.2byte	0x1c1
+ 1116 06de 00       		.byte	0
+ 1117              		.section	.debug_abbrev,"",%progbits
+ 1118              	.Ldebug_abbrev0:
+ 1119 0000 01       		.uleb128 0x1
+ 1120 0001 11       		.uleb128 0x11
+ 1121 0002 01       		.byte	0x1
+ 1122 0003 25       		.uleb128 0x25
+ 1123 0004 0E       		.uleb128 0xe
+ 1124 0005 13       		.uleb128 0x13
+ 1125 0006 0B       		.uleb128 0xb
+ 1126 0007 03       		.uleb128 0x3
+ 1127 0008 0E       		.uleb128 0xe
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 37
+
+
+ 1128 0009 1B       		.uleb128 0x1b
+ 1129 000a 0E       		.uleb128 0xe
+ 1130 000b 55       		.uleb128 0x55
+ 1131 000c 17       		.uleb128 0x17
+ 1132 000d 11       		.uleb128 0x11
+ 1133 000e 01       		.uleb128 0x1
+ 1134 000f 10       		.uleb128 0x10
+ 1135 0010 17       		.uleb128 0x17
+ 1136 0011 00       		.byte	0
+ 1137 0012 00       		.byte	0
+ 1138 0013 02       		.uleb128 0x2
+ 1139 0014 24       		.uleb128 0x24
+ 1140 0015 00       		.byte	0
+ 1141 0016 0B       		.uleb128 0xb
+ 1142 0017 0B       		.uleb128 0xb
+ 1143 0018 3E       		.uleb128 0x3e
+ 1144 0019 0B       		.uleb128 0xb
+ 1145 001a 03       		.uleb128 0x3
+ 1146 001b 0E       		.uleb128 0xe
+ 1147 001c 00       		.byte	0
+ 1148 001d 00       		.byte	0
+ 1149 001e 03       		.uleb128 0x3
+ 1150 001f 24       		.uleb128 0x24
+ 1151 0020 00       		.byte	0
+ 1152 0021 0B       		.uleb128 0xb
+ 1153 0022 0B       		.uleb128 0xb
+ 1154 0023 3E       		.uleb128 0x3e
+ 1155 0024 0B       		.uleb128 0xb
+ 1156 0025 03       		.uleb128 0x3
+ 1157 0026 08       		.uleb128 0x8
+ 1158 0027 00       		.byte	0
+ 1159 0028 00       		.byte	0
+ 1160 0029 04       		.uleb128 0x4
+ 1161 002a 16       		.uleb128 0x16
+ 1162 002b 00       		.byte	0
+ 1163 002c 03       		.uleb128 0x3
+ 1164 002d 0E       		.uleb128 0xe
+ 1165 002e 3A       		.uleb128 0x3a
+ 1166 002f 0B       		.uleb128 0xb
+ 1167 0030 3B       		.uleb128 0x3b
+ 1168 0031 05       		.uleb128 0x5
+ 1169 0032 49       		.uleb128 0x49
+ 1170 0033 13       		.uleb128 0x13
+ 1171 0034 00       		.byte	0
+ 1172 0035 00       		.byte	0
+ 1173 0036 05       		.uleb128 0x5
+ 1174 0037 35       		.uleb128 0x35
+ 1175 0038 00       		.byte	0
+ 1176 0039 49       		.uleb128 0x49
+ 1177 003a 13       		.uleb128 0x13
+ 1178 003b 00       		.byte	0
+ 1179 003c 00       		.byte	0
+ 1180 003d 06       		.uleb128 0x6
+ 1181 003e 13       		.uleb128 0x13
+ 1182 003f 01       		.byte	0x1
+ 1183 0040 0B       		.uleb128 0xb
+ 1184 0041 0B       		.uleb128 0xb
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 38
+
+
+ 1185 0042 3A       		.uleb128 0x3a
+ 1186 0043 0B       		.uleb128 0xb
+ 1187 0044 3B       		.uleb128 0x3b
+ 1188 0045 0B       		.uleb128 0xb
+ 1189 0046 01       		.uleb128 0x1
+ 1190 0047 13       		.uleb128 0x13
+ 1191 0048 00       		.byte	0
+ 1192 0049 00       		.byte	0
+ 1193 004a 07       		.uleb128 0x7
+ 1194 004b 0D       		.uleb128 0xd
+ 1195 004c 00       		.byte	0
+ 1196 004d 03       		.uleb128 0x3
+ 1197 004e 0E       		.uleb128 0xe
+ 1198 004f 3A       		.uleb128 0x3a
+ 1199 0050 0B       		.uleb128 0xb
+ 1200 0051 3B       		.uleb128 0x3b
+ 1201 0052 0B       		.uleb128 0xb
+ 1202 0053 49       		.uleb128 0x49
+ 1203 0054 13       		.uleb128 0x13
+ 1204 0055 38       		.uleb128 0x38
+ 1205 0056 0B       		.uleb128 0xb
+ 1206 0057 00       		.byte	0
+ 1207 0058 00       		.byte	0
+ 1208 0059 08       		.uleb128 0x8
+ 1209 005a 16       		.uleb128 0x16
+ 1210 005b 00       		.byte	0
+ 1211 005c 03       		.uleb128 0x3
+ 1212 005d 0E       		.uleb128 0xe
+ 1213 005e 3A       		.uleb128 0x3a
+ 1214 005f 0B       		.uleb128 0xb
+ 1215 0060 3B       		.uleb128 0x3b
+ 1216 0061 0B       		.uleb128 0xb
+ 1217 0062 49       		.uleb128 0x49
+ 1218 0063 13       		.uleb128 0x13
+ 1219 0064 00       		.byte	0
+ 1220 0065 00       		.byte	0
+ 1221 0066 09       		.uleb128 0x9
+ 1222 0067 01       		.uleb128 0x1
+ 1223 0068 01       		.byte	0x1
+ 1224 0069 49       		.uleb128 0x49
+ 1225 006a 13       		.uleb128 0x13
+ 1226 006b 01       		.uleb128 0x1
+ 1227 006c 13       		.uleb128 0x13
+ 1228 006d 00       		.byte	0
+ 1229 006e 00       		.byte	0
+ 1230 006f 0A       		.uleb128 0xa
+ 1231 0070 21       		.uleb128 0x21
+ 1232 0071 00       		.byte	0
+ 1233 0072 49       		.uleb128 0x49
+ 1234 0073 13       		.uleb128 0x13
+ 1235 0074 2F       		.uleb128 0x2f
+ 1236 0075 0B       		.uleb128 0xb
+ 1237 0076 00       		.byte	0
+ 1238 0077 00       		.byte	0
+ 1239 0078 0B       		.uleb128 0xb
+ 1240 0079 0D       		.uleb128 0xd
+ 1241 007a 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 39
+
+
+ 1242 007b 03       		.uleb128 0x3
+ 1243 007c 0E       		.uleb128 0xe
+ 1244 007d 3A       		.uleb128 0x3a
+ 1245 007e 0B       		.uleb128 0xb
+ 1246 007f 3B       		.uleb128 0x3b
+ 1247 0080 05       		.uleb128 0x5
+ 1248 0081 49       		.uleb128 0x49
+ 1249 0082 13       		.uleb128 0x13
+ 1250 0083 38       		.uleb128 0x38
+ 1251 0084 0B       		.uleb128 0xb
+ 1252 0085 00       		.byte	0
+ 1253 0086 00       		.byte	0
+ 1254 0087 0C       		.uleb128 0xc
+ 1255 0088 13       		.uleb128 0x13
+ 1256 0089 01       		.byte	0x1
+ 1257 008a 0B       		.uleb128 0xb
+ 1258 008b 0B       		.uleb128 0xb
+ 1259 008c 3A       		.uleb128 0x3a
+ 1260 008d 0B       		.uleb128 0xb
+ 1261 008e 3B       		.uleb128 0x3b
+ 1262 008f 05       		.uleb128 0x5
+ 1263 0090 01       		.uleb128 0x1
+ 1264 0091 13       		.uleb128 0x13
+ 1265 0092 00       		.byte	0
+ 1266 0093 00       		.byte	0
+ 1267 0094 0D       		.uleb128 0xd
+ 1268 0095 0D       		.uleb128 0xd
+ 1269 0096 00       		.byte	0
+ 1270 0097 03       		.uleb128 0x3
+ 1271 0098 08       		.uleb128 0x8
+ 1272 0099 3A       		.uleb128 0x3a
+ 1273 009a 0B       		.uleb128 0xb
+ 1274 009b 3B       		.uleb128 0x3b
+ 1275 009c 05       		.uleb128 0x5
+ 1276 009d 49       		.uleb128 0x49
+ 1277 009e 13       		.uleb128 0x13
+ 1278 009f 38       		.uleb128 0x38
+ 1279 00a0 0B       		.uleb128 0xb
+ 1280 00a1 00       		.byte	0
+ 1281 00a2 00       		.byte	0
+ 1282 00a3 0E       		.uleb128 0xe
+ 1283 00a4 0F       		.uleb128 0xf
+ 1284 00a5 00       		.byte	0
+ 1285 00a6 0B       		.uleb128 0xb
+ 1286 00a7 0B       		.uleb128 0xb
+ 1287 00a8 49       		.uleb128 0x49
+ 1288 00a9 13       		.uleb128 0x13
+ 1289 00aa 00       		.byte	0
+ 1290 00ab 00       		.byte	0
+ 1291 00ac 0F       		.uleb128 0xf
+ 1292 00ad 26       		.uleb128 0x26
+ 1293 00ae 00       		.byte	0
+ 1294 00af 00       		.byte	0
+ 1295 00b0 00       		.byte	0
+ 1296 00b1 10       		.uleb128 0x10
+ 1297 00b2 0F       		.uleb128 0xf
+ 1298 00b3 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 40
+
+
+ 1299 00b4 0B       		.uleb128 0xb
+ 1300 00b5 0B       		.uleb128 0xb
+ 1301 00b6 00       		.byte	0
+ 1302 00b7 00       		.byte	0
+ 1303 00b8 11       		.uleb128 0x11
+ 1304 00b9 2E       		.uleb128 0x2e
+ 1305 00ba 00       		.byte	0
+ 1306 00bb 03       		.uleb128 0x3
+ 1307 00bc 0E       		.uleb128 0xe
+ 1308 00bd 3A       		.uleb128 0x3a
+ 1309 00be 0B       		.uleb128 0xb
+ 1310 00bf 3B       		.uleb128 0x3b
+ 1311 00c0 05       		.uleb128 0x5
+ 1312 00c1 27       		.uleb128 0x27
+ 1313 00c2 19       		.uleb128 0x19
+ 1314 00c3 11       		.uleb128 0x11
+ 1315 00c4 01       		.uleb128 0x1
+ 1316 00c5 12       		.uleb128 0x12
+ 1317 00c6 06       		.uleb128 0x6
+ 1318 00c7 40       		.uleb128 0x40
+ 1319 00c8 18       		.uleb128 0x18
+ 1320 00c9 9742     		.uleb128 0x2117
+ 1321 00cb 19       		.uleb128 0x19
+ 1322 00cc 00       		.byte	0
+ 1323 00cd 00       		.byte	0
+ 1324 00ce 12       		.uleb128 0x12
+ 1325 00cf 2E       		.uleb128 0x2e
+ 1326 00d0 01       		.byte	0x1
+ 1327 00d1 03       		.uleb128 0x3
+ 1328 00d2 0E       		.uleb128 0xe
+ 1329 00d3 3A       		.uleb128 0x3a
+ 1330 00d4 0B       		.uleb128 0xb
+ 1331 00d5 3B       		.uleb128 0x3b
+ 1332 00d6 05       		.uleb128 0x5
+ 1333 00d7 27       		.uleb128 0x27
+ 1334 00d8 19       		.uleb128 0x19
+ 1335 00d9 11       		.uleb128 0x11
+ 1336 00da 01       		.uleb128 0x1
+ 1337 00db 12       		.uleb128 0x12
+ 1338 00dc 06       		.uleb128 0x6
+ 1339 00dd 40       		.uleb128 0x40
+ 1340 00de 18       		.uleb128 0x18
+ 1341 00df 9742     		.uleb128 0x2117
+ 1342 00e1 19       		.uleb128 0x19
+ 1343 00e2 01       		.uleb128 0x1
+ 1344 00e3 13       		.uleb128 0x13
+ 1345 00e4 00       		.byte	0
+ 1346 00e5 00       		.byte	0
+ 1347 00e6 13       		.uleb128 0x13
+ 1348 00e7 898201   		.uleb128 0x4109
+ 1349 00ea 00       		.byte	0
+ 1350 00eb 11       		.uleb128 0x11
+ 1351 00ec 01       		.uleb128 0x1
+ 1352 00ed 31       		.uleb128 0x31
+ 1353 00ee 13       		.uleb128 0x13
+ 1354 00ef 00       		.byte	0
+ 1355 00f0 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 41
+
+
+ 1356 00f1 14       		.uleb128 0x14
+ 1357 00f2 2E       		.uleb128 0x2e
+ 1358 00f3 01       		.byte	0x1
+ 1359 00f4 3F       		.uleb128 0x3f
+ 1360 00f5 19       		.uleb128 0x19
+ 1361 00f6 03       		.uleb128 0x3
+ 1362 00f7 0E       		.uleb128 0xe
+ 1363 00f8 3A       		.uleb128 0x3a
+ 1364 00f9 0B       		.uleb128 0xb
+ 1365 00fa 3B       		.uleb128 0x3b
+ 1366 00fb 05       		.uleb128 0x5
+ 1367 00fc 27       		.uleb128 0x27
+ 1368 00fd 19       		.uleb128 0x19
+ 1369 00fe 11       		.uleb128 0x11
+ 1370 00ff 01       		.uleb128 0x1
+ 1371 0100 12       		.uleb128 0x12
+ 1372 0101 06       		.uleb128 0x6
+ 1373 0102 40       		.uleb128 0x40
+ 1374 0103 18       		.uleb128 0x18
+ 1375 0104 9742     		.uleb128 0x2117
+ 1376 0106 19       		.uleb128 0x19
+ 1377 0107 01       		.uleb128 0x1
+ 1378 0108 13       		.uleb128 0x13
+ 1379 0109 00       		.byte	0
+ 1380 010a 00       		.byte	0
+ 1381 010b 15       		.uleb128 0x15
+ 1382 010c 34       		.uleb128 0x34
+ 1383 010d 00       		.byte	0
+ 1384 010e 03       		.uleb128 0x3
+ 1385 010f 0E       		.uleb128 0xe
+ 1386 0110 3A       		.uleb128 0x3a
+ 1387 0111 0B       		.uleb128 0xb
+ 1388 0112 3B       		.uleb128 0x3b
+ 1389 0113 05       		.uleb128 0x5
+ 1390 0114 49       		.uleb128 0x49
+ 1391 0115 13       		.uleb128 0x13
+ 1392 0116 02       		.uleb128 0x2
+ 1393 0117 17       		.uleb128 0x17
+ 1394 0118 00       		.byte	0
+ 1395 0119 00       		.byte	0
+ 1396 011a 16       		.uleb128 0x16
+ 1397 011b 898201   		.uleb128 0x4109
+ 1398 011e 01       		.byte	0x1
+ 1399 011f 11       		.uleb128 0x11
+ 1400 0120 01       		.uleb128 0x1
+ 1401 0121 31       		.uleb128 0x31
+ 1402 0122 13       		.uleb128 0x13
+ 1403 0123 01       		.uleb128 0x1
+ 1404 0124 13       		.uleb128 0x13
+ 1405 0125 00       		.byte	0
+ 1406 0126 00       		.byte	0
+ 1407 0127 17       		.uleb128 0x17
+ 1408 0128 8A8201   		.uleb128 0x410a
+ 1409 012b 00       		.byte	0
+ 1410 012c 02       		.uleb128 0x2
+ 1411 012d 18       		.uleb128 0x18
+ 1412 012e 9142     		.uleb128 0x2111
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 42
+
+
+ 1413 0130 18       		.uleb128 0x18
+ 1414 0131 00       		.byte	0
+ 1415 0132 00       		.byte	0
+ 1416 0133 18       		.uleb128 0x18
+ 1417 0134 26       		.uleb128 0x26
+ 1418 0135 00       		.byte	0
+ 1419 0136 49       		.uleb128 0x49
+ 1420 0137 13       		.uleb128 0x13
+ 1421 0138 00       		.byte	0
+ 1422 0139 00       		.byte	0
+ 1423 013a 19       		.uleb128 0x19
+ 1424 013b 34       		.uleb128 0x34
+ 1425 013c 00       		.byte	0
+ 1426 013d 03       		.uleb128 0x3
+ 1427 013e 0E       		.uleb128 0xe
+ 1428 013f 3A       		.uleb128 0x3a
+ 1429 0140 0B       		.uleb128 0xb
+ 1430 0141 3B       		.uleb128 0x3b
+ 1431 0142 05       		.uleb128 0x5
+ 1432 0143 49       		.uleb128 0x49
+ 1433 0144 13       		.uleb128 0x13
+ 1434 0145 3F       		.uleb128 0x3f
+ 1435 0146 19       		.uleb128 0x19
+ 1436 0147 3C       		.uleb128 0x3c
+ 1437 0148 19       		.uleb128 0x19
+ 1438 0149 00       		.byte	0
+ 1439 014a 00       		.byte	0
+ 1440 014b 1A       		.uleb128 0x1a
+ 1441 014c 34       		.uleb128 0x34
+ 1442 014d 00       		.byte	0
+ 1443 014e 03       		.uleb128 0x3
+ 1444 014f 0E       		.uleb128 0xe
+ 1445 0150 3A       		.uleb128 0x3a
+ 1446 0151 0B       		.uleb128 0xb
+ 1447 0152 3B       		.uleb128 0x3b
+ 1448 0153 0B       		.uleb128 0xb
+ 1449 0154 49       		.uleb128 0x49
+ 1450 0155 13       		.uleb128 0x13
+ 1451 0156 3F       		.uleb128 0x3f
+ 1452 0157 19       		.uleb128 0x19
+ 1453 0158 3C       		.uleb128 0x3c
+ 1454 0159 19       		.uleb128 0x19
+ 1455 015a 00       		.byte	0
+ 1456 015b 00       		.byte	0
+ 1457 015c 1B       		.uleb128 0x1b
+ 1458 015d 2E       		.uleb128 0x2e
+ 1459 015e 00       		.byte	0
+ 1460 015f 3F       		.uleb128 0x3f
+ 1461 0160 19       		.uleb128 0x19
+ 1462 0161 3C       		.uleb128 0x3c
+ 1463 0162 19       		.uleb128 0x19
+ 1464 0163 6E       		.uleb128 0x6e
+ 1465 0164 0E       		.uleb128 0xe
+ 1466 0165 03       		.uleb128 0x3
+ 1467 0166 0E       		.uleb128 0xe
+ 1468 0167 3A       		.uleb128 0x3a
+ 1469 0168 0B       		.uleb128 0xb
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 43
+
+
+ 1470 0169 3B       		.uleb128 0x3b
+ 1471 016a 05       		.uleb128 0x5
+ 1472 016b 00       		.byte	0
+ 1473 016c 00       		.byte	0
+ 1474 016d 1C       		.uleb128 0x1c
+ 1475 016e 2E       		.uleb128 0x2e
+ 1476 016f 00       		.byte	0
+ 1477 0170 3F       		.uleb128 0x3f
+ 1478 0171 19       		.uleb128 0x19
+ 1479 0172 3C       		.uleb128 0x3c
+ 1480 0173 19       		.uleb128 0x19
+ 1481 0174 6E       		.uleb128 0x6e
+ 1482 0175 0E       		.uleb128 0xe
+ 1483 0176 03       		.uleb128 0x3
+ 1484 0177 0E       		.uleb128 0xe
+ 1485 0178 3A       		.uleb128 0x3a
+ 1486 0179 0B       		.uleb128 0xb
+ 1487 017a 3B       		.uleb128 0x3b
+ 1488 017b 0B       		.uleb128 0xb
+ 1489 017c 00       		.byte	0
+ 1490 017d 00       		.byte	0
+ 1491 017e 00       		.byte	0
+ 1492              		.section	.debug_loc,"",%progbits
+ 1493              	.Ldebug_loc0:
+ 1494              	.LLST0:
+ 1495 0000 1A000000 		.4byte	.LVL4
+ 1496 0004 3A000000 		.4byte	.LVL8
+ 1497 0008 0100     		.2byte	0x1
+ 1498 000a 54       		.byte	0x54
+ 1499 000b 00000000 		.4byte	0
+ 1500 000f 00000000 		.4byte	0
+ 1501              		.section	.debug_aranges,"",%progbits
+ 1502 0000 34000000 		.4byte	0x34
+ 1503 0004 0200     		.2byte	0x2
+ 1504 0006 00000000 		.4byte	.Ldebug_info0
+ 1505 000a 04       		.byte	0x4
+ 1506 000b 00       		.byte	0
+ 1507 000c 0000     		.2byte	0
+ 1508 000e 0000     		.2byte	0
+ 1509 0010 00000000 		.4byte	.LFB3
+ 1510 0014 20000000 		.4byte	.LFE3-.LFB3
+ 1511 0018 00000000 		.4byte	.LFB4
+ 1512 001c A0000000 		.4byte	.LFE4-.LFB4
+ 1513 0020 00000000 		.4byte	.LFB1
+ 1514 0024 44000000 		.4byte	.LFE1-.LFB1
+ 1515 0028 00000000 		.4byte	.LFB2
+ 1516 002c 58000000 		.4byte	.LFE2-.LFB2
+ 1517 0030 00000000 		.4byte	0
+ 1518 0034 00000000 		.4byte	0
+ 1519              		.section	.debug_ranges,"",%progbits
+ 1520              	.Ldebug_ranges0:
+ 1521 0000 00000000 		.4byte	.LFB3
+ 1522 0004 20000000 		.4byte	.LFE3
+ 1523 0008 00000000 		.4byte	.LFB4
+ 1524 000c A0000000 		.4byte	.LFE4
+ 1525 0010 00000000 		.4byte	.LFB1
+ 1526 0014 44000000 		.4byte	.LFE1
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 44
+
+
+ 1527 0018 00000000 		.4byte	.LFB2
+ 1528 001c 58000000 		.4byte	.LFE2
+ 1529 0020 00000000 		.4byte	0
+ 1530 0024 00000000 		.4byte	0
+ 1531              		.section	.debug_line,"",%progbits
+ 1532              	.Ldebug_line0:
+ 1533 0000 4E010000 		.section	.debug_str,"MS",%progbits,1
+ 1533      0200D700 
+ 1533      00000201 
+ 1533      FB0E0D00 
+ 1533      01010101 
+ 1534              	.LASF16:
+ 1535 0000 63794361 		.ascii	"cyCapsense_THRESHOLD_TYPE\000"
+ 1535      7073656E 
+ 1535      73655F54 
+ 1535      48524553 
+ 1535      484F4C44 
+ 1536              	.LASF61:
+ 1537 001a 77646774 		.ascii	"wdgtList\000"
+ 1537      4C697374 
+ 1537      00
+ 1538              	.LASF66:
+ 1539 0023 736E7254 		.ascii	"snrTestRawCount\000"
+ 1539      65737452 
+ 1539      6177436F 
+ 1539      756E7400 
+ 1540              	.LASF92:
+ 1541 0033 63794361 		.ascii	"cyCapsense_CSDPostSingleScan\000"
+ 1541      7073656E 
+ 1541      73655F43 
+ 1541      5344506F 
+ 1541      73745369 
+ 1542              	.LASF44:
+ 1543 0050 62736C6E 		.ascii	"bsln\000"
+ 1543      00
+ 1544              	.LASF40:
+ 1545 0055 62757474 		.ascii	"button0\000"
+ 1545      6F6E3000 
+ 1546              	.LASF97:
+ 1547 005d 63794361 		.ascii	"cyCapsense_sensorIndex\000"
+ 1547      7073656E 
+ 1547      73655F73 
+ 1547      656E736F 
+ 1547      72496E64 
+ 1548              	.LASF109:
+ 1549 0074 63794361 		.ascii	"cyCapsense_SsCSDPostScan\000"
+ 1549      7073656E 
+ 1549      73655F53 
+ 1549      73435344 
+ 1549      506F7374 
+ 1550              	.LASF46:
+ 1551 008d 64696666 		.ascii	"diff\000"
+ 1551      00
+ 1552              	.LASF84:
+ 1553 0092 746F7461 		.ascii	"totalNumSns\000"
+ 1553      6C4E756D 
+ 1553      536E7300 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 45
+
+
+ 1554              	.LASF34:
+ 1555 009e 69646163 		.ascii	"idacMod\000"
+ 1555      4D6F6400 
+ 1556              	.LASF75:
+ 1557 00a6 64725368 		.ascii	"drShift\000"
+ 1557      69667400 
+ 1558              	.LASF98:
+ 1559 00ae 63794361 		.ascii	"cyCapsense_requestScanAllWidget\000"
+ 1559      7073656E 
+ 1559      73655F72 
+ 1559      65717565 
+ 1559      73745363 
+ 1560              	.LASF2:
+ 1561 00ce 73686F72 		.ascii	"short int\000"
+ 1561      7420696E 
+ 1561      7400
+ 1562              	.LASF68:
+ 1563 00d8 6873696F 		.ascii	"hsiomPtr\000"
+ 1563      6D507472 
+ 1563      00
+ 1564              	.LASF32:
+ 1565 00e1 6F6E4465 		.ascii	"onDebounce\000"
+ 1565      626F756E 
+ 1565      636500
+ 1566              	.LASF102:
+ 1567 00ec 63794361 		.ascii	"cyCapsense_SsCSDConnectSensorExt\000"
+ 1567      7073656E 
+ 1567      73655F53 
+ 1567      73435344 
+ 1567      436F6E6E 
+ 1568              	.LASF26:
+ 1569 010d 73697A65 		.ascii	"sizetype\000"
+ 1569      74797065 
+ 1569      00
+ 1570              	.LASF67:
+ 1571 0116 63794361 		.ascii	"cyCapsense_RAM_STRUCT\000"
+ 1571      7073656E 
+ 1571      73655F52 
+ 1571      414D5F53 
+ 1571      54525543 
+ 1572              	.LASF69:
+ 1573 012c 70635074 		.ascii	"pcPtr\000"
+ 1573      7200
+ 1574              	.LASF59:
+ 1575 0132 63736430 		.ascii	"csd0Config\000"
+ 1575      436F6E66 
+ 1575      696700
+ 1576              	.LASF6:
+ 1577 013d 6C6F6E67 		.ascii	"long long int\000"
+ 1577      206C6F6E 
+ 1577      6720696E 
+ 1577      7400
+ 1578              	.LASF105:
+ 1579 014b 63794361 		.ascii	"cyCapsense_CSDDisconnectSns\000"
+ 1579      7073656E 
+ 1579      73655F43 
+ 1579      53444469 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 46
+
+
+ 1579      73636F6E 
+ 1580              	.LASF36:
+ 1581 0167 736E7343 		.ascii	"snsClkSource\000"
+ 1581      6C6B536F 
+ 1581      75726365 
+ 1581      00
+ 1582              	.LASF20:
+ 1583 0174 70617261 		.ascii	"param2\000"
+ 1583      6D3200
+ 1584              	.LASF21:
+ 1585 017b 70617261 		.ascii	"param3\000"
+ 1585      6D3300
+ 1586              	.LASF22:
+ 1587 0182 70617261 		.ascii	"param4\000"
+ 1587      6D3400
+ 1588              	.LASF23:
+ 1589 0189 70617261 		.ascii	"param5\000"
+ 1589      6D3500
+ 1590              	.LASF24:
+ 1591 0190 70617261 		.ascii	"param6\000"
+ 1591      6D3600
+ 1592              	.LASF29:
+ 1593 0197 6E6F6973 		.ascii	"noiseTh\000"
+ 1593      65546800 
+ 1594              	.LASF51:
+ 1595 019f 64657669 		.ascii	"deviceId\000"
+ 1595      63654964 
+ 1595      00
+ 1596              	.LASF48:
+ 1597 01a8 63794361 		.ascii	"cyCapsense_RAM_SNS_STRUCT\000"
+ 1597      7073656E 
+ 1597      73655F52 
+ 1597      414D5F53 
+ 1597      4E535F53 
+ 1598              	.LASF10:
+ 1599 01c2 75696E74 		.ascii	"uint16\000"
+ 1599      313600
+ 1600              	.LASF106:
+ 1601 01c9 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1601      43313120 
+ 1601      352E342E 
+ 1601      31203230 
+ 1601      31363036 
+ 1602 01fc 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1602      20726576 
+ 1602      6973696F 
+ 1602      6E203233 
+ 1602      37373135 
+ 1603 022f 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1603      66756E63 
+ 1603      74696F6E 
+ 1603      2D736563 
+ 1603      74696F6E 
+ 1604              	.LASF82:
+ 1605 0257 70747232 		.ascii	"ptr2DebounceArr\000"
+ 1605      4465626F 
+ 1605      756E6365 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 47
+
+
+ 1605      41727200 
+ 1606              	.LASF9:
+ 1607 0267 75696E74 		.ascii	"uint8\000"
+ 1607      3800
+ 1608              	.LASF71:
+ 1609 026d 70735074 		.ascii	"psPtr\000"
+ 1609      7200
+ 1610              	.LASF35:
+ 1611 0273 736E7343 		.ascii	"snsClk\000"
+ 1611      6C6B00
+ 1612              	.LASF90:
+ 1613 027a 63794361 		.ascii	"cyCapsense_FLASH_STRUCT\000"
+ 1613      7073656E 
+ 1613      73655F46 
+ 1613      4C415348 
+ 1613      5F535452 
+ 1614              	.LASF110:
+ 1615 0292 63794361 		.ascii	"cyCapsense_SsCSDInitNextScan\000"
+ 1615      7073656E 
+ 1615      73655F53 
+ 1615      73435344 
+ 1615      496E6974 
+ 1616              	.LASF12:
+ 1617 02af 666C6F61 		.ascii	"float\000"
+ 1617      7400
+ 1618              	.LASF111:
+ 1619 02b5 63757253 		.ascii	"curSnsIOPtr\000"
+ 1619      6E73494F 
+ 1619      50747200 
+ 1620              	.LASF64:
+ 1621 02c1 736E7254 		.ascii	"snrTestSensorId\000"
+ 1621      65737453 
+ 1621      656E736F 
+ 1621      72496400 
+ 1622              	.LASF7:
+ 1623 02d1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1623      206C6F6E 
+ 1623      6720756E 
+ 1623      7369676E 
+ 1623      65642069 
+ 1624              	.LASF14:
+ 1625 02e8 63686172 		.ascii	"char\000"
+ 1625      00
+ 1626              	.LASF4:
+ 1627 02ed 6C6F6E67 		.ascii	"long int\000"
+ 1627      20696E74 
+ 1627      00
+ 1628              	.LASF76:
+ 1629 02f6 73686966 		.ascii	"shift\000"
+ 1629      7400
+ 1630              	.LASF85:
+ 1631 02fc 77646774 		.ascii	"wdgtType\000"
+ 1631      54797065 
+ 1631      00
+ 1632              	.LASF5:
+ 1633 0305 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1633      20756E73 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 48
+
+
+ 1633      69676E65 
+ 1633      6420696E 
+ 1633      7400
+ 1634              	.LASF28:
+ 1635 0317 66696E67 		.ascii	"fingerTh\000"
+ 1635      65725468 
+ 1635      00
+ 1636              	.LASF47:
+ 1637 0320 6E656742 		.ascii	"negBslnRstCnt\000"
+ 1637      736C6E52 
+ 1637      7374436E 
+ 1637      7400
+ 1638              	.LASF79:
+ 1639 032e 70747232 		.ascii	"ptr2WdgtRam\000"
+ 1639      57646774 
+ 1639      52616D00 
+ 1640              	.LASF19:
+ 1641 033a 70617261 		.ascii	"param1\000"
+ 1641      6D3100
+ 1642              	.LASF86:
+ 1643 0341 6E756D43 		.ascii	"numCols\000"
+ 1643      6F6C7300 
+ 1644              	.LASF17:
+ 1645 0349 63794361 		.ascii	"cyCapsense_LOW_BSLN_RST_TYPE\000"
+ 1645      7073656E 
+ 1645      73655F4C 
+ 1645      4F575F42 
+ 1645      534C4E5F 
+ 1646              	.LASF1:
+ 1647 0366 756E7369 		.ascii	"unsigned char\000"
+ 1647      676E6564 
+ 1647      20636861 
+ 1647      7200
+ 1648              	.LASF31:
+ 1649 0374 68797374 		.ascii	"hysteresis\000"
+ 1649      65726573 
+ 1649      697300
+ 1650              	.LASF53:
+ 1651 037f 74756E65 		.ascii	"tunerCmd\000"
+ 1651      72436D64 
+ 1651      00
+ 1652              	.LASF91:
+ 1653 0388 6C6F6E67 		.ascii	"long double\000"
+ 1653      20646F75 
+ 1653      626C6500 
+ 1654              	.LASF57:
+ 1655 0394 77646774 		.ascii	"wdgtStatus\000"
+ 1655      53746174 
+ 1655      757300
+ 1656              	.LASF33:
+ 1657 039f 6C6F7742 		.ascii	"lowBslnRst\000"
+ 1657      736C6E52 
+ 1657      737400
+ 1658              	.LASF39:
+ 1659 03aa 63794361 		.ascii	"cyCapsense_RAM_WD_BUTTON_STRUCT\000"
+ 1659      7073656E 
+ 1659      73655F52 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 49
+
+
+ 1659      414D5F57 
+ 1659      445F4255 
+ 1660              	.LASF0:
+ 1661 03ca 7369676E 		.ascii	"signed char\000"
+ 1661      65642063 
+ 1661      68617200 
+ 1662              	.LASF99:
+ 1663 03d6 63794361 		.ascii	"cyCapsense_curRamSnsPtr\000"
+ 1663      7073656E 
+ 1663      73655F63 
+ 1663      75725261 
+ 1663      6D536E73 
+ 1664              	.LASF83:
+ 1665 03ee 73746174 		.ascii	"staticConfig\000"
+ 1665      6963436F 
+ 1665      6E666967 
+ 1665      00
+ 1666              	.LASF8:
+ 1667 03fb 756E7369 		.ascii	"unsigned int\000"
+ 1667      676E6564 
+ 1667      20696E74 
+ 1667      00
+ 1668              	.LASF49:
+ 1669 0408 63794361 		.ascii	"cyCapsense_RAM_SNS_LIST_STRUCT\000"
+ 1669      7073656E 
+ 1669      73655F52 
+ 1669      414D5F53 
+ 1669      4E535F4C 
+ 1670              	.LASF18:
+ 1671 0427 70617261 		.ascii	"param0\000"
+ 1671      6D3000
+ 1672              	.LASF56:
+ 1673 042e 77646774 		.ascii	"wdgtEnable\000"
+ 1673      456E6162 
+ 1673      6C6500
+ 1674              	.LASF101:
+ 1675 0439 63794361 		.ascii	"cyCapsense_configCsd\000"
+ 1675      7073656E 
+ 1675      73655F63 
+ 1675      6F6E6669 
+ 1675      67437364 
+ 1676              	.LASF55:
+ 1677 044e 73746174 		.ascii	"status\000"
+ 1677      757300
+ 1678              	.LASF77:
+ 1679 0455 63794361 		.ascii	"cyCapsense_FLASH_IO_STRUCT\000"
+ 1679      7073656E 
+ 1679      73655F46 
+ 1679      4C415348 
+ 1679      5F494F5F 
+ 1680              	.LASF94:
+ 1681 0470 63794361 		.ascii	"cyCapsense_dsRam\000"
+ 1681      7073656E 
+ 1681      73655F64 
+ 1681      7352616D 
+ 1681      00
+ 1682              	.LASF3:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 50
+
+
+ 1683 0481 73686F72 		.ascii	"short unsigned int\000"
+ 1683      7420756E 
+ 1683      7369676E 
+ 1683      65642069 
+ 1683      6E7400
+ 1684              	.LASF93:
+ 1685 0494 63794361 		.ascii	"cyCapsense_CSDPostMultiScan\000"
+ 1685      7073656E 
+ 1685      73655F43 
+ 1685      5344506F 
+ 1685      73744D75 
+ 1686              	.LASF52:
+ 1687 04b0 6877436C 		.ascii	"hwClock\000"
+ 1687      6F636B00 
+ 1688              	.LASF50:
+ 1689 04b8 636F6E66 		.ascii	"configId\000"
+ 1689      69674964 
+ 1689      00
+ 1690              	.LASF65:
+ 1691 04c1 736E7254 		.ascii	"snrTestScanCounter\000"
+ 1691      65737453 
+ 1691      63616E43 
+ 1691      6F756E74 
+ 1691      657200
+ 1692              	.LASF27:
+ 1693 04d4 7265736F 		.ascii	"resolution\000"
+ 1693      6C757469 
+ 1693      6F6E00
+ 1694              	.LASF100:
+ 1695 04df 63794361 		.ascii	"cyCapsense_scanFreqIndex\000"
+ 1695      7073656E 
+ 1695      73655F73 
+ 1695      63616E46 
+ 1695      72657149 
+ 1696              	.LASF62:
+ 1697 04f8 736E734C 		.ascii	"snsList\000"
+ 1697      69737400 
+ 1698              	.LASF60:
+ 1699 0500 6D6F6443 		.ascii	"modCsdClk\000"
+ 1699      7364436C 
+ 1699      6B00
+ 1700              	.LASF54:
+ 1701 050a 7363616E 		.ascii	"scanCounter\000"
+ 1701      436F756E 
+ 1701      74657200 
+ 1702              	.LASF30:
+ 1703 0516 6E4E6F69 		.ascii	"nNoiseTh\000"
+ 1703      73655468 
+ 1703      00
+ 1704              	.LASF15:
+ 1705 051f 72656733 		.ascii	"reg32\000"
+ 1705      3200
+ 1706              	.LASF38:
+ 1707 0525 73696750 		.ascii	"sigPFC\000"
+ 1707      464300
+ 1708              	.LASF11:
+ 1709 052c 75696E74 		.ascii	"uint32\000"
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 51
+
+
+ 1709      333200
+ 1710              	.LASF104:
+ 1711 0533 63794361 		.ascii	"cyCapsense_SsPostAllWidgetsScan\000"
+ 1711      7073656E 
+ 1711      73655F53 
+ 1711      73506F73 
+ 1711      74416C6C 
+ 1712              	.LASF13:
+ 1713 0553 646F7562 		.ascii	"double\000"
+ 1713      6C6500
+ 1714              	.LASF43:
+ 1715 055a 63794361 		.ascii	"cyCapsense_RAM_WD_LIST_STRUCT\000"
+ 1715      7073656E 
+ 1715      73655F52 
+ 1715      414D5F57 
+ 1715      445F4C49 
+ 1716              	.LASF45:
+ 1717 0578 62736C6E 		.ascii	"bslnExt\000"
+ 1717      45787400 
+ 1718              	.LASF74:
+ 1719 0580 6873696F 		.ascii	"hsiomShift\000"
+ 1719      6D536869 
+ 1719      667400
+ 1720              	.LASF70:
+ 1721 058b 64725074 		.ascii	"drPtr\000"
+ 1721      7200
+ 1722              	.LASF73:
+ 1723 0591 6D61736B 		.ascii	"mask\000"
+ 1723      00
+ 1724              	.LASF88:
+ 1725 0596 63794361 		.ascii	"cyCapsense_FLASH_WD_STRUCT\000"
+ 1725      7073656E 
+ 1725      73655F46 
+ 1725      4C415348 
+ 1725      5F57445F 
+ 1726              	.LASF80:
+ 1727 05b1 70747232 		.ascii	"ptr2SnsRam\000"
+ 1727      536E7352 
+ 1727      616D00
+ 1728              	.LASF41:
+ 1729 05bc 62757474 		.ascii	"button1\000"
+ 1729      6F6E3100 
+ 1730              	.LASF42:
+ 1731 05c4 62757474 		.ascii	"button2\000"
+ 1731      6F6E3200 
+ 1732              	.LASF96:
+ 1733 05cc 63794361 		.ascii	"cyCapsense_widgetIndex\000"
+ 1733      7073656E 
+ 1733      73655F77 
+ 1733      69646765 
+ 1733      74496E64 
+ 1734              	.LASF108:
+ 1735 05e3 433A5C55 		.ascii	"C:\\Users\\turan\\Desktop\\Dev\\Workspace01\\Test\\"
+ 1735      73657273 
+ 1735      5C747572 
+ 1735      616E5C44 
+ 1735      65736B74 
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 52
+
+
+ 1736 060f 4C65645F 		.ascii	"Led_Blink_Process.cydsn\000"
+ 1736      426C696E 
+ 1736      6B5F5072 
+ 1736      6F636573 
+ 1736      732E6379 
+ 1737              	.LASF81:
+ 1738 0627 70747232 		.ascii	"ptr2FltrHistory\000"
+ 1738      466C7472 
+ 1738      48697374 
+ 1738      6F727900 
+ 1739              	.LASF89:
+ 1740 0637 77646774 		.ascii	"wdgtArray\000"
+ 1740      41727261 
+ 1740      7900
+ 1741              	.LASF103:
+ 1742 0641 63794361 		.ascii	"cyCapsense_SsCSDStartSample\000"
+ 1742      7073656E 
+ 1742      73655F53 
+ 1742      73435344 
+ 1742      53746172 
+ 1743              	.LASF37:
+ 1744 065d 66696E67 		.ascii	"fingerCap\000"
+ 1744      65724361 
+ 1744      7000
+ 1745              	.LASF107:
+ 1746 0667 47656E65 		.ascii	"Generated_Source\\PSoC4\\cyCapsense_INT.c\000"
+ 1746      72617465 
+ 1746      645F536F 
+ 1746      75726365 
+ 1746      5C50536F 
+ 1747              	.LASF63:
+ 1748 068f 736E7254 		.ascii	"snrTestWidgetId\000"
+ 1748      65737457 
+ 1748      69646765 
+ 1748      74496400 
+ 1749              	.LASF25:
+ 1750 069f 534D4152 		.ascii	"SMARTSENSE_CSD_NOISE_ENVELOPE_STRUCT\000"
+ 1750      5453454E 
+ 1750      53455F43 
+ 1750      53445F4E 
+ 1750      4F495345 
+ 1751              	.LASF78:
+ 1752 06c4 70747232 		.ascii	"ptr2SnsFlash\000"
+ 1752      536E7346 
+ 1752      6C617368 
+ 1752      00
+ 1753              	.LASF58:
+ 1754 06d1 736E7353 		.ascii	"snsStatus\000"
+ 1754      74617475 
+ 1754      7300
+ 1755              	.LASF95:
+ 1756 06db 63794361 		.ascii	"cyCapsense_dsFlash\000"
+ 1756      7073656E 
+ 1756      73655F64 
+ 1756      73466C61 
+ 1756      736800
+ 1757              	.LASF72:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccacGoag.s 			page 53
+
+
+ 1758 06ee 6873696F 		.ascii	"hsiomMask\000"
+ 1758      6D4D6173 
+ 1758      6B00
+ 1759              	.LASF87:
+ 1760 06f8 70747232 		.ascii	"ptr2NoiseEnvlp\000"
+ 1760      4E6F6973 
+ 1760      65456E76 
+ 1760      6C7000
+ 1761              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,1783 @@
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"encoder.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.encoderDeinit,"ax",%progbits
+  20              		.align	2
+  21              		.code	16
+  22              		.thumb_func
+  23              		.type	encoderDeinit, %function
+  24              	encoderDeinit:
+  25              	.LFB44:
+  26              		.file 1 "dev\\encoder.c"
+   1:dev/encoder.c **** /** @file       encoder.c
+   2:dev/encoder.c ****  *  @brief      C file of ENCODER device
+   3:dev/encoder.c ****  *  @copyright  (c) 2021-Arcelik - All Rights Reserved
+   4:dev/encoder.c ****  *              Permission to use, reproduce, copy, prepare derivative works,
+   5:dev/encoder.c ****  *              modify, distribute, perform, display or sell this software and/or
+   6:dev/encoder.c ****  *              its documentation for any purpose is prohibited without the express
+   7:dev/encoder.c ****  *              written consent of Arcelik A.S.
+   8:dev/encoder.c ****  *  @author     Ali Ergun
+   9:dev/encoder.c ****  *  @date       2.06.2021
+  10:dev/encoder.c ****  */
+  11:dev/encoder.c **** #define FILE_ENCODER_C
+  12:dev/encoder.c **** 
+  13:dev/encoder.c **** #include "encoder.h"
+  14:dev/encoder.c **** 
+  15:dev/encoder.c **** /**
+  16:dev/encoder.c ****  *  @addtogroup ENCODER
+  17:dev/encoder.c ****  *  @{
+  18:dev/encoder.c ****  */
+  19:dev/encoder.c **** 
+  20:dev/encoder.c **** static DEV_IO_FUNC_INIT(encoderInit);
+  21:dev/encoder.c **** static DEV_IO_FUNC_DEINIT(encoderDeinit);
+  22:dev/encoder.c **** static DEV_IO_FUNC_GET(encoderGet);
+  23:dev/encoder.c **** static DEV_IO_FUNC_PUT(encoderPut);
+  24:dev/encoder.c **** 
+  25:dev/encoder.c **** static const uint8_t encoderLT[] = {2,1,5,6,13,14,10,9,3,0,4,7,12,15,11,8};
+  26:dev/encoder.c ****                                     
+  27:dev/encoder.c **** /// @brief  Structure that defines the functions for encoder
+  28:dev/encoder.c **** const tsDevIoFuncs devIoEncoderFuncs =
+  29:dev/encoder.c **** {
+  30:dev/encoder.c ****     encoderInit,
+  31:dev/encoder.c ****     encoderDeinit,
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 2
+
+
+  32:dev/encoder.c ****     encoderGet,
+  33:dev/encoder.c ****     encoderPut,
+  34:dev/encoder.c **** };
+  35:dev/encoder.c **** 
+  36:dev/encoder.c **** /// @brief  Init function for a encoder
+  37:dev/encoder.c **** static DEV_IO_FUNC_INIT(encoderInit)
+  38:dev/encoder.c **** {
+  39:dev/encoder.c ****     tsEncoderParams *params       = device->parameters;
+  40:dev/encoder.c ****     const tsEncoderConsts *consts = device->constants;
+  41:dev/encoder.c ****     
+  42:dev/encoder.c ****     if (config)
+  43:dev/encoder.c ****     {
+  44:dev/encoder.c ****         const tsEncoderConfig *cfg = config;
+  45:dev/encoder.c **** 
+  46:dev/encoder.c ****         UNUSED(cfg);    // REMOVE IF USED
+  47:dev/encoder.c ****     }
+  48:dev/encoder.c **** 
+  49:dev/encoder.c ****     UNUSED(params); // REMOVE IF USED
+  50:dev/encoder.c ****     devIoInit(consts->COM1,NULL);
+  51:dev/encoder.c ****     devIoInit(consts->COM2,NULL);
+  52:dev/encoder.c ****     devIoInit(consts->COM3,NULL);
+  53:dev/encoder.c ****     devIoInit(consts->COM4,NULL);
+  54:dev/encoder.c ****     
+  55:dev/encoder.c ****     device->sys->initialized = 1;
+  56:dev/encoder.c **** 
+  57:dev/encoder.c ****     return EXIT_SUCCESS;
+  58:dev/encoder.c **** }
+  59:dev/encoder.c **** 
+  60:dev/encoder.c **** /// @brief  Deinit function for a encoder
+  61:dev/encoder.c **** static DEV_IO_FUNC_DEINIT(encoderDeinit)
+  62:dev/encoder.c **** {
+  27              		.loc 1 62 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  63:dev/encoder.c ****     tsEncoderParams *params       = device->parameters;
+  64:dev/encoder.c ****     const tsEncoderConsts *consts = device->constants;
+  65:dev/encoder.c **** 
+  66:dev/encoder.c ****     device->sys->initialized = 0;
+  33              		.loc 1 66 0
+  34 0000 C368     		ldr	r3, [r0, #12]
+  35 0002 0022     		movs	r2, #0
+  36 0004 1A70     		strb	r2, [r3]
+  37              	.LVL1:
+  67:dev/encoder.c ****     UNUSED(params); // REMOVE IF USED
+  68:dev/encoder.c ****     UNUSED(consts); // REMOVE IF USED
+  69:dev/encoder.c **** 
+  70:dev/encoder.c ****     return EXIT_SUCCESS;
+  71:dev/encoder.c **** }
+  38              		.loc 1 71 0
+  39 0006 0020     		movs	r0, #0
+  40              	.LVL2:
+  41              		@ sp needed
+  42 0008 7047     		bx	lr
+  43              		.cfi_endproc
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 3
+
+
+  44              	.LFE44:
+  45              		.size	encoderDeinit, .-encoderDeinit
+  46 000a C046     		.section	.text.encoderPut,"ax",%progbits
+  47              		.align	2
+  48              		.code	16
+  49              		.thumb_func
+  50              		.type	encoderPut, %function
+  51              	encoderPut:
+  52              	.LFB46:
+  72:dev/encoder.c **** 
+  73:dev/encoder.c **** /// @brief  Get function for a encoder
+  74:dev/encoder.c **** static DEV_IO_FUNC_GET(encoderGet)
+  75:dev/encoder.c **** {
+  76:dev/encoder.c ****     tsEncoderParams *params       = device->parameters;
+  77:dev/encoder.c ****     const tsEncoderConsts *consts = device->constants;
+  78:dev/encoder.c **** 
+  79:dev/encoder.c ****     
+  80:dev/encoder.c ****     params->value = devIoGet(consts->COM1);
+  81:dev/encoder.c ****     params->value += devIoGet(consts->COM2)<<1;
+  82:dev/encoder.c ****     params->value += devIoGet(consts->COM3)<<2;
+  83:dev/encoder.c ****     params->value += devIoGet(consts->COM4)<<3;
+  84:dev/encoder.c ****     
+  85:dev/encoder.c ****     UNUSED(params); // REMOVE IF USED
+  86:dev/encoder.c ****     UNUSED(consts); // REMOVE IF USED
+  87:dev/encoder.c **** 
+  88:dev/encoder.c ****     return encoderLT[params->value];
+  89:dev/encoder.c **** }
+  90:dev/encoder.c **** 
+  91:dev/encoder.c **** /// @brief  Put function for a encoder
+  92:dev/encoder.c **** static DEV_IO_FUNC_PUT(encoderPut)
+  93:dev/encoder.c **** {
+  53              		.loc 1 93 0
+  54              		.cfi_startproc
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+  58              	.LVL3:
+  94:dev/encoder.c ****     tsEncoderParams *params       = device->parameters;
+  95:dev/encoder.c ****     const tsEncoderConsts *consts = device->constants;
+  96:dev/encoder.c **** 
+  97:dev/encoder.c ****     UNUSED(params); // REMOVE IF USED
+  98:dev/encoder.c ****     UNUSED(consts); // REMOVE IF USED
+  99:dev/encoder.c ****     UNUSED(data);   // REMOVE IF USED
+ 100:dev/encoder.c **** 
+ 101:dev/encoder.c ****     return EXIT_SUCCESS;
+ 102:dev/encoder.c **** }
+  59              		.loc 1 102 0
+  60 0000 0020     		movs	r0, #0
+  61              	.LVL4:
+  62              		@ sp needed
+  63 0002 7047     		bx	lr
+  64              		.cfi_endproc
+  65              	.LFE46:
+  66              		.size	encoderPut, .-encoderPut
+  67              		.section	.text.encoderGet,"ax",%progbits
+  68              		.align	2
+  69              		.code	16
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 4
+
+
+  70              		.thumb_func
+  71              		.type	encoderGet, %function
+  72              	encoderGet:
+  73              	.LFB45:
+  75:dev/encoder.c ****     tsEncoderParams *params       = device->parameters;
+  74              		.loc 1 75 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              	.LVL5:
+  79 0000 70B5     		push	{r4, r5, r6, lr}
+  80              		.cfi_def_cfa_offset 16
+  81              		.cfi_offset 4, -16
+  82              		.cfi_offset 5, -12
+  83              		.cfi_offset 6, -8
+  84              		.cfi_offset 14, -4
+  76:dev/encoder.c ****     const tsEncoderConsts *consts = device->constants;
+  85              		.loc 1 76 0
+  86 0002 4468     		ldr	r4, [r0, #4]
+  87              	.LVL6:
+  77:dev/encoder.c **** 
+  88              		.loc 1 77 0
+  89 0004 8568     		ldr	r5, [r0, #8]
+  90              	.LVL7:
+  80:dev/encoder.c ****     params->value += devIoGet(consts->COM2)<<1;
+  91              		.loc 1 80 0
+  92 0006 2868     		ldr	r0, [r5]
+  93              	.LVL8:
+  94 0008 FFF7FEFF 		bl	devIoGet
+  95              	.LVL9:
+  96 000c 2070     		strb	r0, [r4]
+  81:dev/encoder.c ****     params->value += devIoGet(consts->COM3)<<2;
+  97              		.loc 1 81 0
+  98 000e 6868     		ldr	r0, [r5, #4]
+  99 0010 FFF7FEFF 		bl	devIoGet
+ 100              	.LVL10:
+ 101 0014 4000     		lsls	r0, r0, #1
+ 102 0016 2378     		ldrb	r3, [r4]
+ 103 0018 1818     		adds	r0, r3, r0
+ 104 001a 2070     		strb	r0, [r4]
+  82:dev/encoder.c ****     params->value += devIoGet(consts->COM4)<<3;
+ 105              		.loc 1 82 0
+ 106 001c A868     		ldr	r0, [r5, #8]
+ 107 001e FFF7FEFF 		bl	devIoGet
+ 108              	.LVL11:
+ 109 0022 8000     		lsls	r0, r0, #2
+ 110 0024 2378     		ldrb	r3, [r4]
+ 111 0026 1818     		adds	r0, r3, r0
+ 112 0028 2070     		strb	r0, [r4]
+  83:dev/encoder.c ****     
+ 113              		.loc 1 83 0
+ 114 002a E868     		ldr	r0, [r5, #12]
+ 115 002c FFF7FEFF 		bl	devIoGet
+ 116              	.LVL12:
+ 117 0030 C000     		lsls	r0, r0, #3
+ 118 0032 2378     		ldrb	r3, [r4]
+ 119 0034 1818     		adds	r0, r3, r0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 5
+
+
+ 120 0036 C0B2     		uxtb	r0, r0
+ 121 0038 2070     		strb	r0, [r4]
+  88:dev/encoder.c **** }
+ 122              		.loc 1 88 0
+ 123 003a 014B     		ldr	r3, .L4
+ 124 003c 185C     		ldrb	r0, [r3, r0]
+  89:dev/encoder.c **** 
+ 125              		.loc 1 89 0
+ 126              		@ sp needed
+ 127              	.LVL13:
+ 128              	.LVL14:
+ 129 003e 70BD     		pop	{r4, r5, r6, pc}
+ 130              	.L5:
+ 131              		.align	2
+ 132              	.L4:
+ 133 0040 00000000 		.word	.LANCHOR0
+ 134              		.cfi_endproc
+ 135              	.LFE45:
+ 136              		.size	encoderGet, .-encoderGet
+ 137              		.section	.text.encoderInit,"ax",%progbits
+ 138              		.align	2
+ 139              		.code	16
+ 140              		.thumb_func
+ 141              		.type	encoderInit, %function
+ 142              	encoderInit:
+ 143              	.LFB43:
+  38:dev/encoder.c ****     tsEncoderParams *params       = device->parameters;
+ 144              		.loc 1 38 0
+ 145              		.cfi_startproc
+ 146              		@ args = 0, pretend = 0, frame = 0
+ 147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 148              	.LVL15:
+ 149 0000 70B5     		push	{r4, r5, r6, lr}
+ 150              		.cfi_def_cfa_offset 16
+ 151              		.cfi_offset 4, -16
+ 152              		.cfi_offset 5, -12
+ 153              		.cfi_offset 6, -8
+ 154              		.cfi_offset 14, -4
+ 155 0002 0500     		movs	r5, r0
+ 156              	.LVL16:
+  40:dev/encoder.c ****     
+ 157              		.loc 1 40 0
+ 158 0004 8468     		ldr	r4, [r0, #8]
+ 159              	.LVL17:
+  50:dev/encoder.c ****     devIoInit(consts->COM2,NULL);
+ 160              		.loc 1 50 0
+ 161 0006 0021     		movs	r1, #0
+ 162              	.LVL18:
+ 163 0008 2068     		ldr	r0, [r4]
+ 164              	.LVL19:
+ 165 000a FFF7FEFF 		bl	devIoInit
+ 166              	.LVL20:
+  51:dev/encoder.c ****     devIoInit(consts->COM3,NULL);
+ 167              		.loc 1 51 0
+ 168 000e 0021     		movs	r1, #0
+ 169 0010 6068     		ldr	r0, [r4, #4]
+ 170 0012 FFF7FEFF 		bl	devIoInit
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 6
+
+
+ 171              	.LVL21:
+  52:dev/encoder.c ****     devIoInit(consts->COM4,NULL);
+ 172              		.loc 1 52 0
+ 173 0016 0021     		movs	r1, #0
+ 174 0018 A068     		ldr	r0, [r4, #8]
+ 175 001a FFF7FEFF 		bl	devIoInit
+ 176              	.LVL22:
+  53:dev/encoder.c ****     
+ 177              		.loc 1 53 0
+ 178 001e E068     		ldr	r0, [r4, #12]
+ 179 0020 0021     		movs	r1, #0
+ 180 0022 FFF7FEFF 		bl	devIoInit
+ 181              	.LVL23:
+  55:dev/encoder.c **** 
+ 182              		.loc 1 55 0
+ 183 0026 EB68     		ldr	r3, [r5, #12]
+ 184 0028 0122     		movs	r2, #1
+ 185 002a 1A70     		strb	r2, [r3]
+  58:dev/encoder.c **** 
+ 186              		.loc 1 58 0
+ 187 002c 0020     		movs	r0, #0
+ 188              		@ sp needed
+ 189              	.LVL24:
+ 190              	.LVL25:
+ 191 002e 70BD     		pop	{r4, r5, r6, pc}
+ 192              		.cfi_endproc
+ 193              	.LFE43:
+ 194              		.size	encoderInit, .-encoderInit
+ 195              		.global	devIoEncoderFuncs
+ 196              		.section	.rodata
+ 197              		.align	2
+ 198              		.set	.LANCHOR0,. + 0
+ 199              		.type	encoderLT, %object
+ 200              		.size	encoderLT, 16
+ 201              	encoderLT:
+ 202 0000 02       		.byte	2
+ 203 0001 01       		.byte	1
+ 204 0002 05       		.byte	5
+ 205 0003 06       		.byte	6
+ 206 0004 0D       		.byte	13
+ 207 0005 0E       		.byte	14
+ 208 0006 0A       		.byte	10
+ 209 0007 09       		.byte	9
+ 210 0008 03       		.byte	3
+ 211 0009 00       		.byte	0
+ 212 000a 04       		.byte	4
+ 213 000b 07       		.byte	7
+ 214 000c 0C       		.byte	12
+ 215 000d 0F       		.byte	15
+ 216 000e 0B       		.byte	11
+ 217 000f 08       		.byte	8
+ 218              		.type	devIoEncoderFuncs, %object
+ 219              		.size	devIoEncoderFuncs, 16
+ 220              	devIoEncoderFuncs:
+ 221 0010 00000000 		.word	encoderInit
+ 222 0014 00000000 		.word	encoderDeinit
+ 223 0018 00000000 		.word	encoderGet
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 7
+
+
+ 224 001c 00000000 		.word	encoderPut
+ 225              		.text
+ 226              	.Letext0:
+ 227              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 228              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 229              		.file 4 "Generated_Source\\PSoC4/cytypes.h"
+ 230              		.file 5 ".\\RCOS/dev/dev.h"
+ 231              		.file 6 "dev\\encoder.h"
+ 232              		.file 7 ".\\RCOS/libs/bits.h"
+ 233              		.section	.debug_info,"",%progbits
+ 234              	.Ldebug_info0:
+ 235 0000 85040000 		.4byte	0x485
+ 236 0004 0400     		.2byte	0x4
+ 237 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 238 000a 04       		.byte	0x4
+ 239 000b 01       		.uleb128 0x1
+ 240 000c C2010000 		.4byte	.LASF52
+ 241 0010 0C       		.byte	0xc
+ 242 0011 8E020000 		.4byte	.LASF53
+ 243 0015 7E010000 		.4byte	.LASF54
+ 244 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 245 001d 00000000 		.4byte	0
+ 246 0021 00000000 		.4byte	.Ldebug_line0
+ 247 0025 02       		.uleb128 0x2
+ 248 0026 01       		.byte	0x1
+ 249 0027 06       		.byte	0x6
+ 250 0028 D7020000 		.4byte	.LASF0
+ 251 002c 03       		.uleb128 0x3
+ 252 002d 09000000 		.4byte	.LASF5
+ 253 0031 02       		.byte	0x2
+ 254 0032 1D       		.byte	0x1d
+ 255 0033 37000000 		.4byte	0x37
+ 256 0037 02       		.uleb128 0x2
+ 257 0038 01       		.byte	0x1
+ 258 0039 08       		.byte	0x8
+ 259 003a A6000000 		.4byte	.LASF1
+ 260 003e 02       		.uleb128 0x2
+ 261 003f 02       		.byte	0x2
+ 262 0040 05       		.byte	0x5
+ 263 0041 84020000 		.4byte	.LASF2
+ 264 0045 02       		.uleb128 0x2
+ 265 0046 02       		.byte	0x2
+ 266 0047 07       		.byte	0x7
+ 267 0048 DB000000 		.4byte	.LASF3
+ 268 004c 02       		.uleb128 0x2
+ 269 004d 04       		.byte	0x4
+ 270 004e 05       		.byte	0x5
+ 271 004f B2020000 		.4byte	.LASF4
+ 272 0053 03       		.uleb128 0x3
+ 273 0054 1C010000 		.4byte	.LASF6
+ 274 0058 02       		.byte	0x2
+ 275 0059 41       		.byte	0x41
+ 276 005a 5E000000 		.4byte	0x5e
+ 277 005e 02       		.uleb128 0x2
+ 278 005f 04       		.byte	0x4
+ 279 0060 07       		.byte	0x7
+ 280 0061 FC000000 		.4byte	.LASF7
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 8
+
+
+ 281 0065 02       		.uleb128 0x2
+ 282 0066 08       		.byte	0x8
+ 283 0067 05       		.byte	0x5
+ 284 0068 65020000 		.4byte	.LASF8
+ 285 006c 02       		.uleb128 0x2
+ 286 006d 08       		.byte	0x8
+ 287 006e 07       		.byte	0x7
+ 288 006f 50010000 		.4byte	.LASF9
+ 289 0073 04       		.uleb128 0x4
+ 290 0074 04       		.byte	0x4
+ 291 0075 05       		.byte	0x5
+ 292 0076 696E7400 		.ascii	"int\000"
+ 293 007a 02       		.uleb128 0x2
+ 294 007b 04       		.byte	0x4
+ 295 007c 07       		.byte	0x7
+ 296 007d 43010000 		.4byte	.LASF10
+ 297 0081 03       		.uleb128 0x3
+ 298 0082 67010000 		.4byte	.LASF11
+ 299 0086 03       		.byte	0x3
+ 300 0087 18       		.byte	0x18
+ 301 0088 2C000000 		.4byte	0x2c
+ 302 008c 03       		.uleb128 0x3
+ 303 008d A9020000 		.4byte	.LASF12
+ 304 0091 03       		.byte	0x3
+ 305 0092 30       		.byte	0x30
+ 306 0093 53000000 		.4byte	0x53
+ 307 0097 02       		.uleb128 0x2
+ 308 0098 08       		.byte	0x8
+ 309 0099 04       		.byte	0x4
+ 310 009a 50020000 		.4byte	.LASF13
+ 311 009e 02       		.uleb128 0x2
+ 312 009f 01       		.byte	0x1
+ 313 00a0 08       		.byte	0x8
+ 314 00a1 73020000 		.4byte	.LASF14
+ 315 00a5 05       		.uleb128 0x5
+ 316 00a6 9C020000 		.4byte	.LASF15
+ 317 00aa 04       		.byte	0x4
+ 318 00ab F701     		.2byte	0x1f7
+ 319 00ad 37000000 		.4byte	0x37
+ 320 00b1 02       		.uleb128 0x2
+ 321 00b2 04       		.byte	0x4
+ 322 00b3 04       		.byte	0x4
+ 323 00b4 8E000000 		.4byte	.LASF16
+ 324 00b8 02       		.uleb128 0x2
+ 325 00b9 08       		.byte	0x8
+ 326 00ba 04       		.byte	0x4
+ 327 00bb E3020000 		.4byte	.LASF17
+ 328 00bf 02       		.uleb128 0x2
+ 329 00c0 04       		.byte	0x4
+ 330 00c1 07       		.byte	0x7
+ 331 00c2 5C020000 		.4byte	.LASF18
+ 332 00c6 06       		.uleb128 0x6
+ 333 00c7 04       		.byte	0x4
+ 334 00c8 07       		.uleb128 0x7
+ 335 00c9 04       		.byte	0x4
+ 336 00ca CE000000 		.4byte	0xce
+ 337 00ce 08       		.uleb128 0x8
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 9
+
+
+ 338 00cf 03       		.uleb128 0x3
+ 339 00d0 13000000 		.4byte	.LASF19
+ 340 00d4 05       		.byte	0x5
+ 341 00d5 34       		.byte	0x34
+ 342 00d6 DA000000 		.4byte	0xda
+ 343 00da 09       		.uleb128 0x9
+ 344 00db 00000000 		.4byte	.LASF23
+ 345 00df 10       		.byte	0x10
+ 346 00e0 05       		.byte	0x5
+ 347 00e1 4E       		.byte	0x4e
+ 348 00e2 17010000 		.4byte	0x117
+ 349 00e6 0A       		.uleb128 0xa
+ 350 00e7 7A000000 		.4byte	.LASF20
+ 351 00eb 05       		.byte	0x5
+ 352 00ec 50       		.byte	0x50
+ 353 00ed EC010000 		.4byte	0x1ec
+ 354 00f1 00       		.byte	0
+ 355 00f2 0A       		.uleb128 0xa
+ 356 00f3 CB000000 		.4byte	.LASF21
+ 357 00f7 05       		.byte	0x5
+ 358 00f8 51       		.byte	0x51
+ 359 00f9 C6000000 		.4byte	0xc6
+ 360 00fd 04       		.byte	0x4
+ 361 00fe 0A       		.uleb128 0xa
+ 362 00ff 84000000 		.4byte	.LASF22
+ 363 0103 05       		.byte	0x5
+ 364 0104 52       		.byte	0x52
+ 365 0105 C8000000 		.4byte	0xc8
+ 366 0109 08       		.byte	0x8
+ 367 010a 0B       		.uleb128 0xb
+ 368 010b 73797300 		.ascii	"sys\000"
+ 369 010f 05       		.byte	0x5
+ 370 0110 53       		.byte	0x53
+ 371 0111 F7010000 		.4byte	0x1f7
+ 372 0115 0C       		.byte	0xc
+ 373 0116 00       		.byte	0
+ 374 0117 09       		.uleb128 0x9
+ 375 0118 30000000 		.4byte	.LASF24
+ 376 011c 10       		.byte	0x10
+ 377 011d 05       		.byte	0x5
+ 378 011e 40       		.byte	0x40
+ 379 011f 54010000 		.4byte	0x154
+ 380 0123 0A       		.uleb128 0xa
+ 381 0124 75000000 		.4byte	.LASF25
+ 382 0128 05       		.byte	0x5
+ 383 0129 42       		.byte	0x42
+ 384 012a 73010000 		.4byte	0x173
+ 385 012e 00       		.byte	0
+ 386 012f 0A       		.uleb128 0xa
+ 387 0130 5C000000 		.4byte	.LASF26
+ 388 0134 05       		.byte	0x5
+ 389 0135 43       		.byte	0x43
+ 390 0136 88010000 		.4byte	0x188
+ 391 013a 04       		.byte	0x4
+ 392 013b 0B       		.uleb128 0xb
+ 393 013c 67657400 		.ascii	"get\000"
+ 394 0140 05       		.byte	0x5
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 10
+
+
+ 395 0141 44       		.byte	0x44
+ 396 0142 9D010000 		.4byte	0x19d
+ 397 0146 08       		.byte	0x8
+ 398 0147 0B       		.uleb128 0xb
+ 399 0148 70757400 		.ascii	"put\000"
+ 400 014c 05       		.byte	0x5
+ 401 014d 45       		.byte	0x45
+ 402 014e B7010000 		.4byte	0x1b7
+ 403 0152 0C       		.byte	0xc
+ 404 0153 00       		.byte	0
+ 405 0154 0C       		.uleb128 0xc
+ 406 0155 81000000 		.4byte	0x81
+ 407 0159 68010000 		.4byte	0x168
+ 408 015d 0D       		.uleb128 0xd
+ 409 015e 68010000 		.4byte	0x168
+ 410 0162 0D       		.uleb128 0xd
+ 411 0163 C8000000 		.4byte	0xc8
+ 412 0167 00       		.byte	0
+ 413 0168 07       		.uleb128 0x7
+ 414 0169 04       		.byte	0x4
+ 415 016a 6E010000 		.4byte	0x16e
+ 416 016e 0E       		.uleb128 0xe
+ 417 016f CF000000 		.4byte	0xcf
+ 418 0173 07       		.uleb128 0x7
+ 419 0174 04       		.byte	0x4
+ 420 0175 54010000 		.4byte	0x154
+ 421 0179 0C       		.uleb128 0xc
+ 422 017a 81000000 		.4byte	0x81
+ 423 017e 88010000 		.4byte	0x188
+ 424 0182 0D       		.uleb128 0xd
+ 425 0183 68010000 		.4byte	0x168
+ 426 0187 00       		.byte	0
+ 427 0188 07       		.uleb128 0x7
+ 428 0189 04       		.byte	0x4
+ 429 018a 79010000 		.4byte	0x179
+ 430 018e 0C       		.uleb128 0xc
+ 431 018f 8C000000 		.4byte	0x8c
+ 432 0193 9D010000 		.4byte	0x19d
+ 433 0197 0D       		.uleb128 0xd
+ 434 0198 68010000 		.4byte	0x168
+ 435 019c 00       		.byte	0
+ 436 019d 07       		.uleb128 0x7
+ 437 019e 04       		.byte	0x4
+ 438 019f 8E010000 		.4byte	0x18e
+ 439 01a3 0C       		.uleb128 0xc
+ 440 01a4 81000000 		.4byte	0x81
+ 441 01a8 B7010000 		.4byte	0x1b7
+ 442 01ac 0D       		.uleb128 0xd
+ 443 01ad 68010000 		.4byte	0x168
+ 444 01b1 0D       		.uleb128 0xd
+ 445 01b2 8C000000 		.4byte	0x8c
+ 446 01b6 00       		.byte	0
+ 447 01b7 07       		.uleb128 0x7
+ 448 01b8 04       		.byte	0x4
+ 449 01b9 A3010000 		.4byte	0x1a3
+ 450 01bd 03       		.uleb128 0x3
+ 451 01be 99000000 		.4byte	.LASF27
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 11
+
+
+ 452 01c2 05       		.byte	0x5
+ 453 01c3 46       		.byte	0x46
+ 454 01c4 17010000 		.4byte	0x117
+ 455 01c8 09       		.uleb128 0x9
+ 456 01c9 6F010000 		.4byte	.LASF28
+ 457 01cd 01       		.byte	0x1
+ 458 01ce 05       		.byte	0x5
+ 459 01cf 49       		.byte	0x49
+ 460 01d0 E1010000 		.4byte	0x1e1
+ 461 01d4 0A       		.uleb128 0xa
+ 462 01d5 BF000000 		.4byte	.LASF29
+ 463 01d9 05       		.byte	0x5
+ 464 01da 4B       		.byte	0x4b
+ 465 01db 81000000 		.4byte	0x81
+ 466 01df 00       		.byte	0
+ 467 01e0 00       		.byte	0
+ 468 01e1 03       		.uleb128 0x3
+ 469 01e2 3E000000 		.4byte	.LASF30
+ 470 01e6 05       		.byte	0x5
+ 471 01e7 4C       		.byte	0x4c
+ 472 01e8 C8010000 		.4byte	0x1c8
+ 473 01ec 07       		.uleb128 0x7
+ 474 01ed 04       		.byte	0x4
+ 475 01ee F2010000 		.4byte	0x1f2
+ 476 01f2 0E       		.uleb128 0xe
+ 477 01f3 BD010000 		.4byte	0x1bd
+ 478 01f7 07       		.uleb128 0x7
+ 479 01f8 04       		.byte	0x4
+ 480 01f9 E1010000 		.4byte	0x1e1
+ 481 01fd 0F       		.uleb128 0xf
+ 482 01fe 01       		.byte	0x1
+ 483 01ff 06       		.byte	0x6
+ 484 0200 29       		.byte	0x29
+ 485 0201 12020000 		.4byte	0x212
+ 486 0205 0A       		.uleb128 0xa
+ 487 0206 2A000000 		.4byte	.LASF31
+ 488 020a 06       		.byte	0x6
+ 489 020b 2B       		.byte	0x2b
+ 490 020c 81000000 		.4byte	0x81
+ 491 0210 00       		.byte	0
+ 492 0211 00       		.byte	0
+ 493 0212 03       		.uleb128 0x3
+ 494 0213 4C000000 		.4byte	.LASF32
+ 495 0217 06       		.byte	0x6
+ 496 0218 2C       		.byte	0x2c
+ 497 0219 FD010000 		.4byte	0x1fd
+ 498 021d 0F       		.uleb128 0xf
+ 499 021e 10       		.byte	0x10
+ 500 021f 06       		.byte	0x6
+ 501 0220 2F       		.byte	0x2f
+ 502 0221 56020000 		.4byte	0x256
+ 503 0225 0A       		.uleb128 0xa
+ 504 0226 D6000000 		.4byte	.LASF33
+ 505 022a 06       		.byte	0x6
+ 506 022b 31       		.byte	0x31
+ 507 022c 68010000 		.4byte	0x168
+ 508 0230 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 12
+
+
+ 509 0231 0A       		.uleb128 0xa
+ 510 0232 1B000000 		.4byte	.LASF34
+ 511 0236 06       		.byte	0x6
+ 512 0237 32       		.byte	0x32
+ 513 0238 68010000 		.4byte	0x168
+ 514 023c 04       		.byte	0x4
+ 515 023d 0A       		.uleb128 0xa
+ 516 023e 20000000 		.4byte	.LASF35
+ 517 0242 06       		.byte	0x6
+ 518 0243 33       		.byte	0x33
+ 519 0244 68010000 		.4byte	0x168
+ 520 0248 08       		.byte	0x8
+ 521 0249 0A       		.uleb128 0xa
+ 522 024a 25000000 		.4byte	.LASF36
+ 523 024e 06       		.byte	0x6
+ 524 024f 34       		.byte	0x34
+ 525 0250 68010000 		.4byte	0x168
+ 526 0254 0C       		.byte	0xc
+ 527 0255 00       		.byte	0
+ 528 0256 03       		.uleb128 0x3
+ 529 0257 33010000 		.4byte	.LASF37
+ 530 025b 06       		.byte	0x6
+ 531 025c 36       		.byte	0x36
+ 532 025d 1D020000 		.4byte	0x21d
+ 533 0261 10       		.uleb128 0x10
+ 534 0262 0E010000 		.4byte	.LASF40
+ 535 0266 01       		.byte	0x1
+ 536 0267 3D       		.byte	0x3d
+ 537 0268 81000000 		.4byte	0x81
+ 538 026c 00000000 		.4byte	.LFB44
+ 539 0270 0A000000 		.4byte	.LFE44-.LFB44
+ 540 0274 01       		.uleb128 0x1
+ 541 0275 9C       		.byte	0x9c
+ 542 0276 A8020000 		.4byte	0x2a8
+ 543 027a 11       		.uleb128 0x11
+ 544 027b D0020000 		.4byte	.LASF42
+ 545 027f 01       		.byte	0x1
+ 546 0280 3D       		.byte	0x3d
+ 547 0281 68010000 		.4byte	0x168
+ 548 0285 00000000 		.4byte	.LLST0
+ 549 0289 12       		.uleb128 0x12
+ 550 028a F5000000 		.4byte	.LASF38
+ 551 028e 01       		.byte	0x1
+ 552 028f 3F       		.byte	0x3f
+ 553 0290 A8020000 		.4byte	0x2a8
+ 554 0294 21000000 		.4byte	.LLST1
+ 555 0298 12       		.uleb128 0x12
+ 556 0299 A2020000 		.4byte	.LASF39
+ 557 029d 01       		.byte	0x1
+ 558 029e 40       		.byte	0x40
+ 559 029f AE020000 		.4byte	0x2ae
+ 560 02a3 35000000 		.4byte	.LLST2
+ 561 02a7 00       		.byte	0
+ 562 02a8 07       		.uleb128 0x7
+ 563 02a9 04       		.byte	0x4
+ 564 02aa 12020000 		.4byte	0x212
+ 565 02ae 07       		.uleb128 0x7
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 13
+
+
+ 566 02af 04       		.byte	0x4
+ 567 02b0 B4020000 		.4byte	0x2b4
+ 568 02b4 0E       		.uleb128 0xe
+ 569 02b5 56020000 		.4byte	0x256
+ 570 02b9 10       		.uleb128 0x10
+ 571 02ba BB020000 		.4byte	.LASF41
+ 572 02be 01       		.byte	0x1
+ 573 02bf 5C       		.byte	0x5c
+ 574 02c0 81000000 		.4byte	0x81
+ 575 02c4 00000000 		.4byte	.LFB46
+ 576 02c8 04000000 		.4byte	.LFE46-.LFB46
+ 577 02cc 01       		.uleb128 0x1
+ 578 02cd 9C       		.byte	0x9c
+ 579 02ce 0D030000 		.4byte	0x30d
+ 580 02d2 11       		.uleb128 0x11
+ 581 02d3 D0020000 		.4byte	.LASF42
+ 582 02d7 01       		.byte	0x1
+ 583 02d8 5C       		.byte	0x5c
+ 584 02d9 68010000 		.4byte	0x168
+ 585 02dd 49000000 		.4byte	.LLST3
+ 586 02e1 13       		.uleb128 0x13
+ 587 02e2 94000000 		.4byte	.LASF43
+ 588 02e6 01       		.byte	0x1
+ 589 02e7 5C       		.byte	0x5c
+ 590 02e8 8C000000 		.4byte	0x8c
+ 591 02ec 01       		.uleb128 0x1
+ 592 02ed 51       		.byte	0x51
+ 593 02ee 12       		.uleb128 0x12
+ 594 02ef F5000000 		.4byte	.LASF38
+ 595 02f3 01       		.byte	0x1
+ 596 02f4 5E       		.byte	0x5e
+ 597 02f5 A8020000 		.4byte	0x2a8
+ 598 02f9 6A000000 		.4byte	.LLST4
+ 599 02fd 12       		.uleb128 0x12
+ 600 02fe A2020000 		.4byte	.LASF39
+ 601 0302 01       		.byte	0x1
+ 602 0303 5F       		.byte	0x5f
+ 603 0304 AE020000 		.4byte	0x2ae
+ 604 0308 8D000000 		.4byte	.LLST5
+ 605 030c 00       		.byte	0
+ 606 030d 10       		.uleb128 0x10
+ 607 030e B4000000 		.4byte	.LASF44
+ 608 0312 01       		.byte	0x1
+ 609 0313 4A       		.byte	0x4a
+ 610 0314 8C000000 		.4byte	0x8c
+ 611 0318 00000000 		.4byte	.LFB45
+ 612 031c 44000000 		.4byte	.LFE45-.LFB45
+ 613 0320 01       		.uleb128 0x1
+ 614 0321 9C       		.byte	0x9c
+ 615 0322 78030000 		.4byte	0x378
+ 616 0326 11       		.uleb128 0x11
+ 617 0327 D0020000 		.4byte	.LASF42
+ 618 032b 01       		.byte	0x1
+ 619 032c 4A       		.byte	0x4a
+ 620 032d 68010000 		.4byte	0x168
+ 621 0331 B0000000 		.4byte	.LLST6
+ 622 0335 12       		.uleb128 0x12
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 14
+
+
+ 623 0336 F5000000 		.4byte	.LASF38
+ 624 033a 01       		.byte	0x1
+ 625 033b 4C       		.byte	0x4c
+ 626 033c A8020000 		.4byte	0x2a8
+ 627 0340 D1000000 		.4byte	.LLST7
+ 628 0344 12       		.uleb128 0x12
+ 629 0345 A2020000 		.4byte	.LASF39
+ 630 0349 01       		.byte	0x1
+ 631 034a 4D       		.byte	0x4d
+ 632 034b AE020000 		.4byte	0x2ae
+ 633 034f E4000000 		.4byte	.LLST8
+ 634 0353 14       		.uleb128 0x14
+ 635 0354 0C000000 		.4byte	.LVL9
+ 636 0358 72040000 		.4byte	0x472
+ 637 035c 14       		.uleb128 0x14
+ 638 035d 14000000 		.4byte	.LVL10
+ 639 0361 72040000 		.4byte	0x472
+ 640 0365 14       		.uleb128 0x14
+ 641 0366 22000000 		.4byte	.LVL11
+ 642 036a 72040000 		.4byte	0x472
+ 643 036e 14       		.uleb128 0x14
+ 644 036f 30000000 		.4byte	.LVL12
+ 645 0373 72040000 		.4byte	0x472
+ 646 0377 00       		.byte	0
+ 647 0378 10       		.uleb128 0x10
+ 648 0379 78020000 		.4byte	.LASF45
+ 649 037d 01       		.byte	0x1
+ 650 037e 25       		.byte	0x25
+ 651 037f 81000000 		.4byte	0x81
+ 652 0383 00000000 		.4byte	.LFB43
+ 653 0387 30000000 		.4byte	.LFE43-.LFB43
+ 654 038b 01       		.uleb128 0x1
+ 655 038c 9C       		.byte	0x9c
+ 656 038d 16040000 		.4byte	0x416
+ 657 0391 11       		.uleb128 0x11
+ 658 0392 D0020000 		.4byte	.LASF42
+ 659 0396 01       		.byte	0x1
+ 660 0397 25       		.byte	0x25
+ 661 0398 68010000 		.4byte	0x168
+ 662 039c F7000000 		.4byte	.LLST9
+ 663 03a0 11       		.uleb128 0x11
+ 664 03a1 EE000000 		.4byte	.LASF46
+ 665 03a5 01       		.byte	0x1
+ 666 03a6 25       		.byte	0x25
+ 667 03a7 C8000000 		.4byte	0xc8
+ 668 03ab 23010000 		.4byte	.LLST10
+ 669 03af 12       		.uleb128 0x12
+ 670 03b0 F5000000 		.4byte	.LASF38
+ 671 03b4 01       		.byte	0x1
+ 672 03b5 27       		.byte	0x27
+ 673 03b6 A8020000 		.4byte	0x2a8
+ 674 03ba 44010000 		.4byte	.LLST11
+ 675 03be 12       		.uleb128 0x12
+ 676 03bf A2020000 		.4byte	.LASF39
+ 677 03c3 01       		.byte	0x1
+ 678 03c4 28       		.byte	0x28
+ 679 03c5 AE020000 		.4byte	0x2ae
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 15
+
+
+ 680 03c9 64010000 		.4byte	.LLST12
+ 681 03cd 15       		.uleb128 0x15
+ 682 03ce 0E000000 		.4byte	.LVL20
+ 683 03d2 7D040000 		.4byte	0x47d
+ 684 03d6 E0030000 		.4byte	0x3e0
+ 685 03da 16       		.uleb128 0x16
+ 686 03db 01       		.uleb128 0x1
+ 687 03dc 51       		.byte	0x51
+ 688 03dd 01       		.uleb128 0x1
+ 689 03de 30       		.byte	0x30
+ 690 03df 00       		.byte	0
+ 691 03e0 15       		.uleb128 0x15
+ 692 03e1 16000000 		.4byte	.LVL21
+ 693 03e5 7D040000 		.4byte	0x47d
+ 694 03e9 F3030000 		.4byte	0x3f3
+ 695 03ed 16       		.uleb128 0x16
+ 696 03ee 01       		.uleb128 0x1
+ 697 03ef 51       		.byte	0x51
+ 698 03f0 01       		.uleb128 0x1
+ 699 03f1 30       		.byte	0x30
+ 700 03f2 00       		.byte	0
+ 701 03f3 15       		.uleb128 0x15
+ 702 03f4 1E000000 		.4byte	.LVL22
+ 703 03f8 7D040000 		.4byte	0x47d
+ 704 03fc 06040000 		.4byte	0x406
+ 705 0400 16       		.uleb128 0x16
+ 706 0401 01       		.uleb128 0x1
+ 707 0402 51       		.byte	0x51
+ 708 0403 01       		.uleb128 0x1
+ 709 0404 30       		.byte	0x30
+ 710 0405 00       		.byte	0
+ 711 0406 17       		.uleb128 0x17
+ 712 0407 26000000 		.4byte	.LVL23
+ 713 040b 7D040000 		.4byte	0x47d
+ 714 040f 16       		.uleb128 0x16
+ 715 0410 01       		.uleb128 0x1
+ 716 0411 51       		.byte	0x51
+ 717 0412 01       		.uleb128 0x1
+ 718 0413 30       		.byte	0x30
+ 719 0414 00       		.byte	0
+ 720 0415 00       		.byte	0
+ 721 0416 18       		.uleb128 0x18
+ 722 0417 26040000 		.4byte	0x426
+ 723 041b 26040000 		.4byte	0x426
+ 724 041f 19       		.uleb128 0x19
+ 725 0420 BF000000 		.4byte	0xbf
+ 726 0424 0F       		.byte	0xf
+ 727 0425 00       		.byte	0
+ 728 0426 0E       		.uleb128 0xe
+ 729 0427 81000000 		.4byte	0x81
+ 730 042b 1A       		.uleb128 0x1a
+ 731 042c F3020000 		.4byte	.LASF47
+ 732 0430 01       		.byte	0x1
+ 733 0431 19       		.byte	0x19
+ 734 0432 3C040000 		.4byte	0x43c
+ 735 0436 05       		.uleb128 0x5
+ 736 0437 03       		.byte	0x3
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 16
+
+
+ 737 0438 00000000 		.4byte	encoderLT
+ 738 043c 0E       		.uleb128 0xe
+ 739 043d 16040000 		.4byte	0x416
+ 740 0441 18       		.uleb128 0x18
+ 741 0442 26040000 		.4byte	0x426
+ 742 0446 51040000 		.4byte	0x451
+ 743 044a 19       		.uleb128 0x19
+ 744 044b BF000000 		.4byte	0xbf
+ 745 044f FF       		.byte	0xff
+ 746 0450 00       		.byte	0
+ 747 0451 1B       		.uleb128 0x1b
+ 748 0452 27010000 		.4byte	.LASF48
+ 749 0456 07       		.byte	0x7
+ 750 0457 5A       		.byte	0x5a
+ 751 0458 5C040000 		.4byte	0x45c
+ 752 045c 0E       		.uleb128 0xe
+ 753 045d 41040000 		.4byte	0x441
+ 754 0461 1C       		.uleb128 0x1c
+ 755 0462 63000000 		.4byte	.LASF49
+ 756 0466 01       		.byte	0x1
+ 757 0467 1C       		.byte	0x1c
+ 758 0468 F2010000 		.4byte	0x1f2
+ 759 046c 05       		.uleb128 0x5
+ 760 046d 03       		.byte	0x3
+ 761 046e 00000000 		.4byte	devIoEncoderFuncs
+ 762 0472 1D       		.uleb128 0x1d
+ 763 0473 EA020000 		.4byte	.LASF50
+ 764 0477 EA020000 		.4byte	.LASF50
+ 765 047b 05       		.byte	0x5
+ 766 047c 78       		.byte	0x78
+ 767 047d 1D       		.uleb128 0x1d
+ 768 047e C6020000 		.4byte	.LASF51
+ 769 0482 C6020000 		.4byte	.LASF51
+ 770 0486 05       		.byte	0x5
+ 771 0487 6C       		.byte	0x6c
+ 772 0488 00       		.byte	0
+ 773              		.section	.debug_abbrev,"",%progbits
+ 774              	.Ldebug_abbrev0:
+ 775 0000 01       		.uleb128 0x1
+ 776 0001 11       		.uleb128 0x11
+ 777 0002 01       		.byte	0x1
+ 778 0003 25       		.uleb128 0x25
+ 779 0004 0E       		.uleb128 0xe
+ 780 0005 13       		.uleb128 0x13
+ 781 0006 0B       		.uleb128 0xb
+ 782 0007 03       		.uleb128 0x3
+ 783 0008 0E       		.uleb128 0xe
+ 784 0009 1B       		.uleb128 0x1b
+ 785 000a 0E       		.uleb128 0xe
+ 786 000b 55       		.uleb128 0x55
+ 787 000c 17       		.uleb128 0x17
+ 788 000d 11       		.uleb128 0x11
+ 789 000e 01       		.uleb128 0x1
+ 790 000f 10       		.uleb128 0x10
+ 791 0010 17       		.uleb128 0x17
+ 792 0011 00       		.byte	0
+ 793 0012 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 17
+
+
+ 794 0013 02       		.uleb128 0x2
+ 795 0014 24       		.uleb128 0x24
+ 796 0015 00       		.byte	0
+ 797 0016 0B       		.uleb128 0xb
+ 798 0017 0B       		.uleb128 0xb
+ 799 0018 3E       		.uleb128 0x3e
+ 800 0019 0B       		.uleb128 0xb
+ 801 001a 03       		.uleb128 0x3
+ 802 001b 0E       		.uleb128 0xe
+ 803 001c 00       		.byte	0
+ 804 001d 00       		.byte	0
+ 805 001e 03       		.uleb128 0x3
+ 806 001f 16       		.uleb128 0x16
+ 807 0020 00       		.byte	0
+ 808 0021 03       		.uleb128 0x3
+ 809 0022 0E       		.uleb128 0xe
+ 810 0023 3A       		.uleb128 0x3a
+ 811 0024 0B       		.uleb128 0xb
+ 812 0025 3B       		.uleb128 0x3b
+ 813 0026 0B       		.uleb128 0xb
+ 814 0027 49       		.uleb128 0x49
+ 815 0028 13       		.uleb128 0x13
+ 816 0029 00       		.byte	0
+ 817 002a 00       		.byte	0
+ 818 002b 04       		.uleb128 0x4
+ 819 002c 24       		.uleb128 0x24
+ 820 002d 00       		.byte	0
+ 821 002e 0B       		.uleb128 0xb
+ 822 002f 0B       		.uleb128 0xb
+ 823 0030 3E       		.uleb128 0x3e
+ 824 0031 0B       		.uleb128 0xb
+ 825 0032 03       		.uleb128 0x3
+ 826 0033 08       		.uleb128 0x8
+ 827 0034 00       		.byte	0
+ 828 0035 00       		.byte	0
+ 829 0036 05       		.uleb128 0x5
+ 830 0037 16       		.uleb128 0x16
+ 831 0038 00       		.byte	0
+ 832 0039 03       		.uleb128 0x3
+ 833 003a 0E       		.uleb128 0xe
+ 834 003b 3A       		.uleb128 0x3a
+ 835 003c 0B       		.uleb128 0xb
+ 836 003d 3B       		.uleb128 0x3b
+ 837 003e 05       		.uleb128 0x5
+ 838 003f 49       		.uleb128 0x49
+ 839 0040 13       		.uleb128 0x13
+ 840 0041 00       		.byte	0
+ 841 0042 00       		.byte	0
+ 842 0043 06       		.uleb128 0x6
+ 843 0044 0F       		.uleb128 0xf
+ 844 0045 00       		.byte	0
+ 845 0046 0B       		.uleb128 0xb
+ 846 0047 0B       		.uleb128 0xb
+ 847 0048 00       		.byte	0
+ 848 0049 00       		.byte	0
+ 849 004a 07       		.uleb128 0x7
+ 850 004b 0F       		.uleb128 0xf
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 18
+
+
+ 851 004c 00       		.byte	0
+ 852 004d 0B       		.uleb128 0xb
+ 853 004e 0B       		.uleb128 0xb
+ 854 004f 49       		.uleb128 0x49
+ 855 0050 13       		.uleb128 0x13
+ 856 0051 00       		.byte	0
+ 857 0052 00       		.byte	0
+ 858 0053 08       		.uleb128 0x8
+ 859 0054 26       		.uleb128 0x26
+ 860 0055 00       		.byte	0
+ 861 0056 00       		.byte	0
+ 862 0057 00       		.byte	0
+ 863 0058 09       		.uleb128 0x9
+ 864 0059 13       		.uleb128 0x13
+ 865 005a 01       		.byte	0x1
+ 866 005b 03       		.uleb128 0x3
+ 867 005c 0E       		.uleb128 0xe
+ 868 005d 0B       		.uleb128 0xb
+ 869 005e 0B       		.uleb128 0xb
+ 870 005f 3A       		.uleb128 0x3a
+ 871 0060 0B       		.uleb128 0xb
+ 872 0061 3B       		.uleb128 0x3b
+ 873 0062 0B       		.uleb128 0xb
+ 874 0063 01       		.uleb128 0x1
+ 875 0064 13       		.uleb128 0x13
+ 876 0065 00       		.byte	0
+ 877 0066 00       		.byte	0
+ 878 0067 0A       		.uleb128 0xa
+ 879 0068 0D       		.uleb128 0xd
+ 880 0069 00       		.byte	0
+ 881 006a 03       		.uleb128 0x3
+ 882 006b 0E       		.uleb128 0xe
+ 883 006c 3A       		.uleb128 0x3a
+ 884 006d 0B       		.uleb128 0xb
+ 885 006e 3B       		.uleb128 0x3b
+ 886 006f 0B       		.uleb128 0xb
+ 887 0070 49       		.uleb128 0x49
+ 888 0071 13       		.uleb128 0x13
+ 889 0072 38       		.uleb128 0x38
+ 890 0073 0B       		.uleb128 0xb
+ 891 0074 00       		.byte	0
+ 892 0075 00       		.byte	0
+ 893 0076 0B       		.uleb128 0xb
+ 894 0077 0D       		.uleb128 0xd
+ 895 0078 00       		.byte	0
+ 896 0079 03       		.uleb128 0x3
+ 897 007a 08       		.uleb128 0x8
+ 898 007b 3A       		.uleb128 0x3a
+ 899 007c 0B       		.uleb128 0xb
+ 900 007d 3B       		.uleb128 0x3b
+ 901 007e 0B       		.uleb128 0xb
+ 902 007f 49       		.uleb128 0x49
+ 903 0080 13       		.uleb128 0x13
+ 904 0081 38       		.uleb128 0x38
+ 905 0082 0B       		.uleb128 0xb
+ 906 0083 00       		.byte	0
+ 907 0084 00       		.byte	0
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 19
+
+
+ 908 0085 0C       		.uleb128 0xc
+ 909 0086 15       		.uleb128 0x15
+ 910 0087 01       		.byte	0x1
+ 911 0088 27       		.uleb128 0x27
+ 912 0089 19       		.uleb128 0x19
+ 913 008a 49       		.uleb128 0x49
+ 914 008b 13       		.uleb128 0x13
+ 915 008c 01       		.uleb128 0x1
+ 916 008d 13       		.uleb128 0x13
+ 917 008e 00       		.byte	0
+ 918 008f 00       		.byte	0
+ 919 0090 0D       		.uleb128 0xd
+ 920 0091 05       		.uleb128 0x5
+ 921 0092 00       		.byte	0
+ 922 0093 49       		.uleb128 0x49
+ 923 0094 13       		.uleb128 0x13
+ 924 0095 00       		.byte	0
+ 925 0096 00       		.byte	0
+ 926 0097 0E       		.uleb128 0xe
+ 927 0098 26       		.uleb128 0x26
+ 928 0099 00       		.byte	0
+ 929 009a 49       		.uleb128 0x49
+ 930 009b 13       		.uleb128 0x13
+ 931 009c 00       		.byte	0
+ 932 009d 00       		.byte	0
+ 933 009e 0F       		.uleb128 0xf
+ 934 009f 13       		.uleb128 0x13
+ 935 00a0 01       		.byte	0x1
+ 936 00a1 0B       		.uleb128 0xb
+ 937 00a2 0B       		.uleb128 0xb
+ 938 00a3 3A       		.uleb128 0x3a
+ 939 00a4 0B       		.uleb128 0xb
+ 940 00a5 3B       		.uleb128 0x3b
+ 941 00a6 0B       		.uleb128 0xb
+ 942 00a7 01       		.uleb128 0x1
+ 943 00a8 13       		.uleb128 0x13
+ 944 00a9 00       		.byte	0
+ 945 00aa 00       		.byte	0
+ 946 00ab 10       		.uleb128 0x10
+ 947 00ac 2E       		.uleb128 0x2e
+ 948 00ad 01       		.byte	0x1
+ 949 00ae 03       		.uleb128 0x3
+ 950 00af 0E       		.uleb128 0xe
+ 951 00b0 3A       		.uleb128 0x3a
+ 952 00b1 0B       		.uleb128 0xb
+ 953 00b2 3B       		.uleb128 0x3b
+ 954 00b3 0B       		.uleb128 0xb
+ 955 00b4 27       		.uleb128 0x27
+ 956 00b5 19       		.uleb128 0x19
+ 957 00b6 49       		.uleb128 0x49
+ 958 00b7 13       		.uleb128 0x13
+ 959 00b8 11       		.uleb128 0x11
+ 960 00b9 01       		.uleb128 0x1
+ 961 00ba 12       		.uleb128 0x12
+ 962 00bb 06       		.uleb128 0x6
+ 963 00bc 40       		.uleb128 0x40
+ 964 00bd 18       		.uleb128 0x18
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 20
+
+
+ 965 00be 9742     		.uleb128 0x2117
+ 966 00c0 19       		.uleb128 0x19
+ 967 00c1 01       		.uleb128 0x1
+ 968 00c2 13       		.uleb128 0x13
+ 969 00c3 00       		.byte	0
+ 970 00c4 00       		.byte	0
+ 971 00c5 11       		.uleb128 0x11
+ 972 00c6 05       		.uleb128 0x5
+ 973 00c7 00       		.byte	0
+ 974 00c8 03       		.uleb128 0x3
+ 975 00c9 0E       		.uleb128 0xe
+ 976 00ca 3A       		.uleb128 0x3a
+ 977 00cb 0B       		.uleb128 0xb
+ 978 00cc 3B       		.uleb128 0x3b
+ 979 00cd 0B       		.uleb128 0xb
+ 980 00ce 49       		.uleb128 0x49
+ 981 00cf 13       		.uleb128 0x13
+ 982 00d0 02       		.uleb128 0x2
+ 983 00d1 17       		.uleb128 0x17
+ 984 00d2 00       		.byte	0
+ 985 00d3 00       		.byte	0
+ 986 00d4 12       		.uleb128 0x12
+ 987 00d5 34       		.uleb128 0x34
+ 988 00d6 00       		.byte	0
+ 989 00d7 03       		.uleb128 0x3
+ 990 00d8 0E       		.uleb128 0xe
+ 991 00d9 3A       		.uleb128 0x3a
+ 992 00da 0B       		.uleb128 0xb
+ 993 00db 3B       		.uleb128 0x3b
+ 994 00dc 0B       		.uleb128 0xb
+ 995 00dd 49       		.uleb128 0x49
+ 996 00de 13       		.uleb128 0x13
+ 997 00df 02       		.uleb128 0x2
+ 998 00e0 17       		.uleb128 0x17
+ 999 00e1 00       		.byte	0
+ 1000 00e2 00       		.byte	0
+ 1001 00e3 13       		.uleb128 0x13
+ 1002 00e4 05       		.uleb128 0x5
+ 1003 00e5 00       		.byte	0
+ 1004 00e6 03       		.uleb128 0x3
+ 1005 00e7 0E       		.uleb128 0xe
+ 1006 00e8 3A       		.uleb128 0x3a
+ 1007 00e9 0B       		.uleb128 0xb
+ 1008 00ea 3B       		.uleb128 0x3b
+ 1009 00eb 0B       		.uleb128 0xb
+ 1010 00ec 49       		.uleb128 0x49
+ 1011 00ed 13       		.uleb128 0x13
+ 1012 00ee 02       		.uleb128 0x2
+ 1013 00ef 18       		.uleb128 0x18
+ 1014 00f0 00       		.byte	0
+ 1015 00f1 00       		.byte	0
+ 1016 00f2 14       		.uleb128 0x14
+ 1017 00f3 898201   		.uleb128 0x4109
+ 1018 00f6 00       		.byte	0
+ 1019 00f7 11       		.uleb128 0x11
+ 1020 00f8 01       		.uleb128 0x1
+ 1021 00f9 31       		.uleb128 0x31
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 21
+
+
+ 1022 00fa 13       		.uleb128 0x13
+ 1023 00fb 00       		.byte	0
+ 1024 00fc 00       		.byte	0
+ 1025 00fd 15       		.uleb128 0x15
+ 1026 00fe 898201   		.uleb128 0x4109
+ 1027 0101 01       		.byte	0x1
+ 1028 0102 11       		.uleb128 0x11
+ 1029 0103 01       		.uleb128 0x1
+ 1030 0104 31       		.uleb128 0x31
+ 1031 0105 13       		.uleb128 0x13
+ 1032 0106 01       		.uleb128 0x1
+ 1033 0107 13       		.uleb128 0x13
+ 1034 0108 00       		.byte	0
+ 1035 0109 00       		.byte	0
+ 1036 010a 16       		.uleb128 0x16
+ 1037 010b 8A8201   		.uleb128 0x410a
+ 1038 010e 00       		.byte	0
+ 1039 010f 02       		.uleb128 0x2
+ 1040 0110 18       		.uleb128 0x18
+ 1041 0111 9142     		.uleb128 0x2111
+ 1042 0113 18       		.uleb128 0x18
+ 1043 0114 00       		.byte	0
+ 1044 0115 00       		.byte	0
+ 1045 0116 17       		.uleb128 0x17
+ 1046 0117 898201   		.uleb128 0x4109
+ 1047 011a 01       		.byte	0x1
+ 1048 011b 11       		.uleb128 0x11
+ 1049 011c 01       		.uleb128 0x1
+ 1050 011d 31       		.uleb128 0x31
+ 1051 011e 13       		.uleb128 0x13
+ 1052 011f 00       		.byte	0
+ 1053 0120 00       		.byte	0
+ 1054 0121 18       		.uleb128 0x18
+ 1055 0122 01       		.uleb128 0x1
+ 1056 0123 01       		.byte	0x1
+ 1057 0124 49       		.uleb128 0x49
+ 1058 0125 13       		.uleb128 0x13
+ 1059 0126 01       		.uleb128 0x1
+ 1060 0127 13       		.uleb128 0x13
+ 1061 0128 00       		.byte	0
+ 1062 0129 00       		.byte	0
+ 1063 012a 19       		.uleb128 0x19
+ 1064 012b 21       		.uleb128 0x21
+ 1065 012c 00       		.byte	0
+ 1066 012d 49       		.uleb128 0x49
+ 1067 012e 13       		.uleb128 0x13
+ 1068 012f 2F       		.uleb128 0x2f
+ 1069 0130 0B       		.uleb128 0xb
+ 1070 0131 00       		.byte	0
+ 1071 0132 00       		.byte	0
+ 1072 0133 1A       		.uleb128 0x1a
+ 1073 0134 34       		.uleb128 0x34
+ 1074 0135 00       		.byte	0
+ 1075 0136 03       		.uleb128 0x3
+ 1076 0137 0E       		.uleb128 0xe
+ 1077 0138 3A       		.uleb128 0x3a
+ 1078 0139 0B       		.uleb128 0xb
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 22
+
+
+ 1079 013a 3B       		.uleb128 0x3b
+ 1080 013b 0B       		.uleb128 0xb
+ 1081 013c 49       		.uleb128 0x49
+ 1082 013d 13       		.uleb128 0x13
+ 1083 013e 02       		.uleb128 0x2
+ 1084 013f 18       		.uleb128 0x18
+ 1085 0140 00       		.byte	0
+ 1086 0141 00       		.byte	0
+ 1087 0142 1B       		.uleb128 0x1b
+ 1088 0143 34       		.uleb128 0x34
+ 1089 0144 00       		.byte	0
+ 1090 0145 03       		.uleb128 0x3
+ 1091 0146 0E       		.uleb128 0xe
+ 1092 0147 3A       		.uleb128 0x3a
+ 1093 0148 0B       		.uleb128 0xb
+ 1094 0149 3B       		.uleb128 0x3b
+ 1095 014a 0B       		.uleb128 0xb
+ 1096 014b 49       		.uleb128 0x49
+ 1097 014c 13       		.uleb128 0x13
+ 1098 014d 3F       		.uleb128 0x3f
+ 1099 014e 19       		.uleb128 0x19
+ 1100 014f 3C       		.uleb128 0x3c
+ 1101 0150 19       		.uleb128 0x19
+ 1102 0151 00       		.byte	0
+ 1103 0152 00       		.byte	0
+ 1104 0153 1C       		.uleb128 0x1c
+ 1105 0154 34       		.uleb128 0x34
+ 1106 0155 00       		.byte	0
+ 1107 0156 03       		.uleb128 0x3
+ 1108 0157 0E       		.uleb128 0xe
+ 1109 0158 3A       		.uleb128 0x3a
+ 1110 0159 0B       		.uleb128 0xb
+ 1111 015a 3B       		.uleb128 0x3b
+ 1112 015b 0B       		.uleb128 0xb
+ 1113 015c 49       		.uleb128 0x49
+ 1114 015d 13       		.uleb128 0x13
+ 1115 015e 3F       		.uleb128 0x3f
+ 1116 015f 19       		.uleb128 0x19
+ 1117 0160 02       		.uleb128 0x2
+ 1118 0161 18       		.uleb128 0x18
+ 1119 0162 00       		.byte	0
+ 1120 0163 00       		.byte	0
+ 1121 0164 1D       		.uleb128 0x1d
+ 1122 0165 2E       		.uleb128 0x2e
+ 1123 0166 00       		.byte	0
+ 1124 0167 3F       		.uleb128 0x3f
+ 1125 0168 19       		.uleb128 0x19
+ 1126 0169 3C       		.uleb128 0x3c
+ 1127 016a 19       		.uleb128 0x19
+ 1128 016b 6E       		.uleb128 0x6e
+ 1129 016c 0E       		.uleb128 0xe
+ 1130 016d 03       		.uleb128 0x3
+ 1131 016e 0E       		.uleb128 0xe
+ 1132 016f 3A       		.uleb128 0x3a
+ 1133 0170 0B       		.uleb128 0xb
+ 1134 0171 3B       		.uleb128 0x3b
+ 1135 0172 0B       		.uleb128 0xb
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 23
+
+
+ 1136 0173 00       		.byte	0
+ 1137 0174 00       		.byte	0
+ 1138 0175 00       		.byte	0
+ 1139              		.section	.debug_loc,"",%progbits
+ 1140              	.Ldebug_loc0:
+ 1141              	.LLST0:
+ 1142 0000 00000000 		.4byte	.LVL0
+ 1143 0004 08000000 		.4byte	.LVL2
+ 1144 0008 0100     		.2byte	0x1
+ 1145 000a 50       		.byte	0x50
+ 1146 000b 08000000 		.4byte	.LVL2
+ 1147 000f 0A000000 		.4byte	.LFE44
+ 1148 0013 0400     		.2byte	0x4
+ 1149 0015 F3       		.byte	0xf3
+ 1150 0016 01       		.uleb128 0x1
+ 1151 0017 50       		.byte	0x50
+ 1152 0018 9F       		.byte	0x9f
+ 1153 0019 00000000 		.4byte	0
+ 1154 001d 00000000 		.4byte	0
+ 1155              	.LLST1:
+ 1156 0021 00000000 		.4byte	.LVL0
+ 1157 0025 06000000 		.4byte	.LVL1
+ 1158 0029 0200     		.2byte	0x2
+ 1159 002b 70       		.byte	0x70
+ 1160 002c 04       		.sleb128 4
+ 1161 002d 00000000 		.4byte	0
+ 1162 0031 00000000 		.4byte	0
+ 1163              	.LLST2:
+ 1164 0035 00000000 		.4byte	.LVL0
+ 1165 0039 06000000 		.4byte	.LVL1
+ 1166 003d 0200     		.2byte	0x2
+ 1167 003f 70       		.byte	0x70
+ 1168 0040 08       		.sleb128 8
+ 1169 0041 00000000 		.4byte	0
+ 1170 0045 00000000 		.4byte	0
+ 1171              	.LLST3:
+ 1172 0049 00000000 		.4byte	.LVL3
+ 1173 004d 02000000 		.4byte	.LVL4
+ 1174 0051 0100     		.2byte	0x1
+ 1175 0053 50       		.byte	0x50
+ 1176 0054 02000000 		.4byte	.LVL4
+ 1177 0058 04000000 		.4byte	.LFE46
+ 1178 005c 0400     		.2byte	0x4
+ 1179 005e F3       		.byte	0xf3
+ 1180 005f 01       		.uleb128 0x1
+ 1181 0060 50       		.byte	0x50
+ 1182 0061 9F       		.byte	0x9f
+ 1183 0062 00000000 		.4byte	0
+ 1184 0066 00000000 		.4byte	0
+ 1185              	.LLST4:
+ 1186 006a 00000000 		.4byte	.LVL3
+ 1187 006e 02000000 		.4byte	.LVL4
+ 1188 0072 0200     		.2byte	0x2
+ 1189 0074 70       		.byte	0x70
+ 1190 0075 04       		.sleb128 4
+ 1191 0076 02000000 		.4byte	.LVL4
+ 1192 007a 04000000 		.4byte	.LFE46
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 24
+
+
+ 1193 007e 0500     		.2byte	0x5
+ 1194 0080 F3       		.byte	0xf3
+ 1195 0081 01       		.uleb128 0x1
+ 1196 0082 50       		.byte	0x50
+ 1197 0083 23       		.byte	0x23
+ 1198 0084 04       		.uleb128 0x4
+ 1199 0085 00000000 		.4byte	0
+ 1200 0089 00000000 		.4byte	0
+ 1201              	.LLST5:
+ 1202 008d 00000000 		.4byte	.LVL3
+ 1203 0091 02000000 		.4byte	.LVL4
+ 1204 0095 0200     		.2byte	0x2
+ 1205 0097 70       		.byte	0x70
+ 1206 0098 08       		.sleb128 8
+ 1207 0099 02000000 		.4byte	.LVL4
+ 1208 009d 04000000 		.4byte	.LFE46
+ 1209 00a1 0500     		.2byte	0x5
+ 1210 00a3 F3       		.byte	0xf3
+ 1211 00a4 01       		.uleb128 0x1
+ 1212 00a5 50       		.byte	0x50
+ 1213 00a6 23       		.byte	0x23
+ 1214 00a7 08       		.uleb128 0x8
+ 1215 00a8 00000000 		.4byte	0
+ 1216 00ac 00000000 		.4byte	0
+ 1217              	.LLST6:
+ 1218 00b0 00000000 		.4byte	.LVL5
+ 1219 00b4 08000000 		.4byte	.LVL8
+ 1220 00b8 0100     		.2byte	0x1
+ 1221 00ba 50       		.byte	0x50
+ 1222 00bb 08000000 		.4byte	.LVL8
+ 1223 00bf 44000000 		.4byte	.LFE45
+ 1224 00c3 0400     		.2byte	0x4
+ 1225 00c5 F3       		.byte	0xf3
+ 1226 00c6 01       		.uleb128 0x1
+ 1227 00c7 50       		.byte	0x50
+ 1228 00c8 9F       		.byte	0x9f
+ 1229 00c9 00000000 		.4byte	0
+ 1230 00cd 00000000 		.4byte	0
+ 1231              	.LLST7:
+ 1232 00d1 04000000 		.4byte	.LVL6
+ 1233 00d5 3E000000 		.4byte	.LVL13
+ 1234 00d9 0100     		.2byte	0x1
+ 1235 00db 54       		.byte	0x54
+ 1236 00dc 00000000 		.4byte	0
+ 1237 00e0 00000000 		.4byte	0
+ 1238              	.LLST8:
+ 1239 00e4 06000000 		.4byte	.LVL7
+ 1240 00e8 3E000000 		.4byte	.LVL14
+ 1241 00ec 0100     		.2byte	0x1
+ 1242 00ee 55       		.byte	0x55
+ 1243 00ef 00000000 		.4byte	0
+ 1244 00f3 00000000 		.4byte	0
+ 1245              	.LLST9:
+ 1246 00f7 00000000 		.4byte	.LVL15
+ 1247 00fb 0A000000 		.4byte	.LVL19
+ 1248 00ff 0100     		.2byte	0x1
+ 1249 0101 50       		.byte	0x50
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 25
+
+
+ 1250 0102 0A000000 		.4byte	.LVL19
+ 1251 0106 2E000000 		.4byte	.LVL25
+ 1252 010a 0100     		.2byte	0x1
+ 1253 010c 55       		.byte	0x55
+ 1254 010d 2E000000 		.4byte	.LVL25
+ 1255 0111 30000000 		.4byte	.LFE43
+ 1256 0115 0400     		.2byte	0x4
+ 1257 0117 F3       		.byte	0xf3
+ 1258 0118 01       		.uleb128 0x1
+ 1259 0119 50       		.byte	0x50
+ 1260 011a 9F       		.byte	0x9f
+ 1261 011b 00000000 		.4byte	0
+ 1262 011f 00000000 		.4byte	0
+ 1263              	.LLST10:
+ 1264 0123 00000000 		.4byte	.LVL15
+ 1265 0127 08000000 		.4byte	.LVL18
+ 1266 012b 0100     		.2byte	0x1
+ 1267 012d 51       		.byte	0x51
+ 1268 012e 08000000 		.4byte	.LVL18
+ 1269 0132 30000000 		.4byte	.LFE43
+ 1270 0136 0400     		.2byte	0x4
+ 1271 0138 F3       		.byte	0xf3
+ 1272 0139 01       		.uleb128 0x1
+ 1273 013a 51       		.byte	0x51
+ 1274 013b 9F       		.byte	0x9f
+ 1275 013c 00000000 		.4byte	0
+ 1276 0140 00000000 		.4byte	0
+ 1277              	.LLST11:
+ 1278 0144 04000000 		.4byte	.LVL16
+ 1279 0148 0A000000 		.4byte	.LVL19
+ 1280 014c 0200     		.2byte	0x2
+ 1281 014e 70       		.byte	0x70
+ 1282 014f 04       		.sleb128 4
+ 1283 0150 0A000000 		.4byte	.LVL19
+ 1284 0154 0D000000 		.4byte	.LVL20-1
+ 1285 0158 0200     		.2byte	0x2
+ 1286 015a 75       		.byte	0x75
+ 1287 015b 04       		.sleb128 4
+ 1288 015c 00000000 		.4byte	0
+ 1289 0160 00000000 		.4byte	0
+ 1290              	.LLST12:
+ 1291 0164 06000000 		.4byte	.LVL17
+ 1292 0168 2E000000 		.4byte	.LVL24
+ 1293 016c 0100     		.2byte	0x1
+ 1294 016e 54       		.byte	0x54
+ 1295 016f 00000000 		.4byte	0
+ 1296 0173 00000000 		.4byte	0
+ 1297              		.section	.debug_aranges,"",%progbits
+ 1298 0000 34000000 		.4byte	0x34
+ 1299 0004 0200     		.2byte	0x2
+ 1300 0006 00000000 		.4byte	.Ldebug_info0
+ 1301 000a 04       		.byte	0x4
+ 1302 000b 00       		.byte	0
+ 1303 000c 0000     		.2byte	0
+ 1304 000e 0000     		.2byte	0
+ 1305 0010 00000000 		.4byte	.LFB44
+ 1306 0014 0A000000 		.4byte	.LFE44-.LFB44
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 26
+
+
+ 1307 0018 00000000 		.4byte	.LFB46
+ 1308 001c 04000000 		.4byte	.LFE46-.LFB46
+ 1309 0020 00000000 		.4byte	.LFB45
+ 1310 0024 44000000 		.4byte	.LFE45-.LFB45
+ 1311 0028 00000000 		.4byte	.LFB43
+ 1312 002c 30000000 		.4byte	.LFE43-.LFB43
+ 1313 0030 00000000 		.4byte	0
+ 1314 0034 00000000 		.4byte	0
+ 1315              		.section	.debug_ranges,"",%progbits
+ 1316              	.Ldebug_ranges0:
+ 1317 0000 00000000 		.4byte	.LFB44
+ 1318 0004 0A000000 		.4byte	.LFE44
+ 1319 0008 00000000 		.4byte	.LFB46
+ 1320 000c 04000000 		.4byte	.LFE46
+ 1321 0010 00000000 		.4byte	.LFB45
+ 1322 0014 44000000 		.4byte	.LFE45
+ 1323 0018 00000000 		.4byte	.LFB43
+ 1324 001c 30000000 		.4byte	.LFE43
+ 1325 0020 00000000 		.4byte	0
+ 1326 0024 00000000 		.4byte	0
+ 1327              		.section	.debug_line,"",%progbits
+ 1328              	.Ldebug_line0:
+ 1329 0000 D6010000 		.section	.debug_str,"MS",%progbits,1
+ 1329      02007C01 
+ 1329      00000201 
+ 1329      FB0E0D00 
+ 1329      01010101 
+ 1330              	.LASF23:
+ 1331 0000 5F747344 		.ascii	"_tsDevIo\000"
+ 1331      6576496F 
+ 1331      00
+ 1332              	.LASF5:
+ 1333 0009 5F5F7569 		.ascii	"__uint8_t\000"
+ 1333      6E74385F 
+ 1333      7400
+ 1334              	.LASF19:
+ 1335 0013 74734465 		.ascii	"tsDevIo\000"
+ 1335      76496F00 
+ 1336              	.LASF34:
+ 1337 001b 434F4D32 		.ascii	"COM2\000"
+ 1337      00
+ 1338              	.LASF35:
+ 1339 0020 434F4D33 		.ascii	"COM3\000"
+ 1339      00
+ 1340              	.LASF36:
+ 1341 0025 434F4D34 		.ascii	"COM4\000"
+ 1341      00
+ 1342              	.LASF31:
+ 1343 002a 76616C75 		.ascii	"value\000"
+ 1343      6500
+ 1344              	.LASF24:
+ 1345 0030 5F747344 		.ascii	"_tsDevIoFuncs\000"
+ 1345      6576496F 
+ 1345      46756E63 
+ 1345      7300
+ 1346              	.LASF30:
+ 1347 003e 74734465 		.ascii	"tsDevIoSystem\000"
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 27
+
+
+ 1347      76496F53 
+ 1347      79737465 
+ 1347      6D00
+ 1348              	.LASF32:
+ 1349 004c 7473456E 		.ascii	"tsEncoderParams\000"
+ 1349      636F6465 
+ 1349      72506172 
+ 1349      616D7300 
+ 1350              	.LASF26:
+ 1351 005c 6465696E 		.ascii	"deinit\000"
+ 1351      697400
+ 1352              	.LASF49:
+ 1353 0063 64657649 		.ascii	"devIoEncoderFuncs\000"
+ 1353      6F456E63 
+ 1353      6F646572 
+ 1353      46756E63 
+ 1353      7300
+ 1354              	.LASF25:
+ 1355 0075 696E6974 		.ascii	"init\000"
+ 1355      00
+ 1356              	.LASF20:
+ 1357 007a 66756E63 		.ascii	"functions\000"
+ 1357      74696F6E 
+ 1357      7300
+ 1358              	.LASF22:
+ 1359 0084 636F6E73 		.ascii	"constants\000"
+ 1359      74616E74 
+ 1359      7300
+ 1360              	.LASF16:
+ 1361 008e 666C6F61 		.ascii	"float\000"
+ 1361      7400
+ 1362              	.LASF43:
+ 1363 0094 64617461 		.ascii	"data\000"
+ 1363      00
+ 1364              	.LASF27:
+ 1365 0099 74734465 		.ascii	"tsDevIoFuncs\000"
+ 1365      76496F46 
+ 1365      756E6373 
+ 1365      00
+ 1366              	.LASF1:
+ 1367 00a6 756E7369 		.ascii	"unsigned char\000"
+ 1367      676E6564 
+ 1367      20636861 
+ 1367      7200
+ 1368              	.LASF44:
+ 1369 00b4 656E636F 		.ascii	"encoderGet\000"
+ 1369      64657247 
+ 1369      657400
+ 1370              	.LASF29:
+ 1371 00bf 696E6974 		.ascii	"initialized\000"
+ 1371      69616C69 
+ 1371      7A656400 
+ 1372              	.LASF21:
+ 1373 00cb 70617261 		.ascii	"parameters\000"
+ 1373      6D657465 
+ 1373      727300
+ 1374              	.LASF33:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 28
+
+
+ 1375 00d6 434F4D31 		.ascii	"COM1\000"
+ 1375      00
+ 1376              	.LASF3:
+ 1377 00db 73686F72 		.ascii	"short unsigned int\000"
+ 1377      7420756E 
+ 1377      7369676E 
+ 1377      65642069 
+ 1377      6E7400
+ 1378              	.LASF46:
+ 1379 00ee 636F6E66 		.ascii	"config\000"
+ 1379      696700
+ 1380              	.LASF38:
+ 1381 00f5 70617261 		.ascii	"params\000"
+ 1381      6D7300
+ 1382              	.LASF7:
+ 1383 00fc 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1383      20756E73 
+ 1383      69676E65 
+ 1383      6420696E 
+ 1383      7400
+ 1384              	.LASF40:
+ 1385 010e 656E636F 		.ascii	"encoderDeinit\000"
+ 1385      64657244 
+ 1385      65696E69 
+ 1385      7400
+ 1386              	.LASF6:
+ 1387 011c 5F5F7569 		.ascii	"__uint32_t\000"
+ 1387      6E743332 
+ 1387      5F7400
+ 1388              	.LASF48:
+ 1389 0127 6C757442 		.ascii	"lutBitCount\000"
+ 1389      6974436F 
+ 1389      756E7400 
+ 1390              	.LASF37:
+ 1391 0133 7473456E 		.ascii	"tsEncoderConsts\000"
+ 1391      636F6465 
+ 1391      72436F6E 
+ 1391      73747300 
+ 1392              	.LASF10:
+ 1393 0143 756E7369 		.ascii	"unsigned int\000"
+ 1393      676E6564 
+ 1393      20696E74 
+ 1393      00
+ 1394              	.LASF9:
+ 1395 0150 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1395      206C6F6E 
+ 1395      6720756E 
+ 1395      7369676E 
+ 1395      65642069 
+ 1396              	.LASF11:
+ 1397 0167 75696E74 		.ascii	"uint8_t\000"
+ 1397      385F7400 
+ 1398              	.LASF28:
+ 1399 016f 5F747344 		.ascii	"_tsDevIoSystem\000"
+ 1399      6576496F 
+ 1399      53797374 
+ 1399      656D00
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 29
+
+
+ 1400              	.LASF54:
+ 1401 017e 433A5C55 		.ascii	"C:\\Users\\turan\\Desktop\\Dev\\Workspace01\\Test\\"
+ 1401      73657273 
+ 1401      5C747572 
+ 1401      616E5C44 
+ 1401      65736B74 
+ 1402 01aa 4C65645F 		.ascii	"Led_Blink_Process.cydsn\000"
+ 1402      426C696E 
+ 1402      6B5F5072 
+ 1402      6F636573 
+ 1402      732E6379 
+ 1403              	.LASF52:
+ 1404 01c2 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1404      43313120 
+ 1404      352E342E 
+ 1404      31203230 
+ 1404      31363036 
+ 1405 01f5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1405      20726576 
+ 1405      6973696F 
+ 1405      6E203233 
+ 1405      37373135 
+ 1406 0228 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1406      66756E63 
+ 1406      74696F6E 
+ 1406      2D736563 
+ 1406      74696F6E 
+ 1407              	.LASF13:
+ 1408 0250 6C6F6E67 		.ascii	"long double\000"
+ 1408      20646F75 
+ 1408      626C6500 
+ 1409              	.LASF18:
+ 1410 025c 73697A65 		.ascii	"sizetype\000"
+ 1410      74797065 
+ 1410      00
+ 1411              	.LASF8:
+ 1412 0265 6C6F6E67 		.ascii	"long long int\000"
+ 1412      206C6F6E 
+ 1412      6720696E 
+ 1412      7400
+ 1413              	.LASF14:
+ 1414 0273 63686172 		.ascii	"char\000"
+ 1414      00
+ 1415              	.LASF45:
+ 1416 0278 656E636F 		.ascii	"encoderInit\000"
+ 1416      64657249 
+ 1416      6E697400 
+ 1417              	.LASF2:
+ 1418 0284 73686F72 		.ascii	"short int\000"
+ 1418      7420696E 
+ 1418      7400
+ 1419              	.LASF53:
+ 1420 028e 6465765C 		.ascii	"dev\\encoder.c\000"
+ 1420      656E636F 
+ 1420      6465722E 
+ 1420      6300
+ 1421              	.LASF15:
+ARM GAS  C:\Users\turan\AppData\Local\Temp\ccQF6Fla.s 			page 30
+
+
+ 1422 029c 75696E74 		.ascii	"uint8\000"
+ 1422      3800
+ 1423              	.LASF39:
+ 1424 02a2 636F6E73 		.ascii	"consts\000"
+ 1424      747300
+ 1425              	.LASF12:
+ 1426 02a9 75696E74 		.ascii	"uint32_t\000"
+ 1426      33325F74 
+ 1426      00
+ 1427              	.LASF4:
+ 1428 02b2 6C6F6E67 		.ascii	"long int\000"
+ 1428      20696E74 
+ 1428      00
+ 1429              	.LASF41:
+ 1430 02bb 656E636F 		.ascii	"encoderPut\000"
+ 1430      64657250 
+ 1430      757400
+ 1431              	.LASF51:
+ 1432 02c6 64657649 		.ascii	"devIoInit\000"
+ 1432      6F496E69 
+ 1432      7400
+ 1433              	.LASF42:
+ 1434 02d0 64657669 		.ascii	"device\000"
+ 1434      636500
+ 1435              	.LASF0:
+ 1436 02d7 7369676E 		.ascii	"signed char\000"
+ 1436      65642063 
+ 1436      68617200 
+ 1437              	.LASF17:
+ 1438 02e3 646F7562 		.ascii	"double\000"
+ 1438      6C6500
+ 1439              	.LASF50:
+ 1440 02ea 64657649 		.ascii	"devIoGet\000"
+ 1440      6F476574 
+ 1440      00
+ 1441              	.LASF47:
+ 1442 02f3 656E636F 		.ascii	"encoderLT\000"
+ 1442      6465724C 
+ 1442      5400
+ 1443              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
